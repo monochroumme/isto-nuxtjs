@@ -15,6 +15,12 @@ class About extends Resource
      */
     public static $model = 'App\About';
 
+
+    public static function label()
+    {
+        return 'About';
+    }
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
