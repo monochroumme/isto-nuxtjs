@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "bakerkretzmar/nova-settings-tool": "^1.0",
         "ebess/advanced-nova-media-library": "^2.9",
         "energon7/nova": "^2.1",
         "fideloper/proxy": "^4.0",

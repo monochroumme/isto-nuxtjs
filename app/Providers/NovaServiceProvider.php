@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Bakerkretzmar\NovaSettingsTool\SettingsTool;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
@@ -76,7 +77,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function tools()
     {
-        return [];
+        return [
+            new SettingsTool,
+        ];
     }
 
     /**

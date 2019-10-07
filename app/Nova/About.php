@@ -2,8 +2,10 @@
 
 namespace App\Nova;
 
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class About extends Resource
@@ -47,6 +49,9 @@ class About extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Title')->rules('required'),
+            Text::make('Description')->rules('required'),
+            Images::make('Images','main')
         ];
     }
 
