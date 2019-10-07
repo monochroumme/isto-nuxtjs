@@ -87,6 +87,7 @@ class Project extends Resource
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
             KeyValue::make('Specifications'),
+            Images::make('Images','main'),
             BelongsTo::make('Category'),
             Flexible::make('Content')
                 ->addLayout('Video','video',[
@@ -101,6 +102,10 @@ class Project extends Resource
                 ])
                 ->addLayout('Gallery','gallery',[
                    Image::make('Image','image')
+                ])->addLayout('Slider','slider',[
+                    Image::make('Image','image'),
+                    Text::make('Title'),
+                    Text::make('Description')
                 ])
 
         ];

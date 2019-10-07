@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Ofcold\NovaSortable\SortableTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 use Spatie\Translatable\HasTranslations;
 use Whitecube\NovaFlexibleContent\Concerns\HasFlexible;
 
@@ -25,5 +26,18 @@ class Project extends Model implements HasMedia
     public function getFlexibleContentAttribute()
     {
         return $this->flexible('flexible-content');
+    }
+
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        /* $this->addMediaConversion('main')
+             ->nonQueued()
+             ->crop('crop-center',990,485);*/
+    }
+
+    public function registerMediaCollections()
+    {
+        $this->addMediaCollection('main')->singleFile();
     }
 }

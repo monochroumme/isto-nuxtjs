@@ -3,10 +3,14 @@
 namespace App\Nova;
 
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
+use Exception;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Whitecube\NovaFlexibleContent\Flexible;
 
 class About extends Resource
 {
@@ -42,8 +46,9 @@ class About extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
+     * @throws Exception
      */
     public function fields(Request $request)
     {
@@ -51,14 +56,23 @@ class About extends Resource
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
             Text::make('Description')->rules('required'),
-            Images::make('Images','main')
+            Images::make('Images','main'),
+            Flexible::make('Team','content')
+                ->addLayout('Team','team',[
+                    Text::make('Title'),
+                    Text::make('Description'),
+                    Text::make('Team Desc'),
+                    Image::make('Main')
+                ])
+
+
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function cards(Request $request)
@@ -69,7 +83,7 @@ class About extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function filters(Request $request)
@@ -80,7 +94,7 @@ class About extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function lenses(Request $request)
@@ -91,7 +105,7 @@ class About extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function actions(Request $request)
