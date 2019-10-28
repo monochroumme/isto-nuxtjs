@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "764c733670b7c6adf999db1b282afe8b",
+    "content-hash": "84a48c7382f1691d469a4355fc2deeea",
     "packages": [
         {
             "name": "bakerkretzmar/nova-settings-tool",
@@ -119,6 +119,56 @@
                 "time"
             ],
             "time": "2019-06-17T15:19:18+00:00"
+        },
+        {
+            "name": "daniel-de-wit/nova-single-record-resource",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/daniel-de-wit/nova-single-record-resource.git",
+                "reference": "5285c0e7a0b5ee2b3766bacddf56372010b8de4d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/daniel-de-wit/nova-single-record-resource/zipball/5285c0e7a0b5ee2b3766bacddf56372010b8de4d",
+                "reference": "5285c0e7a0b5ee2b3766bacddf56372010b8de4d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "DanielDeWit\\NovaSingleRecordResource\\Providers\\NovaSingleRecordResourceServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DanielDeWit\\NovaSingleRecordResource\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniël de Wit",
+                    "email": "daniel@danieldewit.nl",
+                    "homepage": "https://github.com/daniel-de-wit",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Laravel Nova Single Record Resource. Shows a link in the navigation bar directly to the only record of the resource",
+            "homepage": "https://github.com/daniel-de-wit/nova-single-record-resource",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-08-10T05:57:26+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -734,6 +784,49 @@
                 "laravel"
             ],
             "time": "2019-10-02T12:33:47+00:00"
+        },
+        {
+            "name": "energon7/nova-tinymce",
+            "version": "v0.5.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Energon7/nova-tinymce.git",
+                "reference": "35b9e60889b90acad3018f851abf2ddc1c814e22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Energon7/nova-tinymce/zipball/35b9e60889b90acad3018f851abf2ddc1c814e22",
+                "reference": "35b9e60889b90acad3018f851abf2ddc1c814e22",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Emilianotisato\\NovaTinyMCE\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Emilianotisato\\NovaTinyMCE\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "This Nova package allow you to use TinyMCE editor for text areas.You can customize the editor options and... you can upload images to your server and put them rigth there on the text without leaving the text editor!",
+            "keywords": [
+                "editor",
+                "laravel",
+                "nova",
+                "tiny"
+            ],
+            "time": "2019-07-08T11:07:05+00:00"
         },
         {
             "name": "erusev/parsedown",

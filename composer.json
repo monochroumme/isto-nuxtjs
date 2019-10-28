@@ -10,8 +10,10 @@
     "require": {
         "php": "^7.2",
         "bakerkretzmar/nova-settings-tool": "^1.0",
+        "daniel-de-wit/nova-single-record-resource": "^1.1",
         "ebess/advanced-nova-media-library": "^2.9",
         "energon7/nova": "^2.1",
+        "energon7/nova-tinymce": "^0.5.5",
         "fideloper/proxy": "^4.0",
         "hnassr/nova-key-value": "^0.0.2",
         "laravel/framework": "^6.0",

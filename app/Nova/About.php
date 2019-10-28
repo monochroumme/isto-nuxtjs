@@ -27,6 +27,10 @@ class About extends Resource
         return 'About';
     }
 
+    public static function singleRecord(): bool
+    {
+        return true;
+    }
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -54,11 +58,21 @@ class About extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Title')->rules('required'),
-            Text::make('Description')->rules('required'),
-            Images::make('Images','main'),
-            Flexible::make('Team','content')
-                ->addLayout('Team','team',[
+
+            Flexible::make('Content')
+                ->addLayout('1-st block','block1',[
+                    Text::make('Title'),
+                    Text::make('Description'),
+                    Image::make('Image 1','image1'),
+                    Image::make('Image 2','image2'),
+                ])
+                ->addLayout('2-nd block','block2',[
+                    Text::make('Title'),
+                    Text::make('Description'),
+                    Image::make('Image 1','image1'),
+                    Image::make('Image 2','image2'),
+                ])
+                ->addLayout('Teammate','team',[
                     Text::make('Title'),
                     Text::make('Description'),
                     Text::make('Team Desc'),

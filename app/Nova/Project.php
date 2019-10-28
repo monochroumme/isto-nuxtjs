@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
+use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Exception;
 use Hnassr\NovaKeyValue\KeyValue;
 use Illuminate\Database\Eloquent\Builder;
@@ -87,7 +88,7 @@ class Project extends Resource
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
             KeyValue::make('Specifications'),
-            Images::make('Images','main'),
+            Images::make('Main Image','main'),
             BelongsTo::make('Category'),
             Flexible::make('Content')
                 ->addLayout('Video','video',[
@@ -106,6 +107,18 @@ class Project extends Resource
                     Image::make('Image','image'),
                     Text::make('Title'),
                     Text::make('Description')
+                ])->addLayout('Description','description',[
+                    Text::make('Title'),
+                    NovaTinyMCE::make('Body')->options([
+                        'plugins' => [
+                            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                            'searchreplace wordcount visualblocks visualchars code fullscreen',
+                            'insertdatetime media nonbreaking save table contextmenu directionality',
+                            'emoticons template paste textcolor colorpicker textpattern'
+                        ],
+                        'toolbar' => 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media',
+                        'use_lfm' => true
+                    ]),
                 ])
 
         ];

@@ -12,7 +12,7 @@ class About extends Model implements HasMedia
 {
     use HasMediaTrait, HasTranslations;
 
-    public $translatable = ['title', 'description'];
+    public $translatable = ['content'];
 
     public function registerMediaConversions(Media $media = null)
     {
