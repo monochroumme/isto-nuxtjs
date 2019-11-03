@@ -10,11 +10,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Whitecube\NovaFlexibleContent\Flexible;
 
@@ -87,39 +89,42 @@ class Project extends Resource
         return [
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
-            KeyValue::make('Specifications'),
+            Boolean::make('In Slider'),
             Images::make('Main Image','main'),
             BelongsTo::make('Category'),
             Flexible::make('Content')
-                ->addLayout('Video','video',[
-                    File::make('Video')
-                ])->addLayout('Text','text',[
+                ->addLayout('Block 1','specification', [
+                    Text::make('Location'),
+                    Text::make('Type'),
+                    Text::make('Place'),
+                    Text::make('Year'),
+                ])
+                ->addLayout('Block 2','block2',[
+                    Text::make('Title'),
+                    Textarea::make('Description')
+                ])
+                ->addLayout('Gallery(Block 3)','gallery',[
+                    Image::make('Image','image')
+                ])
+                ->addLayout('Text(Gallery block 3)','text',[
                    Text::make('Text')
-                ])->addLayout('Advanced Gallery','advanced_gallery',[
+                ])
+                ->addLayout('Advanced Gallery(Block 4)','advanced_gallery',[
+                    Text::make('Title'),
+                    Text::make('Description'),
                     Image::make('Image 1','image1'),
                     Image::make('Image 2','image2'),
-                    Text::make('Title'),
-                    Text::make('Description')
+
                 ])
-                ->addLayout('Gallery','gallery',[
-                   Image::make('Image','image')
-                ])->addLayout('Slider','slider',[
-                    Image::make('Image','image'),
-                    Text::make('Title'),
-                    Text::make('Description')
-                ])->addLayout('Description','description',[
-                    Text::make('Title'),
-                    NovaTinyMCE::make('Body')->options([
-                        'plugins' => [
-                            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-                            'searchreplace wordcount visualblocks visualchars code fullscreen',
-                            'insertdatetime media nonbreaking save table contextmenu directionality',
-                            'emoticons template paste textcolor colorpicker textpattern'
-                        ],
-                        'toolbar' => 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media',
-                        'use_lfm' => true
-                    ]),
+                ->addLayout('Gallery(Block 5)','gallery2',[
+                    Image::make('Image','image')
                 ])
+                ->addLayout('Video(Block 6)','video',[
+                    Text::make('Title'),
+                    Textarea::make('Description'),
+                    File::make('Video')
+                ])
+
 
         ];
     }

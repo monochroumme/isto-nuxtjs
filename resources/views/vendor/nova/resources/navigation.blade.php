@@ -17,7 +17,7 @@
                 <li class="leading-tight mb-4 ml-8 text-sm">
                     @if ($resource::singleRecord())
                         <router-link :to="{
-                            name: 'detail',
+                            name: 'edit',
                             params: {
                                 resourceName: '{{ $resource::uriKey() }}',
                                 resourceId: {{ $resource::singleRecordId() }}

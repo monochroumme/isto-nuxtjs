@@ -59,24 +59,34 @@ class About extends Resource
         return [
             ID::make()->sortable(),
 
-            Flexible::make('Content')
+            Flexible::make('Content')->collapsed(false)
                 ->addLayout('1-st block','block1',[
                     Text::make('Title'),
-                    Text::make('Description'),
-                    Image::make('Image 1','image1'),
-                    Image::make('Image 2','image2'),
+                    Image::make('Image','image'),
+                   // Image::make('Image 2','image2'),
                 ])
                 ->addLayout('2-nd block','block2',[
                     Text::make('Title'),
+                    Image::make('Image','image'),
+                    //Image::make('Image 2','image2'),
+                ])
+                ->addLayout('icons texts(for 2-nd block)','block2_addon',[
+                    Text::make('Title'),
+                    Text::make('Description'),
+                    Image::make('Image ','image'),
+                ])
+                ->addLayout('Teammate','team',[
+                    Text::make('Name'),
+                    Text::make('Surname'),
+                    Text::make('Position'),
+                    Image::make('Teammate photo')
+                ])
+                ->addLayout('3-rd block','block3', [
+                    Text::make('Title 1','title1'),
+                    Text::make('Title 2','title2'),
                     Text::make('Description'),
                     Image::make('Image 1','image1'),
                     Image::make('Image 2','image2'),
-                ])
-                ->addLayout('Teammate','team',[
-                    Text::make('Title'),
-                    Text::make('Description'),
-                    Text::make('Team Desc'),
-                    Image::make('Main')
                 ])
 
 

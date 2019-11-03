@@ -2,27 +2,33 @@
 
 namespace App\Nova;
 
+use Hnassr\NovaKeyValue\KeyValue;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Category extends Resource
+class Setting extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Category';
+    public static $model = 'App\Setting';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'id';
+
+    public static function singleRecord(): bool
+    {
+        return true;
+    }
 
     /**
      * The columns that should be searched.
@@ -42,9 +48,10 @@ class Category extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
-            Text::make('Name')->rules('required'),
-            Boolean::make('On Index')
+            Textarea::make('Description')->rules('required'),
+            KeyValue::make('Info','other_data')->rules('required'),
+            Text::make('Facebook')->rules('required'),
+            Text::make('Instagram')->rules('required'),
         ];
     }
 

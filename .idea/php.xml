@@ -114,6 +114,10 @@
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
       <path value="$PROJECT_DIR$/vendor/bakerkretzmar/nova-settings-tool" />
       <path value="$PROJECT_DIR$/vendor/spatie/valuestore" />
+      <path value="$PROJECT_DIR$/vendor/daniel-de-wit/nova-single-record-resource" />
+      <path value="$PROJECT_DIR$/vendor/energon7/nova-tinymce" />
+      <path value="$PROJECT_DIR$/vendor/asm89/stack-cors" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-cors" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

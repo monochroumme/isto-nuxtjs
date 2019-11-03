@@ -17,7 +17,7 @@ class Project extends Model implements HasMedia
          HasMediaTrait,
          HasTranslations;
 
-    public $translatable = ['title','specifications'];
+    public $translatable = ['title','specifications','content'];
 
     public function category() {
         return $this->belongsTo(Category::class);

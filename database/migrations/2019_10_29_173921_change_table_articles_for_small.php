@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectsTable extends Migration
+class ChangeTableArticlesForSmall extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->json('title');
-            $table->longText('content');
-            $table->unsignedInteger('sort_order')->nullable();
-            $table->timestamps();
+        Schema::table('articles', function (Blueprint $table) {
+            $table->boolean('wide')->default(false);
         });
     }
 
@@ -29,6 +25,8 @@ class CreateProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects');
+        Schema::table('articles', function (Blueprint $table) {
+            //
+        });
     }
 }

@@ -13,5 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 Route::get('/projects','ApiController@getProjects');
+Route::get('/categories','ApiController@getCategories');
+Route::get('/project/{id}','ApiController@getProject');
 Route::get('/slides','ApiController@getSlides');
 Route::get('/about', 'ApiController@getAbout');
+Route::get('/articles','ApiController@getArticles');
+Route::get('/settings','ApiController@getSettings');
+Route::get('/index_blocks','ApiController@getIndex');
+Route::get('/index_categories','ApiController@getIndexCategories');
