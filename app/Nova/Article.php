@@ -5,9 +5,13 @@ namespace App\Nova;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Whitecube\NovaFlexibleContent\Flexible;
 
 class Article extends Resource
 {
@@ -37,26 +41,43 @@ class Article extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
+     * @throws \Exception
      */
     public function fields(Request $request)
     {
         return [
             ID::make()->sortable(),
-            Text::make('Title'),
-            Text::make('Description'),
-            Images::make('Main Image','main'),
-            Text::make('Text'),
-            Images::make('Images','other'),
-            Boolean::make('Wide')
+            Text::make('Title')->rules('required'),
+            Date::make('Date')->rules('required'),
+            Image::make('Main Image','main')->rules('required'),
+            Flexible::make('Content')->collapsed(false)
+                ->addLayout('1-st block','block1', [
+                    Text::make('Title'),
+                    Textarea::make('Description'),
+                    // Image::make('Image 2','image2'),
+                ])
+                ->addLayout('2-nd block','block2', [
+                    Image::make('Image 1','image1'),
+                    Image::make('Image 2','image2'),
+                    // Image::make('Image 2','image2'),
+                ])->addLayout('3-rd block','block3', [
+                    Text::make('Title'),
+                    Textarea::make('Text'),
+                    Image::make('Image','image'),
+                ])->addLayout('4-th block','block4', [
+                    Text::make('Title'),
+                    Textarea::make('Text'),
+                    Text::make('Author','author'),
+                ]),
         ];
     }
 
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function cards(Request $request)
@@ -67,7 +88,7 @@ class Article extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function filters(Request $request)
@@ -78,7 +99,7 @@ class Article extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function lenses(Request $request)
@@ -89,7 +110,7 @@ class Article extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function actions(Request $request)
