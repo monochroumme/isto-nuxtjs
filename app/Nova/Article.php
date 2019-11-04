@@ -51,10 +51,10 @@ class Article extends Resource
             ID::make()->sortable(),
             Text::make('Title')->rules('required'),
             Date::make('Date')->rules('required'),
-            Image::make('Main Image','main')->rules('required'),
-            Flexible::make('Content')->collapsed(false)
+            Image::make('Main Image','main')->creationRules('required'),
+            Flexible::make('Content','constructor')->collapsed(false)
                 ->addLayout('1-st block','block1', [
-                    Text::make('Title'),
+                    Textarea::make('Title'),
                     Textarea::make('Description'),
                     // Image::make('Image 2','image2'),
                 ])

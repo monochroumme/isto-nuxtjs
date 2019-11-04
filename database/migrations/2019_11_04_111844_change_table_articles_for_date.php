@@ -16,6 +16,7 @@ class ChangeTableArticlesForDate extends Migration
         Schema::table('articles', function (Blueprint $table) {
             $table->timestamp('date')->nullable();
             $table->longText('constructor');
+            $table->string('main');
         });
     }
 
@@ -29,6 +30,7 @@ class ChangeTableArticlesForDate extends Migration
         Schema::table('articles', function (Blueprint $table) {
             $table->dropColumn('date');
             $table->dropColumn('constructor');
+            $table->dropColumn('main');
         });
     }
 }

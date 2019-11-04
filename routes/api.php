@@ -18,6 +18,7 @@ Route::get('/project/{id}','ApiController@getProject');
 Route::get('/slides','ApiController@getSlides');
 Route::get('/about', 'ApiController@getAbout');
 Route::get('/articles','ApiController@getArticles');
+Route::get('/article/{id}','ApiController@getArticle');
 Route::get('/settings','ApiController@getSettings');
 Route::get('/index_blocks','ApiController@getIndex');
 Route::get('/index_categories','ApiController@getIndexCategories');

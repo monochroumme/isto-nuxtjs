@@ -18,6 +18,7 @@ use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Media24si\NovaYoutubeField\Youtube;
 use Whitecube\NovaFlexibleContent\Flexible;
 
 class Project extends Resource
@@ -122,7 +123,8 @@ class Project extends Resource
                 ->addLayout('Video(Block 6)','video',[
                     Text::make('Title'),
                     Textarea::make('Description'),
-                    File::make('Video')
+                    Image::make('Video Thumb'),
+                    Youtube::make('Video')
                 ])
 
 
