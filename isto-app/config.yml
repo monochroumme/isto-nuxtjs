@@ -1,0 +1,9 @@
+apps:
+  - name: client
+    script: node_modules/nuxt/bin/nuxt.js
+    cwd: /home/admin/sites/
+    max_memory_restart: "1000M"
+    args: "start"
+    env_production:
+      PORT: 3002
+      NODE_ENV: production

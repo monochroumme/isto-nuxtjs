@@ -12,7 +12,7 @@
 						   class="blog__showcase__pic-area"
 						   v-for="(item,index) in articles" :key="index">
 					<div class="blog__showcase__pic-area__inner">
-						<img :src="$env.additionalUrl+item.img">
+						<img :src="$env.baseUrl+item.img">
 						<div class="blog__showcase__title-area">
 							<h2 class="blog__showcase__title">{{ item.title[locale] }}</h2>
 							<span class="blog__showcase__subtitle">{{ new Date(item.created_at).toLocaleDateString() }}</span>

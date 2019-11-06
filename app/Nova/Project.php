@@ -122,6 +122,8 @@ class Project extends Resource
                     ArrayImages::make('Images', 'images')->disk('public')->path(''),
                 ])
                 ->addLayout('Video(Block 6)','video',[
+                    Text::make('Title'),
+                    Textarea::make('Description'),
                     Image::make('Video Thumb'),
                     Youtube::make('Video')
                 ])

@@ -90,13 +90,13 @@
 				<div class="project__col"><p class="project__text">{{ getVideoBlock.attributes.description }}</p></div>
 			</div>
 			<div class="project__video">
-				<img class="project__video__pic" src="~/static/images/project/pic7.png">
+				<img class="project__video__pic" :src="$env.baseUrl+getVideoBlock.attributes.video_thumb">
 				<div class="project__video__button-area" v-if="!videoOn" @click="videoOn = true">
 					<button>
 						<img src="~/static/images/project/play.svg">
 					</button>
 				</div>
-				<iframe v-if="videoOn" class="project__video__frame" src="https://www.youtube.com/embed/QMCR45FyfzU?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<iframe v-if="videoOn" class="project__video__frame" :src="`https://www.youtube.com/embed/${getVideoBlock.attributes.video}?autoplay=1`" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			</div>
 			<div class="project__bottom-line"></div>
 		</section>

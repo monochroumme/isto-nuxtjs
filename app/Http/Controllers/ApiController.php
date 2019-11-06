@@ -36,16 +36,13 @@ class ApiController extends Controller
 
     public function getArticles() {
         return Article::with('media')->get()->transform( function($project) {
-            $media =$project->getMedia('main')->first();
-
-            if($media) {
-                $project->img = $media->getUrl();
-            }
-
-            return $project;
-        });;
+           $project->img = $project->main;
+           return $project;
+        });
     }
-
+    public function getArticle($id) {
+        return Article::with('media')->whereId($id)->firstOrFail();
+    }
     public function getSlides() {
         return Project::with('media')->where('in_slider',1)->get()->transform( function($project) {
             $media =$project->getMedia('main')->first();

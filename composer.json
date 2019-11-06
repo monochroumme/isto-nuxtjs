@@ -21,6 +21,7 @@
         "laravel/framework": "^6.0",
         "laravel/nova": "^2.4",
         "laravel/tinker": "^1.0",
+        "media24si/nova-youtube-field": "^1.0",
         "ofcold/nova-sortable": "^1.0",
         "spatie/laravel-medialibrary": "^7.14",
         "spatie/laravel-translatable": "^4.2",
