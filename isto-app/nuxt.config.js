@@ -36,7 +36,7 @@ module.exports = {
     ]
   },
   axios: {
-    baseURL: 'http://isto_new.test/api'
+    baseURL: 'http://isto.dev-onfire.work/api'
   },
   ...routerBase,
   /*
@@ -71,8 +71,8 @@ module.exports = {
     '@nuxtjs/axios',
     [ 'nuxt-env', {
       keys: [
-        { key: 'baseUrl', default: 'http://isto_new.test/storage/'},
-        { key: 'additionalUrl', default: 'http://isto_new.test/'},
+        { key: 'baseUrl', default: 'http://isto.dev-onfire.work/storage/'},
+        { key: 'additionalUrl', default: 'http://isto.dev-onfire.work/'},
       ]
     }],
     ['nuxt-i18n', {

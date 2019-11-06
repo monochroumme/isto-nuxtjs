@@ -34,7 +34,7 @@
 					<img src="~/static/images/project/arrow-left-black.svg">
 				</nuxt-link>
 			</div>
-			<div class="project__row">
+			<div class="project__row" v-if="getSecondBlock.attributes">
 				<div class="project__col"><h2 class="project__heading">{{ getSecondBlock.attributes.title }}</h2></div>
 				<div class="project__col"><p class="project__text">{{ getSecondBlock.attributes.description }}</p></div>
 			</div>
@@ -60,7 +60,7 @@
 				</div>
 			</div>
 			<div class="project__row project__grid">
-				<div class="project__col">
+				<div class="project__col" v-if="getAdvancedGallery1.attributes">
 					<img class="project__col__pic" :src="$env.baseUrl+getAdvancedGallery1.attributes.image1">
 					<img class="project__col__pic" :src="$env.baseUrl+getAdvancedGallery1.attributes.image2">
 					<div class="project__grid__text-area">
@@ -69,9 +69,9 @@
 							<p class="project__grid__text"> {{ getAdvancedGallery1.attributes.description }} </p>
 						</div>
 					</div>
-					
+
 				</div>
-				<div class="project__col">
+				<div class="project__col" v-if="getAdvancedGallery2.attributes">
 					<div class="project__grid__text-area">
 						<div class="project__grid__text-area__inner">
 							<h2 class="project__heading">{{ getAdvancedGallery2.attributes.title }}</h2>
@@ -83,7 +83,7 @@
 				</div>
 			</div>
 			<img class="project__pic" :key="index" v-for="(item,index) in getGallery2"
-				 :src="$env.baseUrl+item.attributes.image" />
+				 :src="$env.baseUrl+item.url.replace('/storage','')" />
 
 			<div class="project__row result">
 				<div class="project__col"><h2 class="project__heading">{{ getVideoBlock.attributes.title }}</h2></div>
@@ -146,17 +146,19 @@
 			getAdvancedGallery1() {
 				return this.project.content[this.locale].filter( (item) => {
 					return item.layout === 'advanced_gallery'
-				})[0]
+				})[0] || []
 			},
 			getAdvancedGallery2() {
 				return this.project.content[this.locale].filter( (item) => {
 					return item.layout === 'advanced_gallery'
-				})[1]
+				})[1] || []
 			},
 			getGallery2() {
-				return this.project.content[this.locale].filter( (item) => {
+				let gallery =  this.project.content[this.locale].find( (item) => {
 					return item.layout === 'gallery2'
 				})
+                if(!gallery) return {}
+                return JSON.parse(gallery.attributes.images);
 			},
 			getVideoBlock() {
 				return this.project.content[this.locale].find( (item) => {

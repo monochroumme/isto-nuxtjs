@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d088cdadcfd6fff026850af870056865",
+    "content-hash": "ba4f6a86da39b472f5f953841c3e293f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1122,6 +1122,49 @@
                 "url"
             ],
             "time": "2019-07-01T23:21:34+00:00"
+        },
+        {
+            "name": "halimtuhu/array-images",
+            "version": "1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/halimtuhu/array-images.git",
+                "reference": "01a13c9030022eb55c0f70a2dd96dd6898e7da5d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/halimtuhu/array-images/zipball/01a13c9030022eb55c0f70a2dd96dd6898e7da5d",
+                "reference": "01a13c9030022eb55c0f70a2dd96dd6898e7da5d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Halimtuhu\\ArrayImages\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Halimtuhu\\ArrayImages\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field for distribute your images as array of object.",
+            "keywords": [
+                "array",
+                "images",
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-01-12T16:00:50+00:00"
         },
         {
             "name": "hnassr/nova-key-value",

@@ -16,6 +16,7 @@
         "energon7/nova": "^2.1",
         "energon7/nova-tinymce": "^0.5.5",
         "fideloper/proxy": "^4.0",
+        "halimtuhu/array-images": "^1.1",
         "hnassr/nova-key-value": "^0.0.2",
         "laravel/framework": "^6.0",
         "laravel/nova": "^2.4",

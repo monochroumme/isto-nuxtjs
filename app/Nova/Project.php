@@ -5,6 +5,7 @@ namespace App\Nova;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Exception;
+use Halimtuhu\ArrayImages\ArrayImages;
 use Hnassr\NovaKeyValue\KeyValue;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Media24si\NovaYoutubeField\Youtube;
 use Whitecube\NovaFlexibleContent\Flexible;
 
 class Project extends Resource
@@ -111,18 +113,17 @@ class Project extends Resource
                 ])
                 ->addLayout('Advanced Gallery(Block 4)','advanced_gallery',[
                     Text::make('Title'),
-                    Text::make('Description'),
+                    Textarea::make('Description'),
                     Image::make('Image 1','image1'),
                     Image::make('Image 2','image2'),
 
                 ])
                 ->addLayout('Gallery(Block 5)','gallery2',[
-                    Image::make('Image','image')
+                    ArrayImages::make('Images', 'images')->disk('public')->path(''),
                 ])
                 ->addLayout('Video(Block 6)','video',[
-                    Text::make('Title'),
-                    Textarea::make('Description'),
-                    File::make('Video')
+                    Image::make('Video Thumb'),
+                    Youtube::make('Video')
                 ])
 
 
