@@ -50,7 +50,7 @@
 					</button>
 				</div>
 				<span class="project__slider__title" v-for="(item,index) in getGalleryBlock3" :key="index">
-                    {{ getGalleryBlock3.attributes.title }}
+                    {{ item.attributes.title }}
                     <!--Ильхам это должно быть в слайдере а не отдельно-->
                 </span>
 				<div v-swiper:mySwiper="swiperOption">
