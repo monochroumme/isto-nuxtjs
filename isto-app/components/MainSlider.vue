@@ -110,7 +110,7 @@
 
 			this.$refs.mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[0].title[this.locale]);
 			this.slide_id = this.slides[0].id
-			this.$refs.mainSliderLink.href = '/project/'+this.slides[0].id;
+			this.$refs.mainSliderLink.href = '/portfolio/'+this.slides[0].id;
 			this.$refs.controllerTitle.innerHTML = this.slides[1].title[this.locale].split('_').join(' ');
 			this.$refs.curSlide.innerHTML = '01';
 
@@ -141,7 +141,7 @@
 
 		methods: {
 			gotoInner() {
-				this.$router.push('/project/'+this.slide_id);
+				this.$router.push('/portfolio/'+this.slide_id);
 
 			},
 			turnTitleLettersIntoSpans(title) {
@@ -251,7 +251,7 @@
 						this.$refs.mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[this.curSlide-1].title[this.locale]);
 					}, 500);
 					this.slide_id = this.slides[this.curSlide-1].id
-					this.$refs.mainSliderLink.href = '/project/'+this.slides[this.curSlide-1].id;
+					this.$refs.mainSliderLink.href = '/portfolio/'+this.slides[this.curSlide-1].id;
 					this.$refs.controllerTitle.innerHTML = this.slides[nextSlide-1].title[this.locale].split('_').join(' ');
 
 					// change count

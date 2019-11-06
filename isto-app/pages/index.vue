@@ -33,7 +33,14 @@
 				</div></div>
 			</section>
 			<section class="idea-into-project" ref="project">
-				<div class="idea-into-project__pic-mask" ref="projectPicMask"><div class="idea-into-project__pic-parallax parallax"><div class="idea-into-project__pic" ref="projectPic"></div></div></div>
+				<div class="idea-into-project__pic-mask" ref="projectPicMask">
+                    <div class="idea-into-project__pic-parallax parallax">
+                        <div class="idea-into-project__pic"
+                             :style="`background-image:url(${getServices.attributes.image})`"
+                             ref="projectPic"
+                        ></div>
+                    </div>
+                </div>
 				<img class="idea-into-project__letter" src="~/static/images/main-sections/S.png" ref="projectS">
 				<div class="idea-into-project__info">
 					<div class="idea-into-project__inner" ref="projectInfo">

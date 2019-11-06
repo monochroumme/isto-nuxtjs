@@ -13,7 +13,7 @@
 		<div class="portfolio__showcase">
 			<div class="portfolio__showcase">
 				<div class="portfolio__showcase__row">
-					<nuxt-link :to="`/project/${item.id}`" class="portfolio__showcase__pic-area" v-for="item in getProjects" :key="item.id">
+					<nuxt-link :to="`/portfolio/${item.id}`" class="portfolio__showcase__pic-area" v-for="item in getProjects" :key="item.id">
 						<img :src="$env.additionalUrl+item.img">
 						<div class="portfolio__showcase__title-area">
 							<h2 class="portfolio__showcase__title">{{ item.title[locale] }}</h2>

@@ -20,12 +20,12 @@ export const actions = {
   },
 
   async getSlides({ commit }) {
-      const data = await this.$axios.$get('/slides');
-      commit('mutate',{
-        property:'slides',
-        with:data
-      });
-  },
+        const data = await this.$axios.$get('/slides');
+        commit('mutate',{
+            property:'slides',
+            with:data
+        });
+    },
   async getIndex({ commit }) {
       const data = await this.$axios.$get('/index_blocks');
       commit('mutate',{

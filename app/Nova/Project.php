@@ -128,8 +128,6 @@ class Project extends Resource
                     Image::make('Video Thumb'),
                     Youtube::make('Video')
                 ])
-
-
         ];
     }
 
