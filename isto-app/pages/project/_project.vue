@@ -49,12 +49,15 @@
 						<img src="~/static/images/slider-right-arrow.svg">
 					</button>
 				</div>
-				<span class="project__slider__title">{{ getTextBlock.attributes.text }}</span>
+				<span class="project__slider__title" v-for="(item,index) in getGalleryBlock3" :key="index">
+                    {{ getGalleryBlock3.attributes.title }}
+                    <!--Ильхам это должно быть в слайдере а не отдельно-->
+                </span>
 				<div v-swiper:mySwiper="swiperOption">
 					<div class="project__slider__slides swiper-wrapper">
 
 						<div class="swiper-slide" v-for="(item,index) in getGalleryBlock3" :key="index">
-							<img class="project__slider__slide" :src="$env.baseUrl+item.url.replace('/storage/','')" />
+							<img class="project__slider__slide" :src="$env.baseUrl+item.attributes.image" />
 						</div>
 					</div>
 				</div>
