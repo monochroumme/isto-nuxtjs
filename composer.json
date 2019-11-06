@@ -12,6 +12,7 @@
         "bakerkretzmar/nova-settings-tool": "^1.0",
         "barryvdh/laravel-cors": "^0.11.4",
         "daniel-de-wit/nova-single-record-resource": "^1.1",
+        "digitalcloud/multilingual-nova": "^2.0",
         "ebess/advanced-nova-media-library": "^2.9",
         "energon7/nova": "^2.1",
         "energon7/nova-tinymce": "^0.5.5",

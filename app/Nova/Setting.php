@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Digitalcloud\MultilingualNova\Multilingual;
 use Hnassr\NovaKeyValue\KeyValue;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
@@ -48,6 +49,7 @@ class Setting extends Resource
     public function fields(Request $request)
     {
         return [
+            Multilingual::make('Translate'),
             Textarea::make('Description')->rules('required'),
             KeyValue::make('Info','other_data')->rules('required'),
             Text::make('Facebook')->rules('required'),

@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Digitalcloud\MultilingualNova\Multilingual;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Exception;
 use Illuminate\Http\Request;
@@ -58,7 +59,7 @@ class About extends Resource
     {
         return [
             ID::make()->sortable(),
-
+            Multilingual::make('Translate'),
             Flexible::make('Content')->collapsed(false)
                 ->addLayout('1-st block','block1',[
                     Text::make('Title'),
@@ -75,12 +76,6 @@ class About extends Resource
                     Text::make('Description'),
                     Image::make('Image ','image'),
                 ])
-                ->addLayout('Teammate','team',[
-                    Text::make('Name'),
-                    Text::make('Surname'),
-                    Text::make('Position'),
-                    Image::make('Teammate photo')
-                ])
                 ->addLayout('3-rd block','block3', [
                     Text::make('Title 1','title1'),
                     Text::make('Title 2','title2'),
@@ -88,6 +83,13 @@ class About extends Resource
                     Image::make('Image 1','image1'),
                     Image::make('Image 2','image2'),
                 ])
+                ->addLayout('Teammate','team',[
+                    Text::make('Name'),
+                    Text::make('Surname'),
+                    Text::make('Position'),
+                    Image::make('Teammate photo')
+                ])
+
 
 
         ];

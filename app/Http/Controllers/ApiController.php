@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class ApiController extends Controller
 {
     public function getProjects() {
-        return Project::all()->transform( function($project) {
+        return Project::orderBy('sort_order')->get()->transform( function($project) {
             $media =$project->getMedia('main')->first();
 
             if($media) {

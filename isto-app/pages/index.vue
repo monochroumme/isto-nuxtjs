@@ -36,7 +36,7 @@
 				<div class="idea-into-project__pic-mask" ref="projectPicMask">
                     <div class="idea-into-project__pic-parallax parallax">
                         <div class="idea-into-project__pic"
-                             :style="`background-image:url(${getServices.attributes.image})`"
+                             :style="`background-image:url(${$env.baseUrl+getServices.attributes.image})`"
                              ref="projectPic"
                         ></div>
                     </div>

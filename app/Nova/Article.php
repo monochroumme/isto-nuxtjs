@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Digitalcloud\MultilingualNova\Multilingual;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
@@ -49,6 +50,7 @@ class Article extends Resource
     {
         return [
             ID::make()->sortable(),
+            Multilingual::make('Translate'),
             Text::make('Title')->rules('required'),
             Date::make('Date')->rules('required'),
             Image::make('Main Image','main')->creationRules('required'),

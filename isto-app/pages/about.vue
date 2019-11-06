@@ -91,14 +91,14 @@
 				<div class="about__strength__row" v-for="(item,index) in getTeams">
 					<div class="about__strength__col" v-if="index===0 || index > 5">
 						<div class="about__strength__team-member">
-							<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.main">
+							<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.teammate_photo">
 							<span class="about__strength__team-member__name">{{ item.attributes.name }} {{ item.attributes.surname }}</span>
 							<span class="about__strength__team-member__title">{{ item.attributes.position }}</span>
 						</div>
 					</div>
 					<div class="about__strength__col mobile-right" v-if="index===1">
 						<div class="about__strength__team-member">
-							<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.main">
+							<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.teammate_photo">
 							<span class="about__strength__team-member__name">{{ item.attributes.name }} {{ item.attributes.surname }}</span>
 							<span class="about__strength__team-member__title">{{ item.attributes.position }}</span>
 						</div>
@@ -106,27 +106,27 @@
 					<div class="about__strength__col right mobile-left mobile-vertical" v-if="index===2">
 						<div class="about__strength__team-member">
 							<img class="about__strength__o" src="~/static/images/about/O.svg">
-							<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.main">
+							<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.teammate_photo">
 							<span class="about__strength__team-member__name">{{ item.attributes.name }} {{ item.attributes.surname }}</span>
 							<span class="about__strength__team-member__title">{{ item.attributes.position }}</span>
 						</div>
 					</div>
 					<div class="about__strength__col left mobile-right mobile-vertical" v-if="index===3">
 						<div class="about__strength__team-member">
-							<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.main">
+							<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.teammate_photo">
 							<span class="about__strength__team-member__name">{{ item.attributes.name }} {{ item.attributes.surname }}</span>
 							<span class="about__strength__team-member__title">{{ item.attributes.position }}</span>
 						</div>
 					</div>
 					<div class="about__strength__col mobile-vertical" v-if="index===4">
 						<div class="about__strength__team-member">
-							<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.main">
+							<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.teammate_photo">
 							<span class="about__strength__team-member__name">{{ item.attributes.name }} {{ item.attributes.surname }}</span>
 							<span class="about__strength__team-member__title">{{ item.attributes.position }}</span>
 						</div>
 					</div>
 					<div class="about__strength__team-member" v-if="index===5">
-						<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.main">
+						<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.teammate_photo">
 						<span class="about__strength__team-member__name">{{ item.attributes.name }} {{ item.attributes.surname }}</span>
 						<span class="about__strength__team-member__title">{{ item.attributes.position }}</span>
 					</div>

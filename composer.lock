@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba4f6a86da39b472f5f953841c3e293f",
+    "content-hash": "ddddd80067a3d456881023f574aa5ff2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -283,6 +283,48 @@
                 "nova"
             ],
             "time": "2019-08-10T05:57:26+00:00"
+        },
+        {
+            "name": "digitalcloud/multilingual-nova",
+            "version": "v2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DigitalCloud/multilingual-nova.git",
+                "reference": "8a316cd52c826459f5fecad64dee1414abe16f0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DigitalCloud/multilingual-nova/zipball/8a316cd52c826459f5fecad64dee1414abe16f0c",
+                "reference": "8a316cd52c826459f5fecad64dee1414abe16f0c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0",
+                "spatie/laravel-translatable": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Digitalcloud\\MultilingualNova\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Digitalcloud\\MultilingualNova\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "💪 Multilingual Nova (using default nova fields)",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2019-07-11T13:40:45+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1517,7 +1559,7 @@
             "dist": {
                 "type": "path",
                 "url": "./local-packages",
-                "reference": "b25816c1eb8f9ae42c19dd0c1846892dd3c11ca1"
+                "reference": "b2dc50737c89dae17c5ad931c0bc6d51c5227c26"
             },
             "type": "library",
             "license": [
@@ -1792,6 +1834,48 @@
                 "zip"
             ],
             "time": "2019-07-17T11:01:58+00:00"
+        },
+        {
+            "name": "media24si/nova-youtube-field",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Media24si/nova-youtube-field.git",
+                "reference": "dc45bf0f1be948cf860948b93d46106354964d98"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Media24si/nova-youtube-field/zipball/dc45bf0f1be948cf860948b93d46106354964d98",
+                "reference": "dc45bf0f1be948cf860948b93d46106354964d98",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Media24si\\NovaYoutubeField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Media24si\\NovaYoutubeField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova Youtube field.",
+            "keywords": [
+                "laravel",
+                "nova",
+                "youtube"
+            ],
+            "time": "2018-09-16T10:45:29+00:00"
         },
         {
             "name": "monolog/monolog",

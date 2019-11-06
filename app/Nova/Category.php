@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Digitalcloud\MultilingualNova\Multilingual;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\ID;
@@ -43,6 +44,7 @@ class Category extends Resource
     {
         return [
             ID::make()->sortable(),
+            Multilingual::make('Translate'),
             Text::make('Name')->rules('required'),
             Boolean::make('On Index')
         ];

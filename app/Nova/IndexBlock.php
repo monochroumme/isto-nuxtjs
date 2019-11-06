@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Digitalcloud\MultilingualNova\Multilingual;
 use Exception;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
@@ -50,7 +51,7 @@ class IndexBlock extends Resource
     public function fields(Request $request)
     {
         return [
-
+            Multilingual::make('Translate'),
             Flexible::make('Constructor')
                 ->addLayout('Services block','services_block',[
                     Text::make('Title'),

@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Digitalcloud\MultilingualNova\Multilingual;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Exception;
@@ -90,6 +91,7 @@ class Project extends Resource
     {
         return [
             ID::make()->sortable(),
+            Multilingual::make('Translate'),
             Text::make('Title')->rules('required'),
             Boolean::make('In Slider'),
             Images::make('Main Image','main'),
