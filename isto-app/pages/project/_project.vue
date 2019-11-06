@@ -54,7 +54,7 @@
 					<div class="project__slider__slides swiper-wrapper">
 
 						<div class="swiper-slide" v-for="(item,index) in getGalleryBlock3" :key="index">
-							<img class="project__slider__slide" :src="$env.baseUrl+item.attributes.image" />
+							<img class="project__slider__slide" :src="$env.baseUrl+item.url.replace('/storage/','')" />
 						</div>
 					</div>
 				</div>
@@ -176,9 +176,12 @@
 				})
 			},
 			getGalleryBlock3() {
-				return this.project.content[this.locale].filter( (item) => {
-					return item.layout === 'gallery'
-				})
+                let gallery =  this.project.content[this.locale].filter( (item) => {
+                    return item.layout === 'gallery'
+                });
+                if(!gallery) return []
+                return gallery;
+
 			},
 			getSpecs() {
 				return this.project.content[this.locale].find( (item) => {

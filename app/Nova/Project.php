@@ -106,7 +106,8 @@ class Project extends Resource
                     Textarea::make('Description')
                 ])
                 ->addLayout('Gallery(Block 3)','gallery',[
-                    Image::make('Image','image')
+                    Text::make('Title'),
+                    Image::make('Image', 'image'),
                 ])
                 ->addLayout('Text(Gallery block 3)','text',[
                    Text::make('Text')
