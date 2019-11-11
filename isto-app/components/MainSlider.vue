@@ -111,7 +111,7 @@
                 mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[0].title[this.locale]);
             }
 			this.slide_id = this.slides[0].id;
-			mainSliderLink.href = '/portfolio/'+this.slides[0].id;
+			mainSliderLink.href = this.localePath('portfolio')+'/'+this.slides[0].id;
             if(this.slides[1].title[this.locale]) {
                 controllerTitle.innerHTML = this.slides[1].title[this.locale].split('_').join(' ');
             }
@@ -147,7 +147,7 @@
 
 		methods: {
 			goToInner() {
-				this.$router.push('/portfolio/'+this.slide_id);
+				this.$router.push(this.localePath('portfolio')+'/'+this.slide_id);
 			},
 
 			turnTitleLettersIntoSpans(title) {
@@ -271,7 +271,7 @@
 						mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[this.curSlide-1].title[this.locale]);
 					}, 500);
 					this.slide_id = this.slides[this.curSlide-1].id;
-					mainSliderLink.href = '/portfolio/'+this.slides[this.curSlide-1].id;
+					mainSliderLink.href = this.localePath('portfolio')+'/'+this.slides[this.curSlide-1].id;
 					if(this.slides[nextSlide-1].title[this.locale])
 					controllerTitle.innerHTML = this.slides[nextSlide-1].title[this.locale].split('_').join(' ');
 

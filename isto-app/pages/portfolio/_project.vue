@@ -1,7 +1,7 @@
 <template>
 	<div class="project" id="projectPage">
 		<section class="project__main-bg" :style="`background-image: url(${$env.additionalUrl + project.img});`">
-			<nuxt-link to="/portfolio" class="project__main-bg__go-back">
+			<nuxt-link :to="localePath('portfolio')" class="project__main-bg__go-back">
 				<img src="~/static/images/project/arrow-left.svg">
 				<span>назад к проектам</span>
 			</nuxt-link>
@@ -29,7 +29,7 @@
 		</section>
 		<section class="project__content">
 			<div class="project__go-back-area" id="goBackArea">
-				<nuxt-link to="/portfolio" class="project__go-back" id="goBack">
+				<nuxt-link :to="localePath('portfolio')" class="project__go-back" id="goBack">
 					<img src="~/static/images/project/arrow-left-black.svg">
 				</nuxt-link>
 			</div>
