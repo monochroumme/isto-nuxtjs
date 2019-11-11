@@ -1,6 +1,6 @@
 <template>
-	<div class="_404">
-		<div class="_404__center" ref="center">
+	<div class="_404" id="404">
+		<div class="_404__center" id="center">
 			<div class="_404__center__slides">
 				<img src="~/static/images/404/404_1.png">
 				<img src="~/static/images/404/404_2.png">
@@ -13,33 +13,30 @@
 			<span class="_404__center__text__entity">Страница не найдена</span>
 			<span class="_404__center__text__entity">Страница не найдена</span>
 		</div>
-		<a href="#" class="_404__learn-more learn-more" @mouseenter="$bus.blobMove(0)" @mouseleave="$bus.blobStop(0)">
-			<div class="learn-more__ellipse">
-				<div class="blob">
-					<svg id="blob0" viewBox="0 0 170 140" style="width:170px;height:140px;left:0px;top:0;"><Blob color="#000000" /></svg>
-				</div>
-			</div>
-			<span>на главную</span>
-		</a>
+		<nuxt-link to="/" @click.prevent class="_404__learn-more learn-more black">
+			на главную
+			<div class="plus"></div>
+		</nuxt-link>
 	</div>
 </template>
 
 <script>
-	import Blob from '~/components/Blob';
+	import Vue from 'vue';
+	import { mapState } from 'vuex';
 
 	export default {
-		components: {
-			Blob
-		},
-
 		mounted() {
+			this.$bus.$emit('hideMenu');
+			
+			document.documentElement.style.overflowX = '';
+			document.body.style.overflowX = '';
+
 			// show menu
 			this.$bus.$emit('showLogo');
 			this.$bus.$emit('showNav');
 			this.$bus.$emit('showLangs');
 			setTimeout(() => {
-				this.$bus.$emit('headerBlack', 'r');
-				this.$bus.$emit('headerBlack', 'l');
+				this.$bus.$emit('headerNoBg', 'b');
 			}, 1);
 
 			// moving the text
@@ -47,23 +44,28 @@
 				wrapper = document.getElementsByClassName('_404__center__text')[0],
 				distBtwnTexts = texts[0].offsetWidth*1.4,
 				pos = [0, distBtwnTexts],
-				speed = .05,
+				speed = .072,
 				fps = 1000/60,
 				centerPercentage,
 				i,
-				el;
-			setInterval(() => {
-				centerPercentage = this.$refs.center.offsetWidth/window.innerWidth;
-				distBtwnTexts = texts[0].offsetWidth*1.4;
-				for (i = 0; i < pos.length; i++) {
-					pos[i] -= speed*fps;
-					texts[i].style.transform = `translateX(${pos[i]}px)`;
+				el,
+				center = document.getElementById('center');
+			let interval = setInterval(() => {
+				if (document.getElementById('404')) {
+					centerPercentage = center.offsetWidth/window.innerWidth;
+					distBtwnTexts = texts[0].offsetWidth*1.4;
+					for (i = 0; i < pos.length; i++) {
+						pos[i] -= speed*fps;
+						texts[i].style.transform = `translateX(${pos[i]}px)`;
 
-					if (pos[i] < -(window.innerWidth*(1-centerPercentage)/2 + texts[i].offsetWidth)) {
-						if (i == 0)
-							pos[i] = pos[pos.length-1] + distBtwnTexts;
-						else pos[i] = pos[i-1] + distBtwnTexts;
+						if (pos[i] < -(window.innerWidth*(1-centerPercentage)/2 + texts[i].offsetWidth)) {
+							if (i == 0)
+								pos[i] = pos[pos.length-1] + distBtwnTexts;
+							else pos[i] = pos[i-1] + distBtwnTexts;
+						}
 					}
+					if (!document.getElementById('404'))
+						clearInterval(interval);
 				}
 			}, fps);
 

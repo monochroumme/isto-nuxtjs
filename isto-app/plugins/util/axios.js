@@ -8,9 +8,7 @@ export default function ({ $axios, redirect , app }) {
     console.log(err.response.data.exception);
     console.log(err.response.data.file);
     console.log(err.response.data.line);
-   // const code = parseInt(err.response && err.response.status)
-
-      redirect('/error')
-
-  })
+    // const code = parseInt(err.response && err.response.status);
+    redirect('/error');
+  });
 }

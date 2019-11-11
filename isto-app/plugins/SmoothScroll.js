@@ -27,7 +27,7 @@ export class SmoothScroll {
       this.$.container.style.height = '100vh';
       
       // Set containerBody style
-      this.$.containerBody.style.transform = `translateY(${-window.scrollY}px)`; // Scroll to current scroll
+      this.$.containerBody.style.transform = `translateY(0px)`;
       
       // Add transition
       if (window.innerWidth > 960)

@@ -1,49 +1,43 @@
 <template>
-	<div class="main-slider__wrapper" ref="mainSliderWrapper">
+	<div class="main-slider__wrapper" id="slider">
 		<section class="main-slider">
-			<div class="main-slider__slides" :class="{ hidden : mainSliderHidden }" ref="mainSlider">
+			<div class="main-slider__slides" :class="{ hidden : mainSliderHidden }" id="mainSlider">
 				<div class="main-slider__slide" v-for="slide in slides.length"></div>
 			</div>
-			<div class="main-slider__flash" ref="mainSliderFlash"></div>
+			<div class="main-slider__flash" id="mainSliderFlash"></div>
 			<div class="main-slider__brightness"></div>
 			<div class="main-slider__title-area">
 				<span class="main-slider__pretitle" :class="{ hidden : mainSliderPretitleAndSlideCountHidden }">Студия дизайна ISTO</span>
 				<span class="main-slider__title-inner">
 					<div class="main-slider__count" :class="{ hidden : mainSliderPretitleAndSlideCountHidden }">
 						<div class="main-slider__count__inner">
-							<span class="main-slider__count__current" ref="curSlide"></span>
+							<span class="main-slider__count__current" id="curSlide"></span>
 							<span class="main-slider__count__length"><span class="main-slider__count__slash">/</span>{{ slidesCount }}</span>
 						</div>
 					</div>
-					<span class="main-slider__title" :class="{ hidden : mainSliderTitleHidden }" ref="mainSliderTitle"></span>
+					<span class="main-slider__title" :class="{ hidden : mainSliderTitleHidden }" id="mainSliderTitle"></span>
 				</span>
 			</div>
-			<a href="#" @click.prevent="gotoInner" ref="mainSliderLink" class="main-slider__see-project" :class="{ hidden : mainSliderSeeProjectHidden }"
-			   @mouseenter="$bus.blobMove(1)"
-			   @mouseleave="$bus.blobStop(1)">
-				<div class="main-slider__see-project__ellipse">
-					<div class="blob">
-						<svg id="blob1" viewBox="0 0 170 140" style="width:170px;height:140px;left:0px;top:0;"><Blob color="#ffffff" /></svg>
-					</div>
-				</div>
-				<span>Посмотреть проект</span>
+			<a href="#" @click.prevent="goToInner" id="mainSliderLink" class="main-slider__see-project learn-more" :class="{ hidden : mainSliderSeeProjectHidden }">
+				Посмотреть проект
+				<div class="plus"></div>
 			</a>
-			<div class="main-slider__controller" ref="controller" :class="{ hidden : mainSliderControllerHidden }">
-				<div class="main-slider__controller__progress" ref="controllerProgress"></div>
+			<div class="main-slider__controller" id="controller" :class="{ hidden : mainSliderControllerHidden }">
+				<div class="main-slider__controller__progress" id="controllerProgress"></div>
 				<button class="main-slider__controller__arrow-left" @click="prevSlide()"></button>
 				<button class="main-slider__controller__arrow-right" @click="nextSlide()"></button>
 				<div class="main-slider__controller__inner">
 					<span class="main-slider__controller__next">Cледующий проект</span>
-					<span class="main-slider__controller__title" ref="controllerTitle"></span>
+					<span class="main-slider__controller__title" id="controllerTitle"></span>
 				</div>
 			</div>
-			<div class="main-slider__controller-mobile" ref="mobileController">
+			<div class="main-slider__controller-mobile" id="mobileController">
 				<button class="main-slider__controller-mobile__slide" v-for="slide in slides.length" @click="changeSlide(slide)">
 					<span>{{ slide < 10 ? `0${slide}` : slide }}</span>
 				</button>
 				<div class="main-slider__controller-mobile__top-line"></div>
 				<div class="main-slider__controller-mobile__right-line"></div>
-				<div class="main-slider__controller-mobile__progress" ref="mobileProgress"></div>
+				<div class="main-slider__controller-mobile__progress" id="mobileProgress"></div>
 			</div>
 			<div class="main-slider__links" :class="{ hidden : mainSliderLinksHidden }">
 				<a target="_blank" :href="settings.facebook">Facebook</a>
@@ -51,22 +45,19 @@
 			</div>
 			<div class="main-slider__bottom-line"></div>
 		</section>
+		<div class="main-slider__helper" id="helper"></div>
 	</div>
 </template>
 
 <script>
-	import Blob from '~/components/Blob';
-	import { mapState } from 'vuex'
+	import { mapState } from 'vuex';
+
 	export default {
 		props: ['flash'],
 
-		components: {
-			Blob
-		},
-
 		data() {
 			return {
-				slide_id:0,
+				slide_id: 0,
 				curSlide: 1,
 				controllerSpeed: 4000,
 				increasing: true,
@@ -101,49 +92,61 @@
 				this.mainSliderSeeProjectHidden = false;
 			});
 
+			let mainSlider = document.getElementById('mainSlider'),
+				mainSliderTitle = document.getElementById('mainSliderTitle'),
+				mainSliderLink = document.getElementById('mainSliderLink'),
+				helper = document.getElementById('helper'),
+				controllerTitle = document.getElementById('controllerTitle'),
+				curSlide = document.getElementById('curSlide'),
+				controllerProgress = document.getElementById('controllerProgress'),
+				mobileProgress = document.getElementById('mobileProgress');
+
 			for (let i = 0; i < this.slides.length; i++) {
-				//require(`~/static/images/main-slider/${this.slides[i].img}`);
-				this.$refs.mainSlider.children[i].style.backgroundImage = `url(${this.$env.additionalUrl+this.slides[i].img})`
+				mainSlider.children[i].style.backgroundImage = `url(${this.$env.additionalUrl+this.slides[i].img})`;
+				helper.style.backgroundColor = `black`;
 				if (i != 0)
-					this.$refs.mainSlider.children[i].style.display = 'none';
+					mainSlider.children[i].style.display = 'none';
 			}
 
-			this.$refs.mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[0].title[this.locale]);
-			this.slide_id = this.slides[0].id
-			this.$refs.mainSliderLink.href = '/portfolio/'+this.slides[0].id;
-			this.$refs.controllerTitle.innerHTML = this.slides[1].title[this.locale].split('_').join(' ');
-			this.$refs.curSlide.innerHTML = '01';
+			mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[0].title[this.locale]);
+			this.slide_id = this.slides[0].id;
+			mainSliderLink.href = '/portfolio/'+this.slides[0].id;
+			controllerTitle.innerHTML = this.slides[1].title[this.locale].split('_').join(' ');
+			curSlide.innerHTML = '01';
 
 			// progress
-			this.$refs.controllerProgress.style.transitionDuration = `${this.controllerSpeed/1000}s`;
-			this.$refs.mobileProgress.style.transitionDuration = `${this.controllerSpeed/1000}s`;
+			controllerProgress.style.transitionDuration = `${this.controllerSpeed/1000}s`;
+			mobileProgress.style.transitionDuration = `${this.controllerSpeed/1000}s`;
 			let wait = this.$bus.isPreloaderOn ? 6000 : 0;
 			setTimeout(() => {
-				setInterval(() => {
-					if (document.hasFocus()) {
+				let interval = setInterval(() => {
+					if (document.hasFocus() && document.getElementById('indexPage')) {
 						if (!this.$bus.isMobile) {
-							this.desktopProgress();
+							this.desktopProgress(controller, controllerProgress);
 						} else {
-							this.mobileProgress();
+							this.mobileProgress(mobileController, mobileProgress);
 						}
 					}
+
+					if (!document.getElementById('indexPage'))
+						clearInterval(interval);
 				}, 200);
 			}, wait);
 		},
 
 		computed: {
-
 			...mapState(['slides','settings']),
+
 			slidesCount() {
 				return this.slides.length < 10 ? `0${this.slides.length}` : this.slides.length;
 			}
 		},
 
 		methods: {
-			gotoInner() {
+			goToInner() {
 				this.$router.push('/portfolio/'+this.slide_id);
-
 			},
+
 			turnTitleLettersIntoSpans(title) {
 				let lines = title.split('_'),
 					span = '';
@@ -170,7 +173,8 @@
 				for (let i = 0; i < lines.length; i++) {
 					for (let j = 0; j < lines[i].children.length; j++) {
 						setTimeout(() => {
-							lines[i].children[j].classList.add('active');
+							if(lines[i].children[j])
+								lines[i].children[j].classList.add('active');
 						}, wait);
 						wait += delay;
 					}
@@ -185,7 +189,8 @@
 				for (let i = 0; i < lines.length; i++) {
 					for (let j = 0; j < lines[i].children.length; j++) {
 						setTimeout(() => {
-							lines[i].children[j].classList.remove('active');
+							if(lines[i].children[j])
+								lines[i].children[j].classList.remove('active');
 						}, wait);
 						wait += delay;
 					}
@@ -193,27 +198,37 @@
 			},
 
 			nextSlide() {
+				let controllerProgress = document.getElementById('controllerProgress');
 				this.changeSlide(this.curSlide+1);
 				// reset progress
-				this.$refs.controllerProgress.style.transitionDuration = `0.5s`;
-				this.$refs.controllerProgress.style.width = 0;
+				controllerProgress.style.transitionDuration = `0.5s`;
+				controllerProgress.style.width = 0;
 				this.increasing = false;
 			},
 
 			prevSlide() {
+				let controllerProgress = document.getElementById('controllerProgress');
 				this.changeSlide(this.curSlide-1);
 				// reset progress
-				this.$refs.controllerProgress.style.transitionDuration = `0.5s`;
-				this.$refs.controllerProgress.style.width = 0;
+				controllerProgress.style.transitionDuration = `0.5s`;
+				controllerProgress.style.width = 0;
 				this.increasing = false;
 			},
 
 			changeSlide(i) {
 				if (i != this.curSlide) {
+					let mainSliderFlash = document.getElementById('mainSliderFlash'),
+						mainSlider = document.getElementById('mainSlider'),
+						mainSliderTitle = document.getElementById('mainSliderTitle'),
+						slider = document.getElementById('slider'),
+						mainSliderLink = document.getElementById('mainSliderLink'),
+						controllerTitle = document.getElementById('controllerTitle'),
+						curSlide = document.getElementById('curSlide');
+
 					// flash
 					if (this.flash) {
-						this.$refs.mainSliderFlash.style.display = 'none';
-						setTimeout(()=>{this.$refs.mainSliderFlash.style.display = 'block'}, 50);
+						mainSliderFlash.style.display = 'none';
+						setTimeout(()=>{mainSliderFlash.style.display = 'block'}, 50);
 					}
 
 					let prevSlide = this.curSlide;
@@ -229,76 +244,76 @@
 						nextSlide = 1;
 
 					// blur
-					this.$refs.mainSliderWrapper.style.filter = 'blur(3px)';
+					slider.style.filter = 'blur(3px)';
 					// scale
-					this.$refs.mainSlider.style.transform = 'scale(1.2)';
+					mainSlider.style.transform = 'scale(1.2)';
 					// returning blur and scale back and also show new slide
 					setTimeout(() => {
-						this.$refs.mainSliderWrapper.style.filter = '';
-						this.$refs.mainSlider.style.transform = 'scale(1)';
-						this.$refs.mainSlider.children[prevSlide-1].style.display = 'none';
-						this.$refs.mainSlider.children[prevSlide-1].style.opacity = '1';
-						this.$refs.mainSlider.children[prevSlide-1].style.zIndex = '';
+						slider.style.filter = '';
+						mainSlider.style.transform = 'scale(1)';
+						mainSlider.children[prevSlide-1].style.display = 'none';
+						mainSlider.children[prevSlide-1].style.opacity = '1';
+						mainSlider.children[prevSlide-1].style.zIndex = '';
 						this.showTitle();
 					}, 505);
 
 					
 					this.hideTitle();
-					this.$refs.mainSlider.children[prevSlide-1].style.opacity = '0';
-					this.$refs.mainSlider.children[prevSlide-1].style.zIndex = '2';
-					this.$refs.mainSlider.children[this.curSlide-1].style.display = 'block';
+					mainSlider.children[prevSlide-1].style.opacity = '0';
+					mainSlider.children[prevSlide-1].style.zIndex = '2';
+					mainSlider.children[this.curSlide-1].style.display = 'block';
 					setTimeout(() => {
-						this.$refs.mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[this.curSlide-1].title[this.locale]);
+						mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[this.curSlide-1].title[this.locale]);
 					}, 500);
-					this.slide_id = this.slides[this.curSlide-1].id
-					this.$refs.mainSliderLink.href = '/portfolio/'+this.slides[this.curSlide-1].id;
-					this.$refs.controllerTitle.innerHTML = this.slides[nextSlide-1].title[this.locale].split('_').join(' ');
+					this.slide_id = this.slides[this.curSlide-1].id;
+					mainSliderLink.href = '/portfolio/'+this.slides[this.curSlide-1].id;
+					controllerTitle.innerHTML = this.slides[nextSlide-1].title[this.locale].split('_').join(' ');
 
 					// change count
-					this.$refs.curSlide.innerHTML = this.curSlide < 10 ? `0${this.curSlide}` : this.curSlide;
+					curSlide.innerHTML = this.curSlide < 10 ? `0${this.curSlide}` : this.curSlide;
 				}
 			},
 
-			desktopProgress() {
+			desktopProgress(controller, controllerProgress) {
 				if (this.increasing) {
-					this.$refs.controllerProgress.style.width = this.$refs.controller.offsetWidth + 'px';
+					controllerProgress.style.width = controller.offsetWidth + 'px';
 					// reached 100%
-					if (this.$refs.controllerProgress.offsetWidth == this.$refs.controller.offsetWidth) {
+					if (controllerProgress.offsetWidth == controller.offsetWidth) {
 						this.increasing = false;
 						this.changeSlide(this.curSlide+1);
-						this.$refs.controllerProgress.style.transitionDuration = `1s`;
+						controllerProgress.style.transitionDuration = `1s`;
 					}
 				} else {
-					this.$refs.controllerProgress.style.width = 0;
+					controllerProgress.style.width = 0;
 					// reached 0%
-					if (this.$refs.controllerProgress.offsetWidth == 0) {
+					if (controllerProgress.offsetWidth == 0) {
 						this.increasing = true;
-						this.$refs.controllerProgress.style.transitionDuration = `${this.controllerSpeed/1000}s`;
+						controllerProgress.style.transitionDuration = `${this.controllerSpeed/1000}s`;
 					}
 				}
 			},
 
-			mobileProgress() {
+			mobileProgress(mobileController, mobileProgress) {
 				if (this.increasing) {
-					this.$refs.mobileProgress.style.width = this.$refs.mobileController.offsetWidth/this.slides.length + 'px';
+					mobileProgress.style.width = mobileController.offsetWidth/this.slides.length + 'px';
 					// reached 100%
-					if (this.$refs.mobileProgress.offsetWidth >= this.$refs.mobileController.offsetWidth/this.slides.length - 1) {
+					if (mobileProgress.offsetWidth >= mobileController.offsetWidth/this.slides.length - 1) {
 						this.increasing = false;
 						this.changeSlide(this.curSlide+1);
-						this.$refs.mobileProgress.style.transitionDuration = '1s';
-						this.$refs.mobileProgress.style.right = this.$refs.mobileController.offsetWidth - (this.$refs.mobileController.offsetWidth/this.slides.length) + 'px';
-						this.$refs.mobileProgress.style.width = 0;
+						mobileProgress.style.transitionDuration = '1s';
+						mobileProgress.style.right = mobileController.offsetWidth - (mobileController.offsetWidth/this.slides.length) + 'px';
+						mobileProgress.style.width = 0;
 
 						// reached 0%
 						setTimeout(() => {
-							this.$refs.mobileProgress.style.right = 'auto';
+							mobileProgress.style.right = 'auto';
 							if (this.curSlide > this.slides.length) {
-								this.$refs.mobileProgress.style.transform = 'translateX(0)';
+								mobileProgress.style.transform = 'translateX(0)';
 							} else {
-								this.$refs.mobileProgress.style.transform = `translateX(${this.$refs.mobileController.offsetWidth/this.slides.length*(this.curSlide-1)}px)`;
+								mobileProgress.style.transform = `translateX(${mobileController.offsetWidth/this.slides.length*(this.curSlide-1)}px)`;
 							}
 							this.increasing = true;
-							this.$refs.mobileProgress.style.transitionDuration = `${this.controllerSpeed/1000}s`;
+							mobileProgress.style.transitionDuration = `${this.controllerSpeed/1000}s`;
 						}, 1000);
 					}
 				}

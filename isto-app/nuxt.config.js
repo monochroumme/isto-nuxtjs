@@ -65,6 +65,9 @@ module.exports = {
   /*
   ** Nuxt.js modules
   */
+  server: {
+      port:3002,
+  },
   modules: [
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',

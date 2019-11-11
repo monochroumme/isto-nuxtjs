@@ -10,25 +10,25 @@ html, body {
     margin: 0;
 }
 @font-face {
-    font-family: Futura;
+    font-family: 'Futura PT';
     font-weight: 100;
     src: url('../../static/fonts/FuturaPT-Book.ttf') format('truetype'),    url('../../static/fonts/FuturaPT-Book.woff') format('woff'),    url('../../static/fonts/FuturaPT-Book.eot'),    url('../../static/fonts/FuturaPT-Book.eot?#iefix') format('embedded-opentype');
     font-style: normal;
 }
 @font-face {
-    font-family: Futura;
+    font-family: 'Futura PT';
     src: url('../../static/fonts/FuturaPT-Demi.ttf') format('truetype'),    url('../../static/fonts/FuturaPT-Demi.woff') format('woff'),    url('../../static/fonts/FuturaPT-Demi.eot'),    url('../../static/fonts/FuturaPT-Demi.eot?#iefix') format('embedded-opentype');
     font-weight: 200;
     font-style: normal;
 }
 @font-face {
-    font-family: Futura;
+    font-family: 'Futura PT';
     src: url('../../static/fonts/FuturaPT-Light.ttf') format('truetype'),   url('../../static/fonts/FuturaPT-Light.woff') format('woff'),   url('../../static/fonts/FuturaPT-Light.eot'),   url('../../static/fonts/FuturaPT-Light.eot?#iefix') format('embedded-opentype');
     font-weight: 300;
     font-style: normal;
 }
 @font-face {
-    font-family: Futura;
+    font-family: 'Futura PT';
     src: url('../../static/fonts/FuturaPT-Demi.ttf') format('truetype'),    url('../../static/fonts/FuturaPT-Demi.woff') format('woff'),    url('../../static/fonts/FuturaPT-Demi.eot'),    url('../../static/fonts/FuturaPT-Demi.eot?#iefix') format('embedded-opentype');
     font-weight: 400;
     font-style: normal;
@@ -119,7 +119,7 @@ html, body {
             position: relative;
             color: white;
             opacity: 0.5;
-            font-family: Futura;
+            font-family: 'Futura PT';
             font-weight: 100;
         }
         &__current {
@@ -159,6 +159,17 @@ html, body {
         z-index: 0;
         position: absolute;
         background: rgba(0,0,0,.6);
+    }
+    &__helper {
+        width: 140vw;
+        height: 140vh;
+        transform: translate(-20vw, -20vh);
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
     }
     @-webkit-keyframes flash {
         0% {
@@ -227,7 +238,7 @@ html, body {
             -ms-transform: translate(-50%,-50%);
             transform: translate(-50%,-50%);
             text-align: center;
-            font-family: Futura;
+            font-family: 'Futura PT';
             font-weight: 100;
             color: white;
             text-transform: uppercase;
@@ -259,7 +270,7 @@ html, body {
         }
     }
     &__see-project {
-        font-family: Futura;
+        font-family: 'Futura PT';
         font-weight: 200;
         font-size: 10px;
         line-height: 130%;
@@ -277,25 +288,6 @@ html, body {
         transition: opacity .5s ease,transform .5s ease;
         &.hidden {
             transform: translateX(-50%) translateY(15px);
-        }
-        &__ellipse {
-            position: relative;
-            img {
-                width: 139px;
-                height: 129px;
-                position: absolute;
-                top: -45px;
-                left: -65px;
-            }
-            &:after {
-                content: '';
-                display: block;
-                position: absolute;
-                width: 185px;
-                height: 85px;
-                left: -50px;
-                top: -35px;
-            }
         }
     }
     &__controller {
@@ -349,7 +341,7 @@ html, body {
             }
         }
         &__arrow-left, &__arrow-right {
-        	background-color: transparent;
+            background-color: transparent;
             background-repeat: no-repeat;
             background-position: center;
         }
@@ -376,7 +368,7 @@ html, body {
             margin: 0 auto;
         }
         &__next {
-            font-family: Futura;
+            font-family: 'Futura PT';
             font-weight: 200;
             font-size: 14px;
             line-height: 130%;
@@ -384,7 +376,7 @@ html, body {
             margin-bottom: 8px;
         }
         &__title {
-            font-family: Futura;
+            font-family: 'Futura PT';
             font-weight: 300;
             color: white;
             font-size: 14px;
@@ -398,7 +390,7 @@ html, body {
         position: absolute;
         bottom: 40px;
         right: 75px;
-        font-family: Futura;
+        font-family: 'Futura PT';
         font-weight: 100;
         letter-spacing: 1px;
         font-size: 14px;
@@ -578,7 +570,7 @@ html, body {
     left: 0;
     width: 100%;
     height: 78px;
-    font-family: Futura;
+    font-family: 'Futura PT';
     line-height: 130%;
     font-weight: 100;
     letter-spacing: 1px;
@@ -766,18 +758,10 @@ html, body {
             color: #D7D7D7;
 
             &:after {
-            	background: #D7D7D7;
+                background: #D7D7D7;
             }
         }
     }
-}
-.blob {
-    -webkit-transform: scale(0.66);
-    -ms-transform: scale(0.66);
-    transform: scale(0.66);
-    position: absolute;
-    top: -60px;
-    left: -80px;
 }
 .landing-page {
     section {
@@ -810,7 +794,7 @@ html, body {
         transition: transform 1s ease;
         transition: transform 1s ease,-webkit-transform 1s ease;
         &__info {
-            font-family: Futura;
+            font-family: 'Futura PT';
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
@@ -899,7 +883,6 @@ html, body {
         &__pic {
             width: 100%;
             height: 100%;
-            background: url('../../static/images/main-sections/idea-into-reality.png');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
@@ -947,129 +930,20 @@ html, body {
             }
         }
     }
+    .idea-into-reality {
+        &__pic {
+            background: url('../../static/images/main-sections/idea-into-reality.png');
+        }
+    }
     .idea-into-project {
         &__pic {
             background-image: url('../../static/images/main-sections/idea-into-project.png');
         }
     }
     .idea-into-concept {
-        z-index: 4;
-        &__slider {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform: scale(2.33);
-            transition: transform 1s ease;
-            &-mask {
-                width: 50vw;
-                height: 100vh;
-                z-index: -1;
-                overflow: hidden;
-                transform: scale(.6);
-                transition: transform 1s ease;
-            }
-            &__mobile-button {
-                &-area-left, &-area-right {
-                    display: none;
-                }
-            }
-            &__button {
-                &s {
-                    position: absolute;
-                    bottom: 56px;
-                    left: 56px;
-                    display: -webkit-box;
-                    display: -ms-flexbox;
-                    display: flex;
-                    z-index: 2;
-                    button {
-                        border: .5px solid white;
-                        border-radius: 50%;
-                        background: transparent;
-                        width: 50px;
-                        height: 50px;
-                        -webkit-backdrop-filter: blur(4px);
-                        backdrop-filter: blur(4px);
-                        @include flex-center;
-                        -webkit-transition: -webkit-transform 0.2s ease;
-                        transition: -webkit-transform 0.2s ease;
-                        -o-transition: transform 0.2s ease;
-                        transition: transform 0.2s ease;
-                        transition: transform 0.2s ease,-webkit-transform 0.2s ease;
-                        &:focus {
-                            outline: none;
-                        }
-                    }
-                }
-                &-area {
-                    &-left, &-right {
-                        width: 80px;
-                        height: 80px;
-                        display: -webkit-box;
-                        display: -ms-flexbox;
-                        display: flex;
-                        -webkit-box-pack: center;
-                        -ms-flex-pack: center;
-                        justify-content: center;
-                        -webkit-box-align: center;
-                        -ms-flex-align: center;
-                        align-items: center;
-                        cursor: pointer;
-                        opacity: 1;
-                        -webkit-transition: opacity .5s ease;
-                        -o-transition: opacity .5s ease;
-                        transition: opacity .5s ease;
-                        &:hover {
-                            opacity: .5 !important;
-                        }
-                    }
-                }
-            }
-            &__slide {
-                width: 100%;
-                height: 100%;
-                -o-object-fit: cover;
-                object-fit: cover;
-                &s {
-                    width: 100%;
-                    height: 100%;
-                }
-            }
-            &__pretitle {
-                font-size: 10px;
-                line-height: 130%;
-                margin-bottom: 14px;
-            }
-            &__title {
-                font-size: 24px;
-                line-height: 135%;
-                &-area {
-                    font-family: Futura;
-                    font-weight: 300;
-                    text-transform: uppercase;
-                    color: white;
-                    letter-spacing: 0.25em;
-                    position: absolute;
-                    right: 70px;
-                    bottom: 65px;
-                    display: -webkit-box;
-                    display: -ms-flexbox;
-                    display: flex;
-                    -webkit-box-orient: vertical;
-                    -webkit-box-direction: normal;
-                    -ms-flex-direction: column;
-                    flex-direction: column;
-                    text-align: right;
-                    z-index: 2;
-                    span {
-                        display: block;
-                    }
-                }
-            }
+        &__pic {
+            background-image: url('../../static/images/main-sections/idea-into-concept.png');
         }
-    }
-    .swiper-container {
-        height: 100vh;
     }
     &__footer {
         width: 100vw;
@@ -1126,7 +1000,7 @@ html, body {
                 }
             }
             &__title {
-                font-family: Futura;
+                font-family: 'Futura PT';
                 font-weight: 300;
                 font-size: 48px;
                 line-height: 135%;
@@ -1137,7 +1011,7 @@ html, body {
                 }
             }
             &__pretitle {
-                font-family: Futura;
+                font-family: 'Futura PT';
                 font-weight: 100;
                 letter-spacing: 2px;
                 text-transform: uppercase;
@@ -1304,7 +1178,7 @@ html, body {
                 flex-wrap: nowrap;
             }
             &__left, &__center {
-                font-family: Futura;
+                font-family: 'Futura PT';
                 font-weight: 300;
                 color: white;
                 font-size: 10px;
@@ -1341,7 +1215,7 @@ html, body {
                 -ms-flex-pack: end;
                 justify-content: flex-end;
                 a {
-                    font-family: Futura;
+                    font-family: 'Futura PT';
                     font-weight: 100;
                     text-decoration: none;
                     color: white !important;
@@ -1487,32 +1361,85 @@ html, body {
         }
     }
 }
-a.learn-more {
-    font-family: Futura;
+.learn-more {
+    font-family: 'Futura PT';
     font-weight: 200;
     font-size: 10px;
     line-height: 130%;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     text-decoration: none !important;
-    color: black;
-    &__ellipse {
-        position: relative;
-        img {
-            width: 139px;
-            height: 129px;
-            position: absolute;
-            top: -45px;
-            left: -65px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 200px;
+    height: 50px;
+    @include flex-center;
+    &::before, &::after {
+        box-sizing: inherit;
+        content: '';
+        position: absolute;
+        border: 1px solid transparent;
+        width: 0;
+        height: 0;
+        transition: color 0.25s;
+    }
+    &::before, &::after {
+        top: 0;
+        left: 0;
+    }
+    &:hover::before, &:hover::after {
+        width: 100%;
+        height: 100%;
+    }
+    &:hover::before {
+        border-top-color: white;
+        border-right-color: white;
+        transition:  width 0.25s ease-out, height 0.25s ease-out 0.25s;
+    }
+    &:hover::after {
+        border-bottom-color: white;
+        border-left-color: white;
+        transition: width 0.25s ease-out 0.25s, height 0.25s ease-out;
+    }
+    &.black {
+        color: black;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        &:hover::before {
+            border-top-color: black;
+            border-right-color: black;
         }
-        &:after {
+        &:hover::after {
+            border-bottom-color: black;
+            border-left-color: black;
+        }
+        .plus {
+            &::after, &::before {
+                background-color: black;
+            }
+        }
+    }
+    .plus {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 9px;
+        height: 9px;
+        &::after, &::before {
             content: '';
-            display: block;
             position: absolute;
-            width: 185px;
-            height: 85px;
-            left: -50px;
-            top: -20px;
+            background-color: white;
+            right: -4px;
+            top: 0;
+        }
+        &::after {
+            height: 1px;
+            width: 9px;
+        }
+        &::before {
+            width: 1px;
+            height: 9px;
+            right: 0;
+            top: -4px;
         }
     }
 }
@@ -1530,21 +1457,22 @@ a.learn-more {
         top: 50%;
         left: 70px;
         transform: translateY(-50%);
-        font-family: Futura;
+        font-family: 'Futura PT';
         font-weight: 300;
         text-transform: uppercase;
         color: white;
         &__pretitle {
+            font-weight: 300;
             font-size: 10px;
             line-height: 130%;
             letter-spacing: 2px;
             opacity: 0.7;
             position: absolute;
-            top: -16px;
+            top: -32px;
             margin-left: 4px;
         }
         &__title {
-        	font-weight: 300;
+            font-weight: 300;
             font-size: 48px;
             line-height: 135%;
             letter-spacing: 0.25em;
@@ -1552,7 +1480,7 @@ a.learn-more {
         }
     }
     &-info {
-        font-family: Futura;
+        font-family: 'Futura PT';
         font-size: 14px;
         color: white;
         position: absolute;
@@ -1561,6 +1489,9 @@ a.learn-more {
         -webkit-backdrop-filter: blur(40px);
         backdrop-filter: blur(40px);
         display: flex;
+        padding-top: 10px;
+        padding-left: 20px;
+        padding-right: 40px;
         &__gray-line, &__white-line {
             position: absolute;
             top: -1px;
@@ -1611,7 +1542,7 @@ a.learn-more {
                 }
                 a {
                     text-decoration: none;
-                    font-family: Futura;
+                    font-family: 'Futura PT';
                     font-weight: 300;
                     color: white;
                     font-size: 14px;
@@ -1655,6 +1586,7 @@ a.learn-more {
             flex-direction: column;
             padding: 32px 25px;
             width: 290px;
+            padding: 0;
             &__col {
                 padding: 0;
                 margin-bottom: 25px;
@@ -1676,7 +1608,7 @@ a.learn-more {
 }
 .article {
     position: relative;
-    font-family: Futura;
+    font-family: 'Futura PT';
     padding: 180px 0;
     background: white;
     &:after {
@@ -1696,14 +1628,12 @@ a.learn-more {
             color: #282828;
         }
         &__date {
-            // position: absolute;
-            // top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
             opacity: 0.7;
             letter-spacing: 2px;
+            font-weight: 100;
             font-size: 10px;
             line-height: 130%;
+            margin-bottom: 16px;
         }
         &__title {
             display: block;
@@ -1717,13 +1647,13 @@ a.learn-more {
                 text-align: center;
                 max-width: 60%;
                 width: 100%;
-                opacity: .5;
+                opacity: .2;
                 cursor: pointer;
                 transition: opacity .5s ease;
                 transition-property: opacity !important;
-	            margin-bottom: 0;
-	            @include flex-center;
-	            flex-direction: column;
+                margin-bottom: 0;
+                @include flex-center;
+                flex-direction: column;
                 &.active {
                     opacity: 1;
                 }
@@ -1785,7 +1715,7 @@ a.learn-more {
                 object-fit: cover;
 
                 &:first-of-type {
-                	margin-right: 30px;
+                    margin-right: 30px;
                 }
             }
         }
@@ -1916,7 +1846,7 @@ a.learn-more {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    font-family: Futura;
+    font-family: 'Futura PT';
     background: #4B555E;
     position: absolute;
     bottom: 0;
@@ -1927,7 +1857,7 @@ a.learn-more {
         align-items: center;
     }
     &__left, &__center {
-        font-family: Futura;
+        font-family: 'Futura PT';
         font-weight: 300;
         color: white;
         font-size: 10px;
@@ -1960,7 +1890,7 @@ a.learn-more {
         -ms-flex-pack: end;
         justify-content: flex-end;
         a {
-            font-family: Futura;
+            font-family: 'Futura PT';
             font-weight: 300;
             text-decoration: none;
             color: white !important;
@@ -1984,7 +1914,7 @@ a.learn-more {
         }
     }
     @media (max-width:960px) {
-    	height: 120px;
+        height: 120px;
         position: absolute;
         flex-direction: column-reverse;
         padding: 24px 30px;
@@ -2004,14 +1934,14 @@ a.learn-more {
 }
 .blog {
     background: white;
-    font-family: Futura;
+    font-family: 'Futura PT';
     color: #282828;
     padding: 160px 0;
     position: relative;
     &__our-blog {
         position: fixed;
         height: 120vh;
-        top: 200px;
+        top: 10%;
         right: 0px;
     }
     &__pretitle {
@@ -2063,10 +1993,11 @@ a.learn-more {
             align-items: flex-end;
             width: 50%;
             padding: 0 39px;
+            margin-bottom: 66px;
             &.small {
-            	.blog__showcase__pic-area__inner {
-            		width: 80%;
-            	}
+                .blog__showcase__pic-area__inner {
+                    width: 80%;
+                }
                 &:nth-child(odd) {
                     align-items: flex-start;
                 }
@@ -2076,7 +2007,7 @@ a.learn-more {
                 object-fit: contain;
             }
             &__inner {
-            	width: 100%;
+                width: 100%;
             }
         }
         &__subtitle {
@@ -2119,15 +2050,15 @@ a.learn-more {
                 margin-bottom: 0;
             }
             .flex-rr {
-            	.blog__showcase__pic-area {
-            		&:first-of-type {
-            			margin-bottom: 30px;
-            		}
-            		&:last-of-type {
-            			margin-bottom: 30px;
-            			margin-right: 0;
-            		}
-            	}
+                .blog__showcase__pic-area {
+                    &:first-of-type {
+                        margin-bottom: 30px;
+                    }
+                    &:last-of-type {
+                        margin-bottom: 30px;
+                        margin-right: 0;
+                    }
+                }
             }
             &__pic-area {
                 width: 100%;
@@ -2137,7 +2068,7 @@ a.learn-more {
                     margin-right: 0;
                 }
                 &__inner {
-                	width: 100% !important;
+                    width: 100% !important;
                 }
             }
             &__subtitle {
@@ -2153,14 +2084,14 @@ a.learn-more {
 }
 .portfolio {
     background: white;
-    font-family: Futura;
+    font-family: 'Futura PT';
     color: #282828;
     padding: 160px 0;
     position: relative;
     &__side-text {
         position: fixed;
         height: 120vh;
-        top: 200px;
+        top: 10%;
         right: 0px;
     }
     &__title {
@@ -2302,18 +2233,18 @@ a.learn-more {
         left: 50%;
         transform: translate(-50%,-50%);
         &__slides {
-        	width: 100%;
-        	height: 100%;
-        	position: relative;
+            width: 100%;
+            height: 100%;
+            position: relative;
 
-        	img {
-        		position: absolute;
-        		width: 100%;
-        		height: 100%;
-        		object-fit: cover;
-        		opacity: 0;
-        		transition: opacity 1s ease;
-        	}
+            img {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0;
+                transition: opacity 1s ease;
+            }
         }
         &__text {
             position: absolute;
@@ -2323,7 +2254,7 @@ a.learn-more {
             color: white;
             min-width: 40%;
             height: 50%;
-            font-family: Futura;
+            font-family: 'Futura PT';
             font-weight: 300;
             display: flex;
             align-items: center;
@@ -2354,7 +2285,7 @@ a.learn-more {
     }
     &__learn-more {
         position: absolute;
-        bottom: 10%;
+        bottom: 5%;
         left: 50%;
         transform: translate(-50%,-50%);
         text-transform: uppercase;
@@ -2370,7 +2301,7 @@ a.learn-more {
     }
 }
 .project {
-    font-family: Futura;
+    font-family: 'Futura PT';
     position: relative;
     &__main-bg {
         width: 100vw;
@@ -2430,33 +2361,33 @@ a.learn-more {
                 position: absolute;
                 right: -1px;
                 bottom: 0;
-            	overflow: hidden;
+                overflow: hidden;
                 &:before {
-			        position: absolute;
-			        bottom: 0;
-			        background: white;
-			        content: '';
-			        width: 1px;
-			        height: 90px;
-			        animation: scroll 2s linear infinite;
-			        @keyframes scroll {
-			            0% {
-			                transform: translate(0,100%);
-			            }
-			            25% {
-			                transform: translate(0,100%);
-			            }
-			            35% {
-			                transform: translate(0,200%);
-			            }
-			            35.001% {
-			                transform: translate(0,-100%);
-			            }
-			            100% {
-			                transform: translate(0,100%);
-			            }
-			        }
-			    }
+                    position: absolute;
+                    bottom: 0;
+                    background: white;
+                    content: '';
+                    width: 1px;
+                    height: 90px;
+                    animation: scroll 2s linear infinite;
+                    @keyframes scroll {
+                        0% {
+                            transform: translate(0,100%);
+                        }
+                        25% {
+                            transform: translate(0,100%);
+                        }
+                        35% {
+                            transform: translate(0,200%);
+                        }
+                        35.001% {
+                            transform: translate(0,-100%);
+                        }
+                        100% {
+                            transform: translate(0,100%);
+                        }
+                    }
+                }
             }
             &__col {
                 display: flex;
@@ -2465,7 +2396,7 @@ a.learn-more {
                 margin-right: 35px;
 
                 &:last-of-type {
-                	margin-right: 0;
+                    margin-right: 0;
                 }
             }
             &__title {
@@ -2490,9 +2421,9 @@ a.learn-more {
         align-items: center;
     }
     &__go-back {
-    	position: sticky;
-    	top: 0;
-    	width: 50px;
+        position: sticky;
+        top: 0;
+        width: 50px;
         height: 50px;
         border-radius: 50%;
         border: .5px solid rgba(0,0,0,.4);
@@ -2505,11 +2436,11 @@ a.learn-more {
             opacity: .5;
         }
         &-area {
-	        position: absolute;
-	        top: 250px;
-	        left: 5%;
-	        width: 50px;
-	        height: 93%;
+            position: absolute;
+            top: 250px;
+            left: 5%;
+            width: 50px;
+            height: 93%;
         }
     }
     &__row {
@@ -2520,16 +2451,16 @@ a.learn-more {
     &__grid {
         margin-top: 50px;
         &__text {
-        	&-area {
-	            margin: 90px 0;
-	            margin-bottom: 125px;
-	            display: flex;
-	            &__inner {
-	            	display: flex;
-	            	flex-direction: column;
-	       			max-width: 75%;
-	            }
-	        }
+            &-area {
+                margin: 90px 0;
+                margin-bottom: 125px;
+                display: flex;
+                &__inner {
+                    display: flex;
+                    flex-direction: column;
+                    max-width: 75%;
+                }
+            }
         }
         .project__col__pic {
             margin-bottom: 50px;
@@ -2538,32 +2469,32 @@ a.learn-more {
             }
         }
         &__text {
-        	font-weight: 300;
-	        font-size: 14px;
-	        line-height: 180%;
-	        color: #282828;
-	        margin-bottom: 0;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 180%;
+            color: #282828;
+            margin-bottom: 0;
         }
     }
     &__col {
         width: 100%;
         position: relative;
         &:first-of-type {
-        	padding-right: 42px;
-        	margin-right: 36px;
-        	.project__grid__text-area {
-            	justify-content: flex-end;
-        		margin-bottom: 0;
-        	}
+            padding-right: 42px;
+            margin-right: 36px;
+            .project__grid__text-area {
+                justify-content: flex-end;
+                margin-bottom: 0;
+            }
         }
-		.z1 {
-		    z-index: 1;
-		    position: relative;
-		}
+        .z1 {
+            z-index: 1;
+            position: relative;
+        }
         &:last-of-type {
-        	.project__col__pic {
-       			padding-left: 42px;
-        	}
+            .project__col__pic {
+                padding-left: 42px;
+            }
         }
         &__pic {
             width: 100%;
@@ -2815,7 +2746,7 @@ a.learn-more {
                 font-size: 26px;
             }
             &__info {
-            	width: auto;
+                width: auto;
                 flex-direction: column;
                 padding: 32px 24px;
                 &__left-line {
@@ -2840,32 +2771,32 @@ a.learn-more {
                 width: 1px;
                 height: 40px;
                 overflow: hidden;
-		        &:before {
-		            position: absolute;
-		            bottom: 0;
-		            background: white;
-		            content: '';
-		            width: 1px;
-		            height: 90px;
-		            animation: scroll 2s linear infinite;
-		            @keyframes scroll {
-		                0% {
-		                    transform: translate(0,100%);
-		                }
-		                25% {
-		                    transform: translate(0,100%);
-		                }
-		                35% {
-		                    transform: translate(0,200%);
-		                }
-		                35.001% {
-		                    transform: translate(0,-100%);
-		                }
-		                100% {
-		                    transform: translate(0,100%);
-		                }
-		            }
-		        }
+                &:before {
+                    position: absolute;
+                    bottom: 0;
+                    background: white;
+                    content: '';
+                    width: 1px;
+                    height: 90px;
+                    animation: scroll 2s linear infinite;
+                    @keyframes scroll {
+                        0% {
+                            transform: translate(0,100%);
+                        }
+                        25% {
+                            transform: translate(0,100%);
+                        }
+                        35% {
+                            transform: translate(0,200%);
+                        }
+                        35.001% {
+                            transform: translate(0,-100%);
+                        }
+                        100% {
+                            transform: translate(0,100%);
+                        }
+                    }
+                }
             }
         }
         &__content {
@@ -2940,13 +2871,13 @@ a.learn-more {
         &__grid {
             flex-direction: column-reverse;
             &__text {
-            	&-area {
-                	margin: 32px 0 !important;
+                &-area {
+                    margin: 32px 0 !important;
 
-                	&__inner {
-                		max-width: 100%;
-                	}
-            	}
+                    &__inner {
+                        max-width: 100%;
+                    }
+                }
             }
         }
         &__pic {
@@ -3015,20 +2946,20 @@ a.learn-more {
         }
     }
     @media (max-height: 620px) {
-    	&__footer {
-    		&__form {
-    			margin-top: 5px;
-    		}
-    		&__bottom-text {
-    			bottom: 130px;
-    		}
-    	}
+        &__footer {
+            &__form {
+                margin-top: 5px;
+            }
+            &__bottom-text {
+                bottom: 130px;
+            }
+        }
     }
 }
 .about {
     position: relative;
     background: white;
-    font-family: Futura;
+    font-family: 'Futura PT';
     padding-bottom: 80px;
     &:after {
         position: absolute;
@@ -3147,15 +3078,16 @@ a.learn-more {
             flex-direction: column;
             &__row {
                 display: flex;
+                flex-wrap: wrap;
                 margin-bottom: 40px;
                 &:last-of-type {
                     margin-bottom: 0;
                 }
             }
             &__item {
-                margin-right: 60px;
-                &:last-of-type {
-                    margin-right: 0;
+                width: 50%;
+                &:nth-child(odd) {
+                    padding-right: 60px;
                 }
             }
             &__pic {
@@ -3248,7 +3180,7 @@ a.learn-more {
         display: flex;
         flex-direction: column;
         align-items: center;
-        font-family: Futura;
+        font-family: 'Futura PT';
         padding: 100px 0;
         &__row {
             display: flex;
@@ -3443,6 +3375,7 @@ a.learn-more {
             }
             &__pics {
                 position: absolute;
+                left: 0;
                 bottom: -150px;
                 display: flex;
                 justify-content: center;
@@ -3539,7 +3472,7 @@ a.learn-more {
                 font-size: 9px;
                 line-height: 130%;
                 letter-spacing: 2px;
-                font-family: Futura;
+                font-family: 'Futura PT';
                 font-weight: 300;
                 -webkit-box-flex: 1;
                 -ms-flex-positive: 1;
@@ -3599,17 +3532,6 @@ a.learn-more {
         }
         &__see-project {
             font-size: 9px;
-            &__ellipse {
-                img {
-                    width: 80px;
-                    height: 75px;
-                    top: -30px;
-                    left: -45px;
-                }
-                &:after {
-                    height: 60px;
-                }
-            }
         }
     }
     .header {
@@ -3639,7 +3561,7 @@ a.learn-more {
                 opacity: 1;
             }
             &__langs, &__navigation, &__links {
-                font-family: Futura;
+                font-family: 'Futura PT';
                 font-weight: 300;
                 ul {
                     list-style-type: none;
@@ -3961,12 +3883,12 @@ a.learn-more {
             }
         }
     }
-    a.learn-more {
+    .learn-more {
         font-size: 9px !important;
     }
     .blob {
-    	top: -64px;
-    	transform: scale(0.5);
+        top: -64px;
+        transform: scale(0.5);
     }
 }
 @media (orientation:portrait) {

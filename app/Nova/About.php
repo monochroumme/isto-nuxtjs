@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Whitecube\NovaFlexibleContent\Flexible;
 
@@ -63,6 +64,7 @@ class About extends Resource
             Flexible::make('Content')->collapsed(false)
                 ->addLayout('1-st block','block1',[
                     Text::make('Title'),
+                    Textarea::make('Description'),
                     Image::make('Image','image'),
                    // Image::make('Image 2','image2'),
                 ])

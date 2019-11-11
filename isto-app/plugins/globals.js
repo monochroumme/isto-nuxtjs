@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import {mapGetters} from 'vuex'
+import {mapGetters} from 'vuex';
 
 const Statics = {
   install(Vue, Options) {

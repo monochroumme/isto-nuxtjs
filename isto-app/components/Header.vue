@@ -2,28 +2,28 @@
 	<header class="header" ref="header">
 		<div class="header__inner">
 			<nuxt-link to="/" class="header__logo__link" :class="{ hidden : logoHidden }">
-				<img class="header__logo color-switch color-switch-l" alt="ISTO" src="~/static/images/logo.svg">
-				<img class="header__logo__letter color-switch color-switch-l" alt="I" src="~/static/images/header/I.svg">
-				<img class="header__logo__letter header__logo__letter-s color-switch color-switch-l" alt="S" src="~/static/images/header/S.svg">
-				<img class="header__logo__letter header__logo__letter-t color-switch color-switch-l" alt="T" src="~/static/images/header/T.svg">
-				<img class="header__logo__letter header__logo__letter-o color-switch color-switch-l" alt="O" src="~/static/images/header/O.svg">
+				<img class="header__logo color-switch" alt="ISTO" src="~/static/images/logo.svg">
+				<img class="header__logo__letter color-switch" alt="I" src="~/static/images/header/I.svg">
+				<img class="header__logo__letter header__logo__letter-s color-switch" alt="S" src="~/static/images/header/S.svg">
+				<img class="header__logo__letter header__logo__letter-t color-switch" alt="T" src="~/static/images/header/T.svg">
+				<img class="header__logo__letter header__logo__letter-o color-switch" alt="O" src="~/static/images/header/O.svg">
 			</nuxt-link>
 			<nav class="header__navigation" :class="{ hidden : navHidden }">
 				<ul>
-					<li><nuxt-link :to="localePath('about')" class="header__navigation__link color-switch color-switch-l">О нас</nuxt-link></li>
-					<li><nuxt-link :to="localePath('portfolio')" class="header__navigation__link color-switch color-switch-l">Проекты</nuxt-link></li>
-					<li><nuxt-link :to="localePath('blog')" class="header__navigation__link color-switch color-switch-r">Блог</nuxt-link></li>
-					<li><nuxt-link :to="localePath('contacts')" class="header__navigation__link color-switch color-switch-r">Контакты</nuxt-link></li>
+					<li><nuxt-link :to="localePath('about')" class="header__navigation__link color-switch">О нас</nuxt-link></li>
+					<li><nuxt-link :to="localePath('portfolio')" class="header__navigation__link color-switch">Проекты</nuxt-link></li>
+					<li><nuxt-link :to="localePath('blog')" class="header__navigation__link color-switch">Блог</nuxt-link></li>
+					<li><nuxt-link :to="localePath('contacts')" class="header__navigation__link color-switch">Контакты</nuxt-link></li>
 				</ul>
 			</nav>
 			<div class="header__langs" :class="{ hidden : langsHidden }">
 				<ul>
-					<li><a href="#" class="header__langs__lang color-switch color-switch-r">UA</a></li>
-					<li><a href="#" class="header__langs__lang active color-switch color-switch-r">RU</a></li>
-					<li><a href="#" class="header__langs__lang color-switch color-switch-r">EN</a></li>
+					<li><a href="#" class="header__langs__lang color-switch">UA</a></li>
+					<li><a href="#" class="header__langs__lang active color-switch">RU</a></li>
+					<li><a href="#" class="header__langs__lang color-switch">EN</a></li>
 				</ul>
 			</div>
-			<button class="header__menu__button color-switch color-switch-r" @click="toggleMenu()">
+			<button class="header__menu__button color-switch" @click="toggleMenu()">
 				<div class="header__menu__button__top-part" ref="headerMenuButtonTopPart"></div>
 				<div class="header__menu__button__bottom-part" ref="headerMenuButtonBottomPart"></div>
 			</button>
@@ -31,23 +31,25 @@
 		<div class="header__menu" ref="menu">
 			<div class="header__menu__langs">
 				<ul>
-					<li><a href="#" class="header__menu__lang color-switch color-switch-l">UA</a></li>
-					<li><a href="#" class="header__menu__lang active color-switch color-switch-l">RU</a></li>
-					<li><a href="#" class="header__menu__lang color-switch color-switch-l">EN</a></li>
+					<li v-for="locale in availableLocales" :key="locale.code">
+						<nuxt-link
+						  :to="switchLocalePath(locale.code)">{{ locale.code }}
+						</nuxt-link>
+					</li>
 				</ul>
 			</div>
 			<div class="header__menu__navigation">
 				<ul>
-					<li><nuxt-link :to="localePath('about')" class="header__menu__navigation__link color-switch color-switch-l">О нас</nuxt-link></li>
-					<li><nuxt-link :to="localePath('portfolio')" class="header__menu__navigation__link color-switch color-switch-l">Проекты</nuxt-link></li>
-					<li><nuxt-link :to="localePath('blog')" class="header__menu__navigation__link color-switch color-switch-l">Блог</nuxt-link></li>
-					<li><nuxt-link :to="localePath('contacts')" class="header__menu__navigation__link color-switch color-switch-l">Контакты</nuxt-link></li>
+					<li><nuxt-link :to="localePath('about')" class="header__menu__navigation__link color-switch">О нас</nuxt-link></li>
+					<li><nuxt-link :to="localePath('portfolio')" class="header__menu__navigation__link color-switch">Проекты</nuxt-link></li>
+					<li><nuxt-link :to="localePath('blog')" class="header__menu__navigation__link color-switch">Блог</nuxt-link></li>
+					<li><nuxt-link :to="localePath('contacts')" class="header__menu__navigation__link color-switch">Контакты</nuxt-link></li>
 				</ul>
 			</div>
 			<div class="header__menu__links">
 				<ul>
-					<li class="header__menu__link color-switch color-switch-l"><a target="_blank" :href="settings.facebook">Facebook</a></li>
-					<li class="header__menu__link color-switch color-switch-l"><a target="_blank" :href="settings.instagram">Instagram</a></li>
+					<li class="header__menu__link color-switch"><a target="_blank" :href="settings.facebook">Facebook</a></li>
+					<li class="header__menu__link color-switch"><a target="_blank" :href="settings.instagram">Instagram</a></li>
 				</ul>
 			</div>
 		</div>
@@ -55,7 +57,8 @@
 </template>
 
 <script>
-	import { mapState } from 'vuex'
+	import { mapState } from 'vuex';
+
 	export default {
 		data() {
 			return {
@@ -64,9 +67,15 @@
 				langsHidden: true
 			};
 		},
+
 		computed:{
-			...mapState(['settings'])
+			...mapState(['settings']),
+
+			availableLocales () {
+				return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale);
+			}
 		},
+
 		mounted() {
 			// checking if mobile and setting an event listener
 			this.checkForMobile();
@@ -81,11 +90,18 @@
 			this.$bus.$on('showLangs', () => {
 				this.langsHidden = false;
 			});
-			this.$bus.$on('headerWhite', () => {
-				this.headerWhite();
+			this.$bus.$on('headerDarkBg', () => {
+				this.darkBg();
 			});
-			this.$bus.$on('headerBlack', (s) => {
-				this.headerBlack(s);
+			this.$bus.$on('headerWhiteBg', () => {
+				this.whiteBg();
+			});
+			this.$bus.$on('headerNoBg', (c) => {
+				this.noBg(c);
+			});
+			this.$bus.$on('hideMenu', () => {
+				this.$bus.isMenuOn = true;
+				this.toggleMenu();
 			});
 
 			this.$refs.menu.style.transform = `translateY(-${window.innerHeight}px)`;
@@ -110,6 +126,23 @@
 		},
 
 		methods: {
+			whiteBg() {
+				this.$refs.header.style.backgroundColor = 'white';
+				this.headerBlack();
+			},
+
+			darkBg() {
+				this.$refs.header.style.backgroundColor = '#4B555E';
+				this.headerWhite();
+			},
+
+			noBg(c) {
+				this.$refs.header.style.backgroundColor = 'transparent';
+				if (c == 'b')
+					this.headerBlack();
+				else this.headerWhite();
+			},
+
 			toggleMenu() {
 				this.$bus.isMenuOn = !this.$bus.isMenuOn;
 
@@ -144,8 +177,8 @@
 				}
 			},
 
-			headerBlack(s) {
-				let switches = document.getElementsByClassName(`color-switch-${s}`);
+			headerBlack() {
+				let switches = document.getElementsByClassName('color-switch');
 
 				for (let i = 0; i < switches.length; i++) {
 					switches[i].classList.add('black');
