@@ -1,7 +1,7 @@
 <template>
 	<header class="header" ref="header">
 		<div class="header__inner">
-			<nuxt-link to="/" class="header__logo__link" :class="{ hidden : logoHidden }">
+			<nuxt-link :to="localePath('index')" class="header__logo__link" :class="{ hidden : logoHidden }">
 				<img class="header__logo color-switch" alt="ISTO" src="~/static/images/logo.svg">
 				<img class="header__logo__letter color-switch" alt="I" src="~/static/images/header/I.svg">
 				<img class="header__logo__letter header__logo__letter-s color-switch" alt="S" src="~/static/images/header/S.svg">
@@ -18,9 +18,13 @@
 			</nav>
 			<div class="header__langs" :class="{ hidden : langsHidden }">
 				<ul>
-					<li><a href="#" class="header__langs__lang color-switch">UA</a></li>
-					<li><a href="#" class="header__langs__lang active color-switch">RU</a></li>
-					<li><a href="#" class="header__langs__lang color-switch">EN</a></li>
+                    <li v-for="loc in $i18n.locales" :key="locale.code">
+                        <nuxt-link
+                            :class="{'active': loc.code===locale }"
+                            class="header__langs__lang color-switch"
+                            :to="switchLocalePath(loc.code)">{{ loc.code }}
+                        </nuxt-link>
+                    </li>
 				</ul>
 			</div>
 			<button class="header__menu__button color-switch" @click="toggleMenu()">
@@ -31,11 +35,11 @@
 		<div class="header__menu" ref="menu">
 			<div class="header__menu__langs">
 				<ul>
-					<li v-for="locale in availableLocales" :key="locale.code">
-						<nuxt-link
-						  :to="switchLocalePath(locale.code)">{{ locale.code }}
-						</nuxt-link>
-					</li>
+                    <li v-for="loc in $i18n.locales" :key="locale.code">
+                        <nuxt-link
+                            :to="switchLocalePath(loc.code)">{{ loc.code }}
+                        </nuxt-link>
+                    </li>
 				</ul>
 			</div>
 			<div class="header__menu__navigation">

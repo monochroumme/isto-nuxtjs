@@ -7,7 +7,7 @@
 		</div>
 		<div class="blog__showcase">
 			<div class="blog__showcase__row">
-				<nuxt-link :to="`/article/` + item.id"
+				<nuxt-link :to="localePath('blog') +`/`+ item.id"
 						   :class="{ 'small' : !item.wide }"
 						   class="blog__showcase__pic-area"
 						   v-for="(item,index) in articles" :key="index">

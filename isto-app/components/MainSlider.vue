@@ -107,11 +107,14 @@
 				if (i != 0)
 					mainSlider.children[i].style.display = 'none';
 			}
-
-			mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[0].title[this.locale]);
+            if(this.slides[0].title[this.locale]) {
+                mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[0].title[this.locale]);
+            }
 			this.slide_id = this.slides[0].id;
 			mainSliderLink.href = '/portfolio/'+this.slides[0].id;
-			controllerTitle.innerHTML = this.slides[1].title[this.locale].split('_').join(' ');
+            if(this.slides[1].title[this.locale]) {
+                controllerTitle.innerHTML = this.slides[1].title[this.locale].split('_').join(' ');
+            }
 			curSlide.innerHTML = '01';
 
 			// progress
@@ -148,6 +151,7 @@
 			},
 
 			turnTitleLettersIntoSpans(title) {
+			    if(!title) return '';
 				let lines = title.split('_'),
 					span = '';
 					title = '';
@@ -263,10 +267,12 @@
 					mainSlider.children[prevSlide-1].style.zIndex = '2';
 					mainSlider.children[this.curSlide-1].style.display = 'block';
 					setTimeout(() => {
+                        if(this.slides[nextSlide-1].title[this.locale])
 						mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[this.curSlide-1].title[this.locale]);
 					}, 500);
 					this.slide_id = this.slides[this.curSlide-1].id;
 					mainSliderLink.href = '/portfolio/'+this.slides[this.curSlide-1].id;
+					if(this.slides[nextSlide-1].title[this.locale])
 					controllerTitle.innerHTML = this.slides[nextSlide-1].title[this.locale].split('_').join(' ');
 
 					// change count

@@ -3,7 +3,7 @@
 		<div class="about__scrolllock__offsetter">
 			<section class="about__scrolllock" id="scrolllock">
 				<div class="about__scrolllock__left-side">
-					<img class="about__scrolllock__pic" :src="$env.baseUrl+getFirstBlock.attributes.image">
+					<img class="about__scrolllock__pic" :src="$env.baseUrl+getFirstBlock.image">
 					<div class="about__I__wrapper">
 						<svg class="about__I" id="isvg" width="303" height="134" viewBox="0 0 303 134" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path id="ipath" d="M59.52 43.3731C19.2 43.3731 7.68 33.2931 3.84 0.653106L-8.59065e-07 0.653106L-6.64995e-06 133.133L3.83999 133.133C7.68 100.493 19.2 90.4131 59.52 90.4131L242.88 90.4131C282.72 90.4131 294.72 100.493 298.56 133.133L302.4 133.133L302.4 0.653119L298.56 0.653119C294.72 33.2931 283.2 43.3731 242.88 43.3731L59.52 43.3731Z" fill="white"/>
@@ -26,7 +26,7 @@
 				<div class="about__s-area__left-side">
 					<div class="about__s-area__left-side__inner">
 						<p class="about__s-area__big-text">
-							{{getSecondBlock.attributes.title}}
+							{{getSecondBlock.title}}
 						</p>
 						<div class="about__s-area__features">
 							<div class="about__s-area__features__row">
@@ -41,24 +41,24 @@
 						</div>
 					</div>
 				</div>
-				<div class="about__s-area__right-side" :style="`background:url(${$env.baseUrl+getSecondBlock.attributes.image});background-size:cover;`">
+				<div class="about__s-area__right-side" :style="`background:url(${$env.baseUrl+getSecondBlock.image});background-size:cover;`">
 					<img class="about__s-area__s" src="~/static/images/about/S.svg">
 				</div>
 			</section>
 			<section class="about__philosophy">
 				<div class="about__philosophy__pics">
-					<img class="about__philosophy__left-pic" :src="$env.baseUrl+getThirdBlock.attributes.image1">
-					<img class="about__philosophy__right-pic" :src="$env.baseUrl+getThirdBlock.attributes.image2">
+					<img class="about__philosophy__left-pic" :src="$env.baseUrl+getThirdBlock.image1">
+					<img class="about__philosophy__right-pic" :src="$env.baseUrl+getThirdBlock.image2">
 					<img class="about__philosophy__t" src="~/static/images/about/T.svg">
 				</div>
 				<div class="about__philosophy__inner">
 					<div class="about__philosophy__right-side">
 						<h2 class="about__philosophy__title">
-							<span class="about__philosophy__title__line">{{ getThirdBlock.attributes.title1 }}</span>
-							<span class="about__philosophy__title__line">{{ getThirdBlock.attributes.title2 }}</span>
+							<span class="about__philosophy__title__line">{{ getThirdBlock.title1 }}</span>
+							<span class="about__philosophy__title__line">{{ getThirdBlock.title2 }}</span>
 						</h2>
 						<p class="about__philosophy__text">
-							{{ getThirdBlock.attributes.description }}
+							{{ getThirdBlock.description }}
 						</p>
 						<a href="#" @click.prevent class="about__philosophy__learn-more learn-more">
 							обсудить проект
@@ -147,24 +147,34 @@
 
 		computed: {
 			getThirdBlock() {
-				return this.about.content[this.locale].filter( (item) => {
-					return item.layout === 'block3'
-				})[0];
+			    if(this.about.content[this.locale]) {
+                    let about = this.about.content[this.locale].find( (item) => {
+                        return item.layout === 'block3'
+                    });
+                    if(about) return about.attributes;
+                    return {}
+                }
+                return {}
 			},
             
 			getTeams() {
-				return this.about.content[this.locale].filter( (item) => {
+			    if(!this.about.content[this.locale]) return [];
+                    return this.about.content[this.locale].filter( (item) => {
 					return item.layout === 'team'
 				});
 			},
             
 			getSecondBlock() {
-				return this.about.content[this.locale].filter( (item) => {
+                if(!this.about.content[this.locale]) return [];
+				let data =  this.about.content[this.locale].find( (item) => {
 					return item.layout === 'block2'
-				})[0];
+				});
+				if(data) return data.attributes;
+				return {}
 			},
             
 			getAddonSecondBlock() {
+                if(!this.about.content[this.locale]) return [];
 				return this.about.content[this.locale].filter( (item) => {
 					return item.layout === 'block2_addon'
 				});
@@ -174,41 +184,47 @@
 				let maxCharactersInOneLine = 30;
 				let lines = '';
 				let prevPos = 0;
-				let text = this.getThirdBlock.attributes.title;
-				for (let i = 0; i < text.length; i++) {
-					if (text[i] === ' ') {
-						if (text.substring(prevPos, i).length > maxCharactersInOneLine) {
-							lines += `<div class="about__philosophy__title__line">${text.slice(prevPos, i)}</div>`;
-							prevPos = i;
-						}
-					}
-				}
+				let text = this.getThirdBlock.title;
+				if(text) {
+                    for (let i = 0; i < text.length; i++) {
+                        if (text[i] === ' ') {
+                            if (text.substring(prevPos, i).length > maxCharactersInOneLine) {
+                                lines += `<div class="about__philosophy__title__line">${text.slice(prevPos, i)}</div>`;
+                                prevPos = i;
+                            }
+                        }
+                    }
+                }
+
 				return lines;
 			},
             
 			getFirstBlock() {
-				return this.about.content[this.locale].filter( (item) => {
+                if(!this.about.content[this.locale]) return {};
+				let about =  this.about.content[this.locale].find( (item) => {
 					return item.layout === 'block1'
-				})[0];
+				});
+				if(about) return about.attributes;
+				return {}
 			},
 
 			firstBlockTitle() {
-				let title = this.getFirstBlock.attributes.title,
+				let title = this.getFirstBlock.title,
 					lines = [],
 					prevPos = 0;
+                if(title) {
+                    for (let i = 0; i < title.length; i++) {
+                        if (title[i] == ' ') { // when reaching space
+                            if (title.substring(prevPos, i).length > 3 && title.substring(prevPos, i).length < 10) {
+                                lines.push(title.slice(prevPos, i));
+                                prevPos = i;
+                            }
+                        }
+                    }
 
-				for (let i = 0; i < title.length; i++) {
-					if (title[i] == ' ') { // when reaching space
-						if (title.substring(prevPos, i).length > 3 && title.substring(prevPos, i).length < 10) {
-							lines.push(title.slice(prevPos, i));
-							prevPos = i;
-						}
-					}
-				}
-
-				// adding the last word
-				lines.push(title.slice(title.lastIndexOf(' '), title.length));
-
+                    // adding the last word
+                    lines.push(title.slice(title.lastIndexOf(' '), title.length));
+                }
 				return lines;
 			},
             

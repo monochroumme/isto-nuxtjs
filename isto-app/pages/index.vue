@@ -7,9 +7,9 @@
 					<div class="idea-into-reality__inner" id="ideaInfo">
 						<span class="idea-into-reality__pretitle">О нас</span>
 						<span class="idea-into-reality__title" id="ideaTitle">
-							<span class="idea-into-reality__title__line">{{ getFirstBlock.attributes.title }}</span>
+							<span class="idea-into-reality__title__line">{{ getFirstBlock.title }}</span>
 						</span>
-						<span class="idea-into-reality__text">{{ getFirstBlock.attributes.description }}</span>
+						<span class="idea-into-reality__text">{{ getFirstBlock.description }}</span>
 						<nuxt-link to="/about" class="idea-into-reality__learn-more learn-more black">
 							Подробнее
 							<div class="plus"></div>
@@ -19,14 +19,14 @@
 				<img class="idea-into-reality__letter" src="~/static/images/main-sections/I.png" id="ideaI">
 				<div class="idea-into-reality__pic-mask" id="ideaPicMask"><div class="idea-into-reality__pic-parallax parallax">
 					<div class="idea-into-reality__pic" id="ideaPic"
-						:style="`background:url(${$env.baseUrl + getFirstBlock.attributes.image});`"></div>
+						:style="`background:url(${$env.baseUrl + getFirstBlock.image});`"></div>
 					</div>
 				</div>
 			</section>
 			<section class="idea-into-project" id="project" :class="{ active : projectShown }">
 				<div class="idea-into-project__pic-mask" id="projectPicMask">
                 	<div class="idea-into-project__pic-parallax parallax">
-                    	<div class="idea-into-project__pic" id="projectPic" :style="`background-image:url(${$env.baseUrl+getServices.attributes.image})`"></div>
+                    	<div class="idea-into-project__pic" id="projectPic" :style="`background-image:url(${$env.baseUrl+getServices.image})`"></div>
                     </div>
                 </div>
 				<img class="idea-into-project__letter" src="~/static/images/main-sections/S.png" id="projectS">
@@ -34,9 +34,9 @@
 					<div class="idea-into-project__inner" id="projectInfo">
 						<span class="idea-into-project__pretitle">Услуги</span>
 						<span class="idea-into-project__title" id="projectTitle">
-							<span class="idea-into-project__title__line">{{ getServices.attributes.title }}</span>
+							<span class="idea-into-project__title__line">{{ getServices.title }}</span>
 						</span>
-						<span class="idea-into-project__text">{{ getServices.attributes.description }}</span>
+						<span class="idea-into-project__text">{{ getServices.description }}</span>
 						<a href="#" class="idea-into-project__learn-more learn-more black">
 							Подробнее
 							<div class="plus"></div>
@@ -49,10 +49,10 @@
 					<div class="idea-into-concept__inner" id="conceptInfo">
 						<span class="idea-into-concept__pretitle">Продукция</span>
 						<span class="idea-into-concept__title" id="conceptTitle">
-							<span class="idea-into-concept__title__line">{{ getProducts.attributes.title }}</span>
+							<span class="idea-into-concept__title__line">{{ getProducts.title }}</span>
 							<!-- <span class="idea-into-concept__title__line">в идее</span> -->
 						</span>
-						<span class="idea-into-concept__text">{{ getProducts.attributes.description }}</span>
+						<span class="idea-into-concept__text">{{ getProducts.description }}</span>
 						<nuxt-link to="/portfolio" class="idea-into-reality__learn-more learn-more black">
 							Подробнее
 							<div class="plus"></div>
@@ -179,19 +179,26 @@
 			...mapState(['about','index_blocks','projects','index_categories','settings']),
 
 			getFirstBlock() {
-				return this.about.content[this.locale].find((item) => {
+			    if(!this.about.content[this.locale]) return {}
+				let about =  this.about.content[this.locale].find((item) => {
 					return item.layout === 'block1'
 				});
+			    if(about) return about.attributes;
+			    return {}
 			},
 
 			getGallery() {
-				return this.projects[0].content[this.locale].filter( (item) => {
-						return item.layout === 'gallery'
-				});
+			    if(this.projects[0]) {
+			        if(!this.projects[0].content[this.locale]) return  [];
+                    return this.projects[0].content[this.locale].filter( (item) => {
+                        return item.layout === 'gallery'
+                    });
+                }
+				return []
 			},
 
 			getTitle() {
-				let text = this.getServices.attributes.title;
+				let text = this.getServices.title;
 
 				let maxCharactersInOneLine = 6;
 				let lines = '';
@@ -209,15 +216,21 @@
 			},
 
 			getServices() {
-				return this.index_blocks.constructor[this.locale].find( (item) => {
+                if(!this.index_blocks.constructor[this.locale]) return {}
+				let data =  this.index_blocks.constructor[this.locale].find( (item) => {
 					return item.layout === 'services_block'
 				});
+                if(data) return data.attributes;
+                return {}
 			},
 
 			getProducts() {
-				return this.index_blocks.constructor[this.locale].find( (item) => {
+                if(!this.index_blocks.constructor[this.locale]) return {}
+                let data = this.index_blocks.constructor[this.locale].find( (item) => {
 					return item.layout === 'products_block'
 				});
+                if(data) return data.attributes;
+                return {}
 			}
 		},
 
@@ -487,6 +500,7 @@
 
 			turnTitleLettersIntoSpans(title) {
 				let span = '';
+				if(!title) return '';
 				for (let line = 0; line < title.children.length; line++) {
 					for (let i = 0; i < title.children[line].innerText.length; i++) {
 						if (title.children[line].innerText[i] !== " ") {

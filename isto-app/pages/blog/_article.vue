@@ -58,27 +58,40 @@
 
 		computed:{
 		    getBlock4() {
-                return this.article.constructor[this.locale].find( (item) => {
+                if(!this.article.constructor[this.locale]) return {}
+                let data =  this.article.constructor[this.locale].find( (item) => {
                     return item.layout === 'block4';
-                }).attributes;
+                });
+                if(data) return data.attributes;
+                return {};
             },
 
 		    getBlock3() {
-                return this.article.constructor[this.locale].find( (item) => {
+                if(!this.article.constructor[this.locale]) return {}
+                let data = this.article.constructor[this.locale].find( (item) => {
                     return item.layout === 'block3';
-                }).attributes;
+                });
+                if(data) return data.attributes;
+                return {};
+
             },
 
             getSecondBlock() {
-                return this.article.constructor[this.locale].find( (item) => {
+                if(!this.article.constructor[this.locale]) return {}
+                let data = this.article.constructor[this.locale].find( (item) => {
                     return item.layout === 'block2';
-                }).attributes;
+                });
+                if(data) return data.attributes;
+                return {};
             },
             
 		    getFirstBlock() {
-		        return this.article.constructor[this.locale].find( (item) => {
+		        if(!this.article.constructor[this.locale]) return {}
+		        let data = this.article.constructor[this.locale].find( (item) => {
                         return item.layout === 'block1';
-                }).attributes;
+                });
+		        if(data) return data.attributes;
+		        return {}
             },
 
 		  ...mapState(['article'])
