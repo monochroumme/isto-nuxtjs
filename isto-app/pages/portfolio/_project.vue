@@ -62,25 +62,25 @@
 				</div>
 			</div>
 			<div class="project__row project__grid">
-				<div class="project__col" v-if="getAdvancedGallery1.attributes">
-					<img class="project__col__pic" :src="$env.baseUrl+getAdvancedGallery1.attributes.image1">
-					<img class="project__col__pic" :src="$env.baseUrl+getAdvancedGallery1.attributes.image2">
+				<div class="project__col" v-if="getAdvancedGallery1">
+					<img class="project__col__pic" :src="$env.baseUrl+getAdvancedGallery.image1">
+					<img class="project__col__pic" :src="$env.baseUrl+getAdvancedGallery1.image2">
 					<div class="project__grid__text-area">
 						<div class="project__grid__text-area__inner">
-							<h2 class="project__heading">{{ getAdvancedGallery1.attributes.title }}</h2>
-							<p class="project__grid__text"> {{ getAdvancedGallery1.attributes.description }} </p>
+							<h2 class="project__heading">{{ getAdvancedGallery1.title }}</h2>
+							<p class="project__grid__text"> {{ getAdvancedGallery1.description }} </p>
 						</div>
 					</div>
 				</div>
-				<div class="project__col" v-if="getAdvancedGallery2.attributes">
+				<div class="project__col" v-if="getAdvancedGallery2">
 					<div class="project__grid__text-area">
 						<div class="project__grid__text-area__inner">
-							<h2 class="project__heading">{{ getAdvancedGallery2.attributes.title }}</h2>
-							<p class="project__grid__text">{{ getAdvancedGallery2.attributes.description }} </p>
+							<h2 class="project__heading">{{ getAdvancedGallery2.title }}</h2>
+							<p class="project__grid__text">{{ getAdvancedGallery2.description }} </p>
 						</div>
 					</div>
-					<img class="project__col__pic" :src="$env.baseUrl+getAdvancedGallery2.attributes.image1">
-					<img class="project__col__pic" :src="$env.baseUrl+getAdvancedGallery2.attributes.image2">
+					<img class="project__col__pic" :src="$env.baseUrl+getAdvancedGallery2.image1">
+					<img class="project__col__pic" :src="$env.baseUrl+getAdvancedGallery2.image2">
 				</div>
 			</div>
 			<img class="project__pic" :key="index" v-for="(item,index) in getGallery2" :src="$env.baseUrl+item.url.replace('/storage','')" />
@@ -139,18 +139,25 @@
 
 		computed:{
 			getAdvancedGallery1() {
-				return this.project.content[this.locale].filter( (item) => {
+                if(!this.project.content[this.locale]) return [];
+				let data = this.project.content[this.locale].find( (item) => {
 					return item.layout === 'advanced_gallery'
-				})[0] || [];
+				});
+				if(data) return data.attributes;
+				return {};
 			},
 
 			getAdvancedGallery2() {
-				return this.project.content[this.locale].filter( (item) => {
+                if(!this.project.content[this.locale]) return [];
+				let data =  this.project.content[this.locale].filter( (item) => {
 					return item.layout === 'advanced_gallery'
-				})[1] || [];
+				})[1];
+                if(data) return data.attributes;
+                return {};
 			},
 
 			getGallery2() {
+                if(!this.project.content[this.locale]) return [];
 				let gallery =  this.project.content[this.locale].find( (item) => {
 					return item.layout === 'gallery2'
 				});
@@ -186,6 +193,7 @@
 			},
 
 			getGalleryBlock3() {
+			    if(!this.project.content[this.locale]) return [];
                 let gallery =  this.project.content[this.locale].filter( (item) => {
                     return item.layout === 'gallery'
                 });
