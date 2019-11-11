@@ -63,7 +63,7 @@
 			</div>
 			<div class="project__row project__grid">
 				<div class="project__col" v-if="getAdvancedGallery1">
-					<img class="project__col__pic" :src="$env.baseUrl+getAdvancedGallery.image1">
+					<img class="project__col__pic" :src="$env.baseUrl+getAdvancedGallery1.image1">
 					<img class="project__col__pic" :src="$env.baseUrl+getAdvancedGallery1.image2">
 					<div class="project__grid__text-area">
 						<div class="project__grid__text-area__inner">
