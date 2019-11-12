@@ -105,15 +105,22 @@ class Project extends Resource
                 ])
                 ->addLayout('Block 2','block2',[
                     Text::make('Title'),
-                    Textarea::make('Description')
+                    NovaTinyMCE::make('Text')->options([
+                        'plugins' => [
+                            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                            'searchreplace wordcount visualblocks visualchars code fullscreen',
+                            'insertdatetime media nonbreaking save table contextmenu directionality',
+                            'emoticons template paste textcolor colorpicker textpattern'
+                        ],
+                        'toolbar' => 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media',
+                        'use_lfm' => true
+                    ]),
                 ])
                 ->addLayout('Gallery(Block 3)','gallery',[
                     Text::make('Title'),
                     Image::make('Image', 'image'),
                 ])
-                ->addLayout('Text(Gallery block 3)','text',[
-                   Text::make('Text')
-                ])
+
                 ->addLayout('Advanced Gallery(Block 4)','advanced_gallery',[
                     Text::make('Title'),
                     Textarea::make('Description'),

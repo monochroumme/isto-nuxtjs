@@ -76,14 +76,19 @@ class About extends Resource
                 ->addLayout('icons texts(for 2-nd block)','block2_addon',[
                     Text::make('Title'),
                     Text::make('Description'),
-                    Image::make('Image ','image'),
+                    Image::make('Image ','image')->storeAs(function (Request $request) {
+                        return sha1($request->image->getClientOriginalName()) . '.' . $request->image->getClientOriginalExtension();
+                    }),
                 ])
                 ->addLayout('3-rd block','block3', [
-                    Text::make('Title 1','title1'),
-                    Text::make('Title 2','title2'),
+                    Text::make('Title','title1'),
                     Text::make('Description'),
                     Image::make('Image 1','image1'),
                     Image::make('Image 2','image2'),
+                ])
+                ->addLayout('Team Top Text','team_top_text',[
+                    Text::make('Title','title'),
+                    Textarea::make('Description')
                 ])
                 ->addLayout('Teammate','team',[
                     Text::make('Name'),

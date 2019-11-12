@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Digitalcloud\MultilingualNova\Multilingual;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
+use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
@@ -56,8 +57,26 @@ class Article extends Resource
             Image::make('Main Image','main')->creationRules('required'),
             Flexible::make('Content','constructor')->collapsed(false)
                 ->addLayout('1-st block','block1', [
-                    Textarea::make('Title'),
-                    Textarea::make('Description'),
+                    NovaTinyMCE::make('Title')->options([
+                        'plugins' => [
+                            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                            'searchreplace wordcount visualblocks visualchars code fullscreen',
+                            'insertdatetime media nonbreaking save table contextmenu directionality',
+                            'emoticons template paste textcolor colorpicker textpattern'
+                        ],
+                        'toolbar' => 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media',
+                        'use_lfm' => true
+                    ]),
+                    NovaTinyMCE::make('Description')->options([
+                        'plugins' => [
+                            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                            'searchreplace wordcount visualblocks visualchars code fullscreen',
+                            'insertdatetime media nonbreaking save table contextmenu directionality',
+                            'emoticons template paste textcolor colorpicker textpattern'
+                        ],
+                        'toolbar' => 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media',
+                        'use_lfm' => true
+                    ]),
                     // Image::make('Image 2','image2'),
                 ])
                 ->addLayout('2-nd block','block2', [
@@ -66,11 +85,28 @@ class Article extends Resource
                     // Image::make('Image 2','image2'),
                 ])->addLayout('3-rd block','block3', [
                     Text::make('Title'),
-                    Textarea::make('Text'),
+                    NovaTinyMCE::make('Text')->options([
+                        'plugins' => [
+                            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                            'searchreplace wordcount visualblocks visualchars code fullscreen',
+                            'insertdatetime media nonbreaking save table contextmenu directionality',
+                            'emoticons template paste textcolor colorpicker textpattern'
+                        ],
+                        'toolbar' => 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media',
+                        'use_lfm' => true
+                    ]),
                     Image::make('Image','image'),
                 ])->addLayout('4-th block','block4', [
-                    Text::make('Title'),
-                    Textarea::make('Text'),
+                    NovaTinyMCE::make('Text')->options([
+                        'plugins' => [
+                            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                            'searchreplace wordcount visualblocks visualchars code fullscreen',
+                            'insertdatetime media nonbreaking save table contextmenu directionality',
+                            'emoticons template paste textcolor colorpicker textpattern'
+                        ],
+                        'toolbar' => 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media',
+                        'use_lfm' => true
+                    ]),
                     Text::make('Author','author'),
                 ]),
         ];
