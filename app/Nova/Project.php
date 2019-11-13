@@ -103,7 +103,7 @@ class Project extends Resource
                     Text::make('Place'),
                     Text::make('Year'),
                 ])
-                ->addLayout('Block 2','block2',[
+                ->addLayout('Block 2','block2', [
                     Text::make('Title'),
                     NovaTinyMCE::make('Text')->options([
                         'plugins' => [

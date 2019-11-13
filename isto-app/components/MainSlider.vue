@@ -18,7 +18,8 @@
 					<span class="main-slider__title" :class="{ hidden : mainSliderTitleHidden }" id="mainSliderTitle"></span>
 				</span>
 			</div>
-			<a href="#" @click.prevent="goToInner" id="mainSliderLink" class="main-slider__see-project learn-more" :class="{ hidden : mainSliderSeeProjectHidden }">
+			<a :href="localePath('portfolio') + '/' + slide_id" @click.prevent="$bus.goTo(localePath('portfolio') + '/' + slide_id, $router)"
+				id="mainSliderLink" class="main-slider__see-project learn-more" :class="{ hidden : mainSliderSeeProjectHidden }">
 				Посмотреть проект
 				<div class="plus"></div>
 			</a>
@@ -123,7 +124,7 @@
 			let wait = this.$bus.isPreloaderOn ? 6000 : 0;
 			setTimeout(() => {
 				let interval = setInterval(() => {
-					if (document.hasFocus() && document.getElementById('indexPage')) {
+					if (document.hasFocus() && document.getElementById('indexPage') && window.scrollY < window.innerHeight/2) {
 						if (!this.$bus.isMobile) {
 							this.desktopProgress(controller, controllerProgress);
 						} else {
@@ -146,10 +147,6 @@
 		},
 
 		methods: {
-			goToInner() {
-				this.$router.push(this.localePath('portfolio')+'/'+this.slide_id);
-			},
-
 			turnTitleLettersIntoSpans(title) {
 			    if(!title) return '';
 				let lines = title.split('_'),
@@ -230,10 +227,10 @@
 						curSlide = document.getElementById('curSlide');
 
 					// flash
-					if (this.flash) {
-						mainSliderFlash.style.display = 'none';
-						setTimeout(()=>{mainSliderFlash.style.display = 'block'}, 50);
-					}
+					// if (this.flash) {
+					// 	mainSliderFlash.style.display = 'none';
+					// 	setTimeout(()=>{mainSliderFlash.style.display = 'block'}, 50);
+					// }
 
 					let prevSlide = this.curSlide;
 
@@ -248,12 +245,12 @@
 						nextSlide = 1;
 
 					// blur
-					slider.style.filter = 'blur(3px)';
+					// slider.style.filter = 'blur(3px)';
 					// scale
 					mainSlider.style.transform = 'scale(1.2)';
 					// returning blur and scale back and also show new slide
 					setTimeout(() => {
-						slider.style.filter = '';
+						// slider.style.filter = '';
 						mainSlider.style.transform = 'scale(1)';
 						mainSlider.children[prevSlide-1].style.display = 'none';
 						mainSlider.children[prevSlide-1].style.opacity = '1';

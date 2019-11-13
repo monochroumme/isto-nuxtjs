@@ -1,10 +1,11 @@
 <template>
 	<div class="project" id="projectPage">
 		<section class="project__main-bg" :style="`background-image: url(${$env.additionalUrl + project.img});`">
-			<nuxt-link :to="localePath('portfolio')" class="project__main-bg__go-back">
+			<a :href="localePath('portfolio')" @click.prevent="$bus.goTo(localePath('portfolio'), $router);"
+				class="project__main-bg__go-back">
 				<img src="~/static/images/project/arrow-left.svg">
 				<span>назад к проектам</span>
-			</nuxt-link>
+			</a>
 			<h1 class="project__main-bg__title">{{ project.title[locale] }}</h1>
 			<div class="project__main-bg__info">
 				<div class="project__main-bg__info__left-line"></div>
@@ -29,11 +30,12 @@
 		</section>
 		<section class="project__content">
 			<div class="project__go-back-area" id="goBackArea">
-				<nuxt-link :to="localePath('portfolio')" class="project__go-back" id="goBack">
+				<a :href="localePath('portfolio')" @click.prevent="$bus.goTo(localePath('portfolio'), $router);"
+					class="project__go-back" id="goBack">
 					<img src="~/static/images/project/arrow-left-black.svg">
-				</nuxt-link>
+				</a>
 			</div>
-			<div class="project__row" >
+			<div class="project__row project__row-header">
 				<div class="project__col"><h2 class="project__heading">{{ getSecondBlock.title }}</h2></div>
 				<div class="project__col"><p class="project__text">{{ getSecondBlock.description }}</p></div>
 			</div>
@@ -234,58 +236,24 @@
 		},
 
 		mounted() {
-			this.$bus.$emit('hideMenu');
-			
-			// getting rid of overflow-x hidden on body
-			document.documentElement.style.overflowX = 'unset';
-			document.body.style.overflowX = 'unset';
-
-			// smoothie scroll
-			let body = document.getElementById('scroller'),
-				hitbox = document.getElementById('hitbox'),
-				SmoothScroll =  require("~/plugins/SmoothScroll").SmoothScroll;
-
-			setTimeout(() => {
-				new SmoothScroll('.scrollableElement', {
-	    			duration: 1500,
-	    			timingFunction: 'cubic-bezier(0.19, 1, 0.22, 1)' // EaseOutExpo
-				});
-			}, 1);
-
-			this.$bus.fixer = false;
-			this.$bus.scrollOffset = 0;
-
-			// fixing the smoothie
-			let wait = 500;
-			if (this.$bus.isPreloaderOn) {
-				wait = 6000;
-			}
-			setTimeout(() => {
-				hitbox.style.height = body.offsetHeight + 'px';
-			}, wait);
-
-			// show menu
-			this.$bus.$emit('showLogo');
-			this.$bus.$emit('showNav');
-			this.$bus.$emit('showLangs');
-			this.$bus.$emit('headerNoBg');
+			this.$bus.initialize('headerNoBg');
 
 			// slider buttons magnet to mouse listeners
 			let buttonAreaLeft = document.getElementById('buttonAreaLeft'),
 				buttonAreaRight = document.getElementById('buttonAreaRight');
-			buttonAreaLeft.addEventListener('mousemove', this.magnet);
-			buttonAreaRight.addEventListener('mousemove', this.magnet);
-			buttonAreaLeft.addEventListener('mouseleave', this.leave);
-			buttonAreaRight.addEventListener('mouseleave', this.leave);
+			if (buttonAreaLeft) {
+				buttonAreaLeft.addEventListener('mousemove', this.magnet);
+				buttonAreaLeft.addEventListener('mouseleave', this.leave);
+			}
+			if (buttonAreaRight) {
+				buttonAreaRight.addEventListener('mousemove', this.magnet);
+				buttonAreaRight.addEventListener('mouseleave', this.leave);
+			}
 
 			// menu color change
-			wait = this.$bus.isPreloaderOn ? 3800 : 0;
+			let wait = this.$bus.isPreloaderOn ? 3800 : 0;
 			setTimeout(() => {
-				window.addEventListener('scroll', () => {
-					if (document.getElementById('projectPage'))
-						onScroll();
-					hitbox.style.height = body.offsetHeight + 'px';
-				});
+				window.addEventListener('scroll', onScroll);
 				onScroll();
 			}, wait);
 
@@ -293,6 +261,11 @@
 				goBackArea = document.getElementById('goBackArea'),
 				goBack = document.getElementById('goBack');
 			function onScroll() {
+				if (!document.getElementById('projectPage')) {
+					window.removeEventListener('scroll', onScroll);
+					return;
+				}
+				
 				// changing header's color
 				if (!_this.$bus.isMobile) { // if NOT mobile / if desktop
 					 if (window.scrollY > window.innerHeight-50) {

@@ -10,13 +10,14 @@
 							<span class="idea-into-reality__title__line">{{ getFirstBlock.title }}</span>
 						</span>
 						<span class="idea-into-reality__text">{{ getFirstBlock.description }}</span>
-						<nuxt-link to="/about" class="idea-into-reality__learn-more learn-more black">
+						<a :href="localePath('about')" @click.prevent="$bus.goTo(localePath('about'), $router);"
+							class="idea-into-reality__learn-more learn-more black">
 							Подробнее
 							<div class="plus"></div>
-						</nuxt-link>
+						</a>
 					</div>
 				</div>
-				<img class="idea-into-reality__letter" src="~/static/images/main-sections/I.png" id="ideaI">
+				<img class="idea-into-reality__letter" src="~/static/images/main-sections/I.svg" id="ideaI">
 				<div class="idea-into-reality__pic-mask" id="ideaPicMask"><div class="idea-into-reality__pic-parallax parallax">
 					<div class="idea-into-reality__pic" id="ideaPic"
 						:style="`background:url(${$env.baseUrl + getFirstBlock.image});`"></div>
@@ -29,7 +30,7 @@
                     	<div class="idea-into-project__pic" id="projectPic" :style="`background-image:url(${$env.baseUrl+getServices.image})`"></div>
                     </div>
                 </div>
-				<img class="idea-into-project__letter" src="~/static/images/main-sections/S.png" id="projectS">
+				<img class="idea-into-project__letter" src="~/static/images/main-sections/S.svg" id="projectS">
 				<div class="idea-into-project__info">
 					<div class="idea-into-project__inner" id="projectInfo">
 						<span class="idea-into-project__pretitle">Услуги</span>
@@ -37,7 +38,8 @@
 							<span class="idea-into-project__title__line">{{ getServices.title }}</span>
 						</span>
 						<span class="idea-into-project__text">{{ getServices.description }}</span>
-						<a href="#" class="idea-into-project__learn-more learn-more black">
+						<a href="#" @click.prevent="$bus.goTo('#', $router);"
+							class="idea-into-project__learn-more learn-more black">
 							Подробнее
 							<div class="plus"></div>
 						</a>
@@ -50,16 +52,16 @@
 						<span class="idea-into-concept__pretitle">Продукция</span>
 						<span class="idea-into-concept__title" id="conceptTitle">
 							<span class="idea-into-concept__title__line">{{ getProducts.title }}</span>
-							<!-- <span class="idea-into-concept__title__line">в идее</span> -->
 						</span>
 						<span class="idea-into-concept__text">{{ getProducts.description }}</span>
-						<nuxt-link to="/portfolio" class="idea-into-reality__learn-more learn-more black">
+						<a href="/portfolio" @click.prevent="$bus.goTo(`/portfolio`, $router);"
+							class="idea-into-reality__learn-more learn-more black">
 							Подробнее
 							<div class="plus"></div>
-						</nuxt-link>
+						</a>
 					</div>
 				</div>
-				<img class="idea-into-concept__letter" src="~/static/images/main-sections/T.png" id="conceptT">
+				<img class="idea-into-concept__letter" src="~/static/images/main-sections/T.svg" id="conceptT">
 				<div class="idea-into-concept__slider-mask" id="conceptPicMask">
 					<div class="idea-into-concept__slider" id="conceptPic">
 						<div class="idea-into-concept__slider__buttons">
@@ -110,12 +112,13 @@
 							<span class="landing-page__footer__left__pretitle" :class="{active : footerAnimated}">Решения для квартир и домов</span>
 							<span class="landing-page__footer__left__title landing-page__footer__title">{{ index_categories[0].name[locale] }}</span>
 						</span>
-						<nuxt-link :to="`/category/`+index_categories[0].id"
+						<a :href="`/category/`+index_categories[gotoID].id" @click.prevent="$bus.goTo(`/category/`+index_categories[gotoID].id, $router);"
 						   class="landing-page__footer__learn-more-left learn-more"
-						   :class="{ active : footerAnimated }">
+						   :class="{ active : footerAnimated }"
+						   id="gotosticker">
 								Перейти в раздел
 								<div class="plus"></div>
-						</nuxt-link>
+						</a>
 					</div>
 					<div class="landing-page__footer__right">
 						<div class="landing-page__footer__right__bg-area" id="footerRightBg"><div class="landing-page__footer__right__bg"></div></div>
@@ -124,12 +127,12 @@
 							<span class="landing-page__footer__right__pretitle" :class="{active : footerAnimated}">Решения для квартир и домов</span>
 							<span class="landing-page__footer__right__title landing-page__footer__title">{{ index_categories[1].name[locale] }}</span>
 						</span>
-						<nuxt-link :to="`/category/`+index_categories[1].id"
+						<!-- <a :href="`/category/`+index_categories[1].id" @click.prevent="$bus.goTo(`/category/`+index_categories[1].id, $router);"
 						   class="landing-page__footer__learn-more-right learn-more"
 						   :class="{ active : footerAnimated }">
 								Перейти в раздел
 								<div class="plus"></div>
-						</nuxt-link>
+						</a> -->
 					</div>
 					<div class="landing-page__footer__center">
 						<div class="landing-page__footer__center__inner">
@@ -264,47 +267,30 @@
 			    projectShown: false,
 			    conceptShown: false,
 			    footerAnimated: false,
-			    footerSwitch: true
+			    footerSwitch: true,
+			    gotoID: 0
 			};
 		},
 
 		mounted() {
-			this.$bus.$emit('hideMenu');
-			
-			document.documentElement.style.overflowX = '';
-			document.body.style.overflowX = '';
-
-			// smoothie scroll
-			let body = document.getElementById('scroller'),
-				hitbox = document.getElementById('hitbox'),
-				SmoothScroll =  require("~/plugins/SmoothScroll").SmoothScroll;
-
-			setTimeout(() => {
-				new SmoothScroll('.scrollableElement', {
-	    			duration: 1500,
-	    			timingFunction: 'cubic-bezier(0.19, 1, 0.22, 1)' // EaseOutExpo
-				});
-			}, 1);
-
-			this.$bus.fixer = false;
-			this.$bus.scrollOffset = 0;
+			this.$bus.initialize('headerNoBg');
 
 			// parallax specifically for sections
 			let parallaxes = document.getElementsByClassName('parallax');
-			if (document.getElementById('indexPage'))
-				window.addEventListener('scroll', () => {
-					if (document.getElementById('indexPage'))
-						for (let i = 0; i < parallaxes.length; i++) {
-							parallaxes[i].style.transform = `scale(1.4) translateY(${90 + (-(window.scrollY - window.innerHeight*i) * .05)}px)`;
-						}
+			window.addEventListener('scroll', () => {
+				if (!document.getElementById('indexPage')) {
+					window.removeEventListener('scroll', onScroll);
+					return;
+				}
+
+				for (let i = 0; i < parallaxes.length; i++) {
+					parallaxes[i].style.transform = `scale(1.4) translateY(${90 + (-(window.scrollY - window.innerHeight*i) * .05)}px)`;
+				}
 			});
 
 			// checking if mobile and setting an event listener
 			this.checkForMobile();
-			window.addEventListener('resize', () => {
-				if (document.getElementById('indexPage'))
-					this.checkForMobile();
-			});
+			window.addEventListener('resize', this.checkForMobile);
 
 			let footer = document.getElementById('footer'),
 				footerISTO = document.getElementById('footerISTO'),
@@ -326,7 +312,8 @@
 				conceptPic = document.getElementById('conceptPic'),
 				conceptPicMask = document.getElementById('conceptPicMask'),
 				buttonAreaLeft = document.getElementById('buttonAreaLeft'),
-				buttonAreaRight = document.getElementById('buttonAreaRight');
+				buttonAreaRight = document.getElementById('buttonAreaRight'),
+				sticker = document.getElementById('gotosticker');
 
 			buttonAreaLeft.addEventListener('mousemove', this.magnet);
 			buttonAreaRight.addEventListener('mousemove', this.magnet);
@@ -335,7 +322,7 @@
 
 			// slider buttons magnet to mouse listeners
 			footer.addEventListener('mousemove', (e) => {
-				this.handleFooterTriggerZones(e, footerLeftBg, footerRightBg)
+				this.handleFooterTriggerZonesAndSticker(e, footerLeftBg, footerRightBg, sticker)
 			});
 			
 			if (!this.$bus.isMobile) {
@@ -347,10 +334,7 @@
 			let wait = this.$bus.isPreloaderOn ? 3800 : 0;
 			setTimeout(() => {
 				this.animateAppearance();
-					window.addEventListener('scroll', () => {
-						if (document.getElementById('indexPage'))
-							onScroll();
-					});
+				window.addEventListener('scroll', onScroll);
 				onScroll();
 			}, wait);
 
@@ -363,6 +347,11 @@
 
 			let _this = this;
 			function onScroll() {
+				if (!document.getElementById('indexPage')) {
+					window.removeEventListener('scroll', onScroll);
+					return;
+				}
+
 				// changing header's color
 				if (!_this.$bus.isMobile) {
 					if ((!_this.$bus.isMobile && (window.innerHeight + window.scrollY) >= hitbox.offsetHeight) || (_this.$bus.isMobile && (window.innerHeight + window.scrollY) >= document.body.clientHeight))
@@ -447,6 +436,11 @@
 			},
 
 			checkForMobile() {
+				if (!document.getElementById('indexPage')) {
+					window.removeEventListener('resize', this.checkForMobile);
+					return;
+				}
+
 				if (window.innerWidth <= 960) {
 					this.realityShown = true;
 					this.projectShown = true;
@@ -457,12 +451,19 @@
 				}
 			},
 
-			handleFooterTriggerZones(event, footerLeftBg, footerRightBg) {
+			handleFooterTriggerZonesAndSticker(event, footerLeftBg, footerRightBg, sticker) {
+				// toggling the areas of the footer and changing the link of the sticker
 				if(event.clientX < window.innerWidth/2) {
 					this.handleFooter(true, footerLeftBg, footerRightBg);
-				} else {
+					this.gotoID = 0;
+ 				} else {
 					this.handleFooter(false, footerLeftBg, footerRightBg);
+					this.gotoID = 1;
 				}
+
+				// sticking the sticker to the mouse
+				sticker.style.transform = `translateY(${event.clientY-395}px)`;
+				sticker.style.transform += `translateX(${event.clientX-240}px)`
 			},
 
 			handleFooter(bool, footerLeftBg, footerRightBg) {
@@ -488,7 +489,7 @@
 
 				// show ISTO in the center
 				let wait = 0,
-					delay = 200;
+					delay = 300;
 
 				for (let i = 0; i < footerISTO.children.length; i++) {
 					setTimeout(() => {
@@ -530,7 +531,7 @@
 				let titles = document.getElementsByClassName('landing-page__footer__title__line');
 
 				let wait = 25,
-					delay = 50;
+					delay = 100;
 
 				for (let i = 0; i < titles.length; i++) {
 					for (let j = 0; j < titles[i].children.length; j++) {
@@ -559,7 +560,7 @@
 
 			animateTitle(title) {
 				let wait = 0,
-					delay = 50;
+					delay = 100;
 
 				for (let i = 0; i < title.children.length; i++) {
 					for (let j = 0; j < title.children[i].children.length; j++) {

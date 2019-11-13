@@ -60,7 +60,8 @@
 						<p class="about__philosophy__text">
 							{{ getThirdBlock.description }}
 						</p>
-						<a href="#" @click.prevent class="about__philosophy__learn-more learn-more">
+						<a href="#" @click.prevent="$bus.goTo('#', $router)"
+							class="about__philosophy__learn-more learn-more">
 							обсудить проект
 							<div class="plus"></div>
 						</a>
@@ -69,13 +70,13 @@
 			</section>
 			<section class="about__strength">
 				<div class="about__strength__row about__strength__text-row">
-					<div class="about__strength__col">
+					<div class="about__strength__text-col">
 						<h2 class="about__strength__title">
 							<span class="about__strength__title__line">сила</span>
 							<span class="about__strength__title__line">в команде</span>
 						</h2>
 					</div>
-					<div class="about__strength__col left">
+					<div class="about__strength__text-col">
 						<p class="about__strength__text">
 							Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
 						</p>
@@ -90,42 +91,8 @@
 							<span class="about__strength__team-member__title">{{ item.attributes.position }}</span>
 						</div>
 					</div>
+					<div class="about__strength__col" v-if="getTeams.length % 2 != 0"></div>
 				</div>
-					<!-- <div class="about__strength__col mobile-right">
-						<div class="about__strength__team-member">
-							<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.teammate_photo">
-							<span class="about__strength__team-member__name">{{ item.attributes.name }} {{ item.attributes.surname }}</span>
-							<span class="about__strength__team-member__title">{{ item.attributes.position }}</span>
-						</div>
-					</div>
-					<div class="about__strength__col right mobile-left">
-						<div class="about__strength__team-member">
-							<img class="about__strength__o" src="~/static/images/about/O.svg">
-							<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.teammate_photo">
-							<span class="about__strength__team-member__name">{{ item.attributes.name }} {{ item.attributes.surname }}</span>
-							<span class="about__strength__team-member__title">{{ item.attributes.position }}</span>
-						</div>
-					</div>
-					<div class="about__strength__col left mobile-right">
-						<div class="about__strength__team-member">
-							<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.teammate_photo">
-							<span class="about__strength__team-member__name">{{ item.attributes.name }} {{ item.attributes.surname }}</span>
-							<span class="about__strength__team-member__title">{{ item.attributes.position }}</span>
-						</div>
-					</div>
-					<div class="about__strength__col">
-						<div class="about__strength__team-member">
-							<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.teammate_photo">
-							<span class="about__strength__team-member__name">{{ item.attributes.name }} {{ item.attributes.surname }}</span>
-							<span class="about__strength__team-member__title">{{ item.attributes.position }}</span>
-						</div>
-					</div>
-					<div class="about__strength__team-member">
-						<img class="about__strength__team-member__pic" :src="$env.baseUrl+item.attributes.teammate_photo">
-						<span class="about__strength__team-member__name">{{ item.attributes.name }} {{ item.attributes.surname }}</span>
-						<span class="about__strength__team-member__title">{{ item.attributes.position }}</span>
-					</div>
-				</div> -->
 			</section>
 		</div>
 		<Footer />
@@ -159,7 +126,7 @@
             
 			getTeams() {
 			    if(!this.about.content[this.locale]) return [];
-                    return this.about.content[this.locale].filter( (item) => {
+                return this.about.content[this.locale].filter( (item) => {
 					return item.layout === 'team'
 				});
 			},
@@ -232,57 +199,23 @@
 		},
         
 		mounted() {
-			this.$bus.$emit('hideMenu');
-			
-			document.documentElement.style.overflowX = '';
-			document.body.style.overflowX = '';
-
-			// smoothie scroll
-			let SmoothScroll =  require("~/plugins/SmoothScroll").SmoothScroll;
-
-			setTimeout(() => {
-				new SmoothScroll('.scrollableElement', {
-	    			duration: 1500,
-	    			timingFunction: 'cubic-bezier(0.19, 1, 0.22, 1)' // EaseOutExpo
-				});
-			}, 1);
+			this.$bus.initialize('headerNoBg');
 
 			// making the bg white
 			document.documentElement.style.background = 'white';
 			document.body.style.background = 'white';
 
-			// getting rid of overflow-x hidden on body
-			document.documentElement.style.overflowX = 'unset';
-			document.body.style.overflowX = 'unset';
-
-			// fixing the smoothie
-			let wait = 0,
+			// menu color change
+			let wait = this.$bus.isPreloaderOn ? 3800 : 0,
 				hitbox = document.getElementsByClassName('scrollableElement--hitbox')[0],
 				body = document.getElementsByClassName('scrollableElement__body')[0];
-			if (this.$bus.isPreloaderOn) {
-				wait = 6000;
-			}
-
-			// show menu
-			this.$bus.$emit('showLogo');
-			this.$bus.$emit('showNav');
-			this.$bus.$emit('showLangs');
-
-			// menu color change
-			wait = this.$bus.isPreloaderOn ? 3800 : 0;
 			setTimeout(() => {
-				window.addEventListener('scroll', () => {
-					if (document.getElementById('about'))
-						onScroll();
-				});
+				window.addEventListener('scroll', onScroll);
 				onScroll();
 			}, wait);
 
 			// TODO dividing the headers letter by letter
-			
 
-			// fixing the page
-			this.$bus.fixer = true;
 
 			let _this = this,
 				deg = 0,
@@ -295,6 +228,11 @@
 				isvg = document.getElementById('isvg'),
 				ipath = document.getElementById('ipath');
 			function onScroll() {
+				if (!document.getElementById('about')) {
+					window.removeEventListener('scroll', onScroll);
+					return;
+				}
+				
 				// changing header's color
 				if (window.scrollY-_this.$bus.scrollOffset > window.innerHeight/2) {
 					_this.$bus.$emit('headerWhiteBg');
@@ -313,15 +251,14 @@
 					isvg = document.getElementById('isvg'),
 					ipath = document.getElementById('ipath');
 
+					scrolllock.style.transform = `translateY(0px)`;
+
 					scrolllock.style.background = `rgba(75, 85, 94, 1)`;
 					pretitle.style.color = `rgb(255,255,255)`;
 					title.style.color = `rgb(255,255,255)`;
 					isvg.style.transform = `rotate(90deg)`;
 					ipath.style.fill = `rgb(255, 255, 255)`;
 				} else if (window.scrollY <= offset) {
-					if (!_this.$bus.fixer)
-						_this.$bus.fixer = true;
-
 					deg = map(window.scrollY, 0, offset, 0, 90);
 					bgColor = map(window.scrollY, 0, offset, 0, 1);
 					titleColor = map(window.scrollY, 0, offset, 0, 255);
@@ -331,21 +268,22 @@
 						_this.$bus.$emit('headerNoBg', 'b');
 					}
 
-					if (!_this.$bus.isMobile)
-						body.style.transform = 'translateY(0)';
+					if (!_this.$bus.isMobile) {
+						scrolllock.style.transform = `translateY(${window.scrollY}px)`;
+					}
 
 					scrolllock.style.background = `rgba(75, 85, 94, ${1-bgColor})`;
 					pretitle.style.color = `rgb(${255-titleColor},${255-titleColor},${255-titleColor})`;
 					title.style.color = `rgb(${255-titleColor},${255-titleColor},${255-titleColor})`;
 					isvg.style.transform = `rotate(${90+deg}deg)`;
 					ipath.style.fill = `rgb(${255-bgColor*(255-75)}, ${255-bgColor*(255-85)}, ${255-bgColor*(255-94)})`;
-				} else if (_this.$bus.fixer) {
+				} else {
+					scrolllock.style.transform = `translateY(${offset}px)`;
 					scrolllock.style.background = `rgba(75, 85, 94, 0)`;
 					pretitle.style.color = `rgb(0,0,0)`;
 					title.style.color = `rgb(0,0,0)`;
 					isvg.style.transform = `rotate(180deg)`;
 					ipath.style.fill = `rgb(75, 85, 94)`;
-					_this.$bus.fixer = false;
 				}
 			}
 

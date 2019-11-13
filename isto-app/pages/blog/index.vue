@@ -7,7 +7,7 @@
 		</div>
 		<div class="blog__showcase">
 			<div class="blog__showcase__row">
-				<nuxt-link :to="localePath('blog') +`/`+ item.id"
+				<a :href="localePath('blog') +`/`+ item.id" @click.prevent="$bus.goTo(localePath('blog') +`/`+ item.id, $router)"
 						   :class="{ 'small' : !item.wide }"
 						   class="blog__showcase__pic-area"
 						   v-for="(item,index) in articles" :key="index">
@@ -18,7 +18,7 @@
 							<span class="blog__showcase__subtitle">{{ new Date(item.created_at).toLocaleDateString() }}</span>
 						</div>
 					</div>
-				</nuxt-link>
+				</a>
 			</div>
 		</div>
 		<Footer />
@@ -43,59 +43,34 @@
 		},
 
 		mounted() {
-			this.$bus.$emit('hideMenu');
-			
-			document.documentElement.style.overflowX = '';
-			document.body.style.overflowX = '';
-			
-			// smoothie scroll
-			let body = document.getElementById('scroller'),
-				hitbox = document.getElementById('hitbox'),
-				SmoothScroll =  require("~/plugins/SmoothScroll").SmoothScroll;
-
-			setTimeout(() => {
-				new SmoothScroll('.scrollableElement', {
-	    			duration: 1500,
-	    			timingFunction: 'cubic-bezier(0.19, 1, 0.22, 1)' // EaseOutExpo
-				});
-			}, 1);
-
-			this.$bus.fixer = false;
-			this.$bus.scrollOffset = 0;
-
-			// show menu
-			this.$bus.$emit('showLogo');
-			this.$bus.$emit('showNav');
-			this.$bus.$emit('showLangs');
-
-			// fixing the smoothie
-			let wait = 500;
-			if (this.$bus.isPreloaderOn) {
-				wait = 6000;
-			}
-			setTimeout(() => {
-				hitbox.style.height = body.offsetHeight + 'px';
-				this.$bus.$emit('headerWhiteBg');
-			}, wait);
+			this.$bus.initialize('headerWhiteBg');
 
 			// making OUR BLOG move
 			let bottom, offset,
+				body = document.getElementById('scroller'),
 				ourBlog = document.getElementById('ourBlog');
-			window.addEventListener('scroll', () => {
-				if (document.getElementById('blog')) {
-					bottom = Math.max(body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight, document.body.scrollHeight, document.body.offsetHeight);
-					offset = map(window.scrollY, 0, bottom-window.innerHeight, 0, window.innerHeight*.6);
+			window.addEventListener('scroll', onScroll);
 
 
-					if (this.$bus.isMobile) {
-						ourBlog.style.transition = 'transform 0s cubic-bezier(0.165, 0.84, 0.44, 1)';
-						ourBlog.style.transform = `translateY(-${offset}px)`
-					} else {
-						ourBlog.style.transition = 'transform 1.5s cubic-bezier(0.19, 1, 0.22, 1)';
-						ourBlog.style.transform = `translateY(${window.scrollY-offset}px)`;
-					}
+			let _this = this;
+			function onScroll() {
+				if (!document.getElementById('blog')) {
+					window.removeEventListener('scroll', onScroll);
+					return;
 				}
-			});
+
+				bottom = Math.max(body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight, document.body.scrollHeight, document.body.offsetHeight);
+				offset = map(window.scrollY, 0, bottom-window.innerHeight, 0, window.innerHeight*.6);
+
+
+				if (_this.$bus.isMobile) {
+					ourBlog.style.transition = 'transform 0s cubic-bezier(0.165, 0.84, 0.44, 1)';
+					ourBlog.style.transform = `translateY(-${offset}px)`
+				} else {
+					ourBlog.style.transition = 'transform 1.5s cubic-bezier(0.19, 1, 0.22, 1)';
+					ourBlog.style.transform = `translateY(${window.scrollY-offset}px)`;
+				}
+			}
 
 			function map(num, in_min, in_max, out_min, out_max) {
 				return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;

@@ -2,6 +2,7 @@
 	<div>
 		<Preloader />
 		<Header />
+		<PageTransitioner />
 		<div class="scrollableElement">
 			<div id="scroller" class="scrollableElement__body">
 				<nuxt />
@@ -14,11 +15,13 @@
 <script>
 	import Header from '~/components/Header';
 	import Preloader from '~/components/Preloader';
+	import PageTransitioner from '~/components/PageTransitioner';
 
 	export default {
 		components: {
 			Header,
-			Preloader
+			Preloader,
+			PageTransitioner
 		}
 	}
 </script>

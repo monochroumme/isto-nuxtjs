@@ -45,14 +45,7 @@ export class SmoothScroll {
 
   _handleScroll(_event) {
     if (window.innerWidth > 960) {
-      if (!Vue.prototype.$bus.fixer)
-        this.$.containerBody.style.transform = `translateY(${-window.scrollY+Vue.prototype.$bus.scrollOffset}px)`;
-      else {
-        if (window.scrollY <= window.innerHeight)
-          Vue.prototype.$bus.scrollOffset = window.scrollY;
-        else Vue.prototype.$bus.scrollOffset = window.innerHeight;
-        this.$.hitbox.style.height = `${this.$.containerBody.offsetHeight+Vue.prototype.$bus.scrollOffset}px`;
-      }
+      this.$.containerBody.style.transform = `translateY(${-window.scrollY}px)`;
     }
   }
 
@@ -69,6 +62,6 @@ export class SmoothScroll {
       this.$.containerBody.style.transition = '';
       this.$.containerBody.style.transform = '';
     }
-    this.$.hitbox.style.height = `${this.$.containerBody.offsetHeight+Vue.prototype.$bus.scrollOffset}px`;
+    this.$.hitbox.style.height = `${this.$.containerBody.offsetHeight}px`;
   }
 }

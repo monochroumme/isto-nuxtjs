@@ -34,23 +34,7 @@
 		},
 
 		mounted() {
-			this.$bus.$emit('hideMenu');
-			
-			document.documentElement.style.overflowX = '';
-			document.body.style.overflowX = '';
-			
-			let body = document.getElementById('scroller'),
-				hitbox = document.getElementById('hitbox');
-			hitbox.style.height = 0;
-			body.style.transition = '';
-			this.$bus.fixer = false;
-			this.$bus.scrollOffset = 0;
-
-			// show menu
-			this.$bus.$emit('showLogo');
-			this.$bus.$emit('showNav');
-			this.$bus.$emit('showLangs');
-			this.$bus.$emit('headerNoBg');
+			this.$bus.initialize('headerNoBg');
 		}
 	}
 </script>

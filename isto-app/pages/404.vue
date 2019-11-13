@@ -13,10 +13,10 @@
 			<span class="_404__center__text__entity">Страница не найдена</span>
 			<span class="_404__center__text__entity">Страница не найдена</span>
 		</div>
-		<nuxt-link to="/" @click.prevent class="_404__learn-more learn-more black">
+		<a href="/" @click.prevent="$bus.goTo('/', $router)" class="_404__learn-more learn-more black">
 			на главную
 			<div class="plus"></div>
-		</nuxt-link>
+		</a>
 	</div>
 </template>
 
@@ -26,18 +26,8 @@
 
 	export default {
 		mounted() {
-			this.$bus.$emit('hideMenu');
-			
-			document.documentElement.style.overflowX = '';
-			document.body.style.overflowX = '';
-
-			// show menu
-			this.$bus.$emit('showLogo');
-			this.$bus.$emit('showNav');
-			this.$bus.$emit('showLangs');
-			setTimeout(() => {
-				this.$bus.$emit('headerNoBg', 'b');
-			}, 1);
+			this.$bus.initialize('headerNoBg');
+			setTimeout(() => { this.$bus.$emit('headerNoBg', 'b'); }, 2);
 
 			// moving the text
 			let texts = document.getElementsByClassName('_404__center__text__entity'),
@@ -50,29 +40,33 @@
 				i,
 				el,
 				center = document.getElementById('center');
-			let interval = setInterval(() => {
-				if (document.getElementById('404')) {
-					centerPercentage = center.offsetWidth/window.innerWidth;
-					distBtwnTexts = texts[0].offsetWidth*1.4;
-					for (i = 0; i < pos.length; i++) {
-						pos[i] -= speed*fps;
-						texts[i].style.transform = `translateX(${pos[i]}px)`;
+			let interval1 = setInterval(() => {
+				if (!document.getElementById('404')) {
+					clearInterval(interval1);
+					return;
+				}
+				centerPercentage = center.offsetWidth/window.innerWidth;
+				distBtwnTexts = texts[0].offsetWidth*1.4;
+				for (i = 0; i < pos.length; i++) {
+					pos[i] -= speed*fps;
+					texts[i].style.transform = `translateX(${pos[i]}px)`;
 
-						if (pos[i] < -(window.innerWidth*(1-centerPercentage)/2 + texts[i].offsetWidth)) {
-							if (i == 0)
-								pos[i] = pos[pos.length-1] + distBtwnTexts;
-							else pos[i] = pos[i-1] + distBtwnTexts;
-						}
+					if (pos[i] < -(window.innerWidth*(1-centerPercentage)/2 + texts[i].offsetWidth)) {
+						if (i == 0)
+							pos[i] = pos[pos.length-1] + distBtwnTexts;
+						else pos[i] = pos[i-1] + distBtwnTexts;
 					}
-					if (!document.getElementById('404'))
-						clearInterval(interval);
 				}
 			}, fps);
 
 			// changing slides
 			let slides = document.getElementsByClassName('_404__center__slides')[0].children,
 				cur = 0;
-			setInterval(() => {
+			let interval2 = setInterval(() => {
+				if (!document.getElementById('404')) {
+					clearInterval(interval2);
+					return;
+				}
 				if (cur == 0)
 					slides[slides.length-1].style.opacity = 0;
 				else slides[cur-1].style.opacity = 0;
@@ -84,6 +78,11 @@
 
 			// adding additional texts
 			function checkTexts() {
+				if (!document.getElementById('404')) {
+					window.removeEventListener('resize', checkTexts);
+					return;
+				}
+				
 				// checking if there are enough texts and if not then adding some
 				if (texts[0].offsetWidth * pos.length < window.innerWidth * 1.2) {
 					el = document.createElement("div");
