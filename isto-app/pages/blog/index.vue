@@ -8,7 +8,6 @@
 		<div class="blog__showcase">
 			<div class="blog__showcase__row">
 				<a :href="localePath('blog') +`/`+ item.id" @click.prevent="$bus.goTo(localePath('blog') +`/`+ item.id, $router)"
-						   :class="{ 'small' : !item.wide }"
 						   class="blog__showcase__pic-area"
 						   v-for="(item,index) in articles" :key="index">
 					<div class="blog__showcase__pic-area__inner">

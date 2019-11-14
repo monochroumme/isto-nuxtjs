@@ -6,9 +6,7 @@
 				<div class="idea-into-reality__info">
 					<div class="idea-into-reality__inner" id="ideaInfo">
 						<span class="idea-into-reality__pretitle">О нас</span>
-						<span class="idea-into-reality__title" id="ideaTitle">
-							<span class="idea-into-reality__title__line">{{ getFirstBlock.title }}</span>
-						</span>
+						<span class="idea-into-reality__title" id="ideaTitle"></span>
 						<span class="idea-into-reality__text">{{ getFirstBlock.description }}</span>
 						<a :href="localePath('about')" @click.prevent="$bus.goTo(localePath('about'), $router);"
 							class="idea-into-reality__learn-more learn-more black">
@@ -34,9 +32,7 @@
 				<div class="idea-into-project__info">
 					<div class="idea-into-project__inner" id="projectInfo">
 						<span class="idea-into-project__pretitle">Услуги</span>
-						<span class="idea-into-project__title" id="projectTitle">
-							<span class="idea-into-project__title__line">{{ getServices.title }}</span>
-						</span>
+						<span class="idea-into-project__title" id="projectTitle"></span>
 						<span class="idea-into-project__text">{{ getServices.description }}</span>
 						<a href="#" @click.prevent="$bus.goTo('#', $router);"
 							class="idea-into-project__learn-more learn-more black">
@@ -50,9 +46,7 @@
 				<div class="idea-into-concept__info">
 					<div class="idea-into-concept__inner" id="conceptInfo">
 						<span class="idea-into-concept__pretitle">Продукция</span>
-						<span class="idea-into-concept__title" id="conceptTitle">
-							<span class="idea-into-concept__title__line">{{ getProducts.title }}</span>
-						</span>
+						<span class="idea-into-concept__title" id="conceptTitle"></span>
 						<span class="idea-into-concept__text">{{ getProducts.description }}</span>
 						<a href="/portfolio" @click.prevent="$bus.goTo(`/portfolio`, $router);"
 							class="idea-into-reality__learn-more learn-more black">
@@ -104,6 +98,13 @@
 				</div>
 			</section>
 			<section class="landing-page__footer" id="footer">
+				<a :href="`/category/`+index_categories[gotoID].id" @click.prevent="$bus.goTo(`/category/`+index_categories[gotoID].id, $router);"
+				   class="landing-page__footer__learn-more learn-more"
+				   :class="{ active : footerAnimated }"
+				   id="gotosticker">
+						Перейти в раздел
+						<div class="plus"></div>
+				</a>
 				<div class="landing-page__footer__top">
 					<div class="landing-page__footer__left">
 						<div class="landing-page__footer__left__bg-area" id="footerLeftBg"><div class="landing-page__footer__left__bg"></div></div>
@@ -112,13 +113,6 @@
 							<span class="landing-page__footer__left__pretitle" :class="{active : footerAnimated}">Решения для квартир и домов</span>
 							<span class="landing-page__footer__left__title landing-page__footer__title">{{ index_categories[0].name[locale] }}</span>
 						</span>
-						<a :href="`/category/`+index_categories[gotoID].id" @click.prevent="$bus.goTo(`/category/`+index_categories[gotoID].id, $router);"
-						   class="landing-page__footer__learn-more-left learn-more"
-						   :class="{ active : footerAnimated }"
-						   id="gotosticker">
-								Перейти в раздел
-								<div class="plus"></div>
-						</a>
 					</div>
 					<div class="landing-page__footer__right">
 						<div class="landing-page__footer__right__bg-area" id="footerRightBg"><div class="landing-page__footer__right__bg"></div></div>
@@ -127,12 +121,6 @@
 							<span class="landing-page__footer__right__pretitle" :class="{active : footerAnimated}">Решения для квартир и домов</span>
 							<span class="landing-page__footer__right__title landing-page__footer__title">{{ index_categories[1].name[locale] }}</span>
 						</span>
-						<!-- <a :href="`/category/`+index_categories[1].id" @click.prevent="$bus.goTo(`/category/`+index_categories[1].id, $router);"
-						   class="landing-page__footer__learn-more-right learn-more"
-						   :class="{ active : footerAnimated }">
-								Перейти в раздел
-								<div class="plus"></div>
-						</a> -->
 					</div>
 					<div class="landing-page__footer__center">
 						<div class="landing-page__footer__center__inner">
@@ -462,8 +450,10 @@
 				}
 
 				// sticking the sticker to the mouse
-				sticker.style.transform = `translateY(${event.clientY-395}px)`;
-				sticker.style.transform += `translateX(${event.clientX-240}px)`
+				if (event.clientY < window.innerHeight-80) {
+					sticker.style.top = `${event.clientY-25}px`;
+					sticker.style.left = `${event.clientX-100}px`;
+				}
 			},
 
 			handleFooter(bool, footerLeftBg, footerRightBg) {
@@ -499,13 +489,29 @@
 				}
 			},
 
-			turnTitleLettersIntoSpans(title) {
+			turnTitleLettersIntoSpans(title, section, titleTxt) {
+				// firstly cut them into several lines
+				let lines = [],
+					prevPos = 0;
+					console.log(titleTxt);
+                for (let i = 0; i < titleTxt.length; i++) {
+                    if (titleTxt[i] == ' ' || i == titleTxt.length-1) { // when reaching space or the end
+                        if (titleTxt.substring(prevPos, i).length > 3 && titleTxt.substring(prevPos, i).length < 15) {
+                            lines.push(`<span class="idea-into-${section}__title__line">${titleTxt.slice(prevPos, i+1)}</span>`);
+                            prevPos = i;
+                        }
+                    }
+                }
+
+                // adding the lines to the title div
+                title.innerHTML = lines.join('');
+
+				// then cut them into spans of letters
 				let span = '';
-				if(!title) return '';
 				for (let line = 0; line < title.children.length; line++) {
 					for (let i = 0; i < title.children[line].innerText.length; i++) {
 						if (title.children[line].innerText[i] !== " ") {
-							span += `<span class='idea-into-reality__title__letter'>${title.children[line].innerText[i]}</span>`;
+							span += `<span class='idea-into-${section}__title__letter'>${title.children[line].innerText[i]}</span>`;
 						} else {
 							span += `<span> </span>`;
 						}
@@ -545,17 +551,17 @@
 
 			setIdeaToDefault( ideaTitle) {
 				// wrapping letters in the title in spans
-				this.turnTitleLettersIntoSpans(ideaTitle);
+				this.turnTitleLettersIntoSpans(ideaTitle, 'reality', this.getFirstBlock.title);
 			},
 
 			setProjectToDefault(projectTitle) {
 				// wrapping letters in the title in spans
-				this.turnTitleLettersIntoSpans(projectTitle);
+				this.turnTitleLettersIntoSpans(projectTitle, 'project', this.getServices.title);
 			},
 
 			setConceptToDefault(conceptTitle) {
 				// wrapping letters in the title in spans
-				this.turnTitleLettersIntoSpans(conceptTitle);
+				this.turnTitleLettersIntoSpans(conceptTitle, 'concept', this.getProducts.title);
 			},
 
 			animateTitle(title) {

@@ -35,7 +35,7 @@
 				distBtwnTexts = texts[0].offsetWidth*1.4,
 				pos = [0, distBtwnTexts],
 				speed = .072,
-				fps = 1000/60,
+				fps = 1000/120,
 				centerPercentage,
 				i,
 				el,
@@ -51,7 +51,7 @@
 					pos[i] -= speed*fps;
 					texts[i].style.transform = `translateX(${pos[i]}px)`;
 
-					if (pos[i] < -(window.innerWidth*(1-centerPercentage)/2 + texts[i].offsetWidth)) {
+					if (pos[i] < -(window.innerWidth*(1-centerPercentage)/1.5 + texts[i].offsetWidth)) {
 						if (i == 0)
 							pos[i] = pos[pos.length-1] + distBtwnTexts;
 						else pos[i] = pos[i-1] + distBtwnTexts;

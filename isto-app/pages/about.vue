@@ -179,7 +179,7 @@
 				let title = this.getFirstBlock.title,
 					lines = [],
 					prevPos = 0;
-                if(title) {
+                if (title) {
                     for (let i = 0; i < title.length; i++) {
                         if (title[i] == ' ') { // when reaching space
                             if (title.substring(prevPos, i).length > 3 && title.substring(prevPos, i).length < 10) {
