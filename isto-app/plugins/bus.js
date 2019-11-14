@@ -28,11 +28,7 @@ eventBus.install = function (Vue) {
 		}
 	};
 	Vue.prototype.$bus.initializeSmoothScroll = () => {
-		let page = document.getElementById('scroll');
-		window.addEventListener('mousewheel', (e, d, dx, dy) => {
-			if (d < 0) pade.scrollTop() + 65;
-			else if (d > 0) page.scrollTop() - 65;
-		});
+		// luxy.init();
 	};
 	Vue.prototype.$bus.goTo = (link, router) => {
 		Vue.prototype.$bus.$emit('transition');

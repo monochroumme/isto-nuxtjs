@@ -1,14 +1,11 @@
 <template>
-	<div id="scroll">
+	<div>
 		<Preloader />
 		<Header />
 		<PageTransitioner />
-		<!-- <div class="scrollableElement"> -->
-			<!-- <div id="scroller" class="scrollableElement__body"> -->
-				<nuxt />
-			<!-- </div> -->
-		<!-- </div> -->
-		<div class="scrollableElement--hitbox" id="hitbox"></div>
+		<div id="scroller">
+			<nuxt />
+		</div>
 	</div>
 </template>
 

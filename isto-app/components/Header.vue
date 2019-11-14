@@ -125,12 +125,11 @@
 
 			window.addEventListener('scroll', onScroll);
 
-			let lastScrollTop = 0, st, _this = this,
-				hitbox = document.getElementsByClassName('scrollableElement--hitbox')[0];
+			let lastScrollTop = 0, st, _this = this;
 			function onScroll() {
 				st = window.pageYOffset || document.documentElement.scrollTop;
 				if (st > lastScrollTop){ // scroll down
-					if ((!_this.$bus.isMobile && (window.innerHeight + window.scrollY) >= hitbox.offsetHeight) || (_this.$bus.isMobile && (window.innerHeight + window.scrollY) >= document.body.clientHeight)) { // scrolled to the bottom
+					if (!_this.$bus.isMobile || (_this.$bus.isMobile && (window.innerHeight + window.scrollY)) >= document.body.clientHeight) { // scrolled to the bottom
 						_this.showMenu(header);
 					} else if (!_this.$bus.fixer) { // just scrolled down
 						_this.hideMenu(header);
