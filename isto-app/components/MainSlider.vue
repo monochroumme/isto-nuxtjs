@@ -174,7 +174,7 @@
 				for (let i = 0; i < lines.length; i++) {
 					for (let j = 0; j < lines[i].children.length; j++) {
 						setTimeout(() => {
-							if(lines[i].children[j])
+							if(lines[i])
 								lines[i].children[j].classList.add('active');
 						}, wait);
 						wait += delay;
@@ -190,7 +190,7 @@
 				for (let i = 0; i < lines.length; i++) {
 					for (let j = 0; j < lines[i].children.length; j++) {
 						setTimeout(() => {
-							if(lines[i].children[j])
+							if(lines[i])
 								lines[i].children[j].classList.remove('active');
 						}, wait);
 						wait += delay;

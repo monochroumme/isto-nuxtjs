@@ -3,9 +3,12 @@
 		<Preloader />
 		<Header />
 		<PageTransitioner />
-		<div id="scroller">
-			<nuxt />
+		<div class="scrollableElement">
+			<div id="scroller" class="scrollableElement__body">
+				<nuxt />
+			</div>
 		</div>
+		<div class="scrollableElement--hitbox" id="hitbox"></div>
 	</div>
 </template>
 

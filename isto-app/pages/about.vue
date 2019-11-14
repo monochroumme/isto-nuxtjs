@@ -199,7 +199,7 @@
 		},
         
 		mounted() {
-			this.$bus.initialize('headerNoBg');
+			this.$bus.initialize('headerNoBg', false);
 
 			// making the bg white
 			document.documentElement.style.background = 'white';

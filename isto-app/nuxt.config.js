@@ -33,12 +33,6 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ],
-    script: [
-      // {
-      //   src: "https://code.jquery.com/jquery-3.3.1.min.js",
-      //   type: "text/javascript"
-      // },
     ]
   },
   axios: {
@@ -61,7 +55,7 @@ module.exports = {
   plugins: [
       '~/plugins/bus',
       '~/plugins/globals',
-      '~/plugins/scroll',
+      '~/plugins/SmoothScroll',
       '~/plugins/util/axios'
   ],
   /*

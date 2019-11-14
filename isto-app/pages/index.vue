@@ -261,7 +261,7 @@
 		},
 
 		mounted() {
-			this.$bus.initialize('headerNoBg');
+			this.$bus.initialize('headerNoBg', false, true);
 
 			// parallax specifically for sections
 			let parallaxes = document.getElementsByClassName('parallax');
@@ -342,7 +342,7 @@
 
 				// changing header's color
 				if (!_this.$bus.isMobile) {
-					if ((!_this.$bus.isMobile || (_this.$bus.isMobile) && (window.innerHeight + window.scrollY) >= document.body.clientHeight))
+					if ((!_this.$bus.isMobile && (window.innerHeight + window.scrollY) >= hitbox.offsetHeight) || (_this.$bus.isMobile && (window.innerHeight + window.scrollY) >= document.body.clientHeight))
 						_this.$bus.$emit('headerNoBg');
 					else if (window.scrollY > 78) {
 						_this.$bus.$emit('headerWhiteBg');
@@ -350,7 +350,7 @@
 						_this.$bus.$emit('headerNoBg');
 					}
 				} else {
-					if ((!_this.$bus.isMobile) || (_this.$bus.isMobile && (window.innerHeight + window.scrollY)) >= document.body.clientHeight)
+					if ((!_this.$bus.isMobile && (window.innerHeight + window.scrollY) >= hitbox.offsetHeight) || (_this.$bus.isMobile && (window.innerHeight + window.scrollY) >= document.body.clientHeight))
 						_this.$bus.$emit('headerNoBg');
 					else if (window.scrollY > 78) {
 						_this.$bus.$emit('headerWhiteBg');
@@ -493,6 +493,7 @@
 				// firstly cut them into several lines
 				let lines = [],
 					prevPos = 0;
+					console.log(titleTxt);
                 for (let i = 0; i < titleTxt.length; i++) {
                     if (titleTxt[i] == ' ' || i == titleTxt.length-1) { // when reaching space or the end
                         if (titleTxt.substring(prevPos, i).length > 3 && titleTxt.substring(prevPos, i).length < 15) {
