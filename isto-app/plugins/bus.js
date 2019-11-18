@@ -17,16 +17,19 @@ eventBus.install = function (Vue) {
 			Vue.prototype.$bus.initializeSmoothScroll();
 		}
 
-		if (!dontSmoothScroll) {
-			let wait = Vue.prototype.$bus.isPreloaderOn ? 6000 : 3500,
-				body = document.getElementById('scroller'),
-				hitbox = document.getElementById('hitbox');
-			setTimeout(() => {
-				hitbox.style.height = body.offsetHeight + 'px';
-			}, wait);
-		} else {
-			hitbox.style.height = 0;
-		}
+		// if (!dontSmoothScroll) {
+		// 	let wait = Vue.prototype.$bus.isPreloaderOn ? 6000 : 3500,
+		// 		body = document.getElementById('scroller'),
+		// 		hitbox = document.getElementById('hitbox');
+		// 	setTimeout(() => {
+		// 		hitbox.style.height = body.offsetHeight + 'px';
+		// 	}, wait);
+		// } else {
+		// 	hitbox.style.height = 0;
+		// }
+
+		// scroll up
+		window.scrollTo(0,0);
 
 		// show menu
 		if (!dontShowMenu) {
@@ -39,14 +42,16 @@ eventBus.install = function (Vue) {
 		}
 	};
 	Vue.prototype.$bus.initializeSmoothScroll = () => {
-		let SmoothScroll = require("~/plugins/SmoothScroll").SmoothScroll;
+		
+		
+		// let SmoothScroll = require("~/plugins/SmoothScroll").SmoothScroll;
 
-		setTimeout(() => {
-			new SmoothScroll('.scrollableElement', {
-				duration: 1500,
-				timingFunction: 'cubic-bezier(0.19, 1, 0.22, 1)' // EaseOutExpo
-			});
-		}, 1);
+		// setTimeout(() => {
+		// 	new SmoothScroll('.scrollableElement', {
+		// 		duration: 1500,
+		// 		timingFunction: 'cubic-bezier(0.19, 1, 0.22, 1)' // EaseOutExpo
+		// 	});
+		// }, 1);
 	};
 	Vue.prototype.$bus.goTo = (link, router) => {
 		Vue.prototype.$bus.$emit('transition');

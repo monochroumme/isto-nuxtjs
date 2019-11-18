@@ -11,7 +11,7 @@
 						   class="blog__showcase__pic-area"
 						   v-for="(item,index) in articles" :key="index">
 					<div class="blog__showcase__pic-area__inner">
-						<img :src="$env.baseUrl + item.img">
+						<div class="blog__showcase__pic-area__square"><img :src="$env.baseUrl + item.img"></div>
 						<div class="blog__showcase__title-area">
 							<h2 class="blog__showcase__title">{{ item.title[locale] }}</h2>
 							<span class="blog__showcase__subtitle">{{ new Date(item.created_at).toLocaleDateString() }}</span>
@@ -62,13 +62,13 @@
 				offset = map(window.scrollY, 0, bottom-window.innerHeight, 0, window.innerHeight*.6);
 
 
-				if (_this.$bus.isMobile) {
-					ourBlog.style.transition = 'transform 0s cubic-bezier(0.165, 0.84, 0.44, 1)';
-					ourBlog.style.transform = `translateY(-${offset}px)`
-				} else {
-					ourBlog.style.transition = 'transform 1.5s cubic-bezier(0.19, 1, 0.22, 1)';
-					ourBlog.style.transform = `translateY(${window.scrollY-offset}px)`;
-				}
+				// if (_this.$bus.isMobile) {
+				// 	// ourBlog.style.transition = 'transform 0s cubic-bezier(0.165, 0.84, 0.44, 1)';
+					ourBlog.style.transform = `translateY(-${offset}px)`;
+				// } else {
+					// ourBlog.style.transition = 'transform 1.5s cubic-bezier(0.19, 1, 0.22, 1)';
+					// ourBlog.style.transform = `translateY(${window.scrollY-offset}px)`;
+				// }
 			}
 
 			function map(num, in_min, in_max, out_min, out_max) {

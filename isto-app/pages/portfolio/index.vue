@@ -14,7 +14,7 @@
 			<div class="portfolio__showcase__row">
 				<a :href="`${localePath('portfolio')}/${item.id}`" @click.prevent="$bus.goTo(`${localePath('portfolio')}/${item.id}`, $router)"
 					class="portfolio__showcase__pic-area" v-for="item in getProjects" :key="item.id">
-					<img :src="$env.additionalUrl + item.img">
+					<div class="portfolio__showcase__pic-area__img-wrapper"><img :src="$env.additionalUrl + item.img"></div>
 					<div class="portfolio__showcase__title-area">
 						<h2 class="portfolio__showcase__title">{{ item.title[locale] }}</h2>
 						<span class="portfolio__showcase__subtitle">{{getSpecification(item).location}}, {{ getSpecification(item).place }}</span>
@@ -86,7 +86,16 @@
 			let bottom, offset,
 				portfolioText = document.getElementById('portfolioText'),
 				body = document.getElementById('scroller');
-			window.addEventListener('scroll', onScroll)
+			window.addEventListener('scroll', onScroll);
+
+			let wait = this.$bus.isPreloaderOn ? 6500 : 3000;
+			let picAreas = document.getElementsByClassName('portfolio__showcase__pic-area');
+			for (let i = 0; i < picAreas.length; i++) {
+				setTimeout(() => {
+					if (picAreas[i])
+						picAreas[i].classList.add('active');
+				}, wait + 50 * i);
+			}
 
 			let _this = this;
 			function onScroll() {
@@ -98,13 +107,13 @@
 				bottom = Math.max(body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight, document.body.scrollHeight, document.body.offsetHeight);
 				offset = map(window.scrollY, 0, bottom-window.innerHeight, 0, window.innerHeight*.7);
 
-				if (_this.$bus.isMobile) {
-					portfolioText.style.transition = 'transform 0s cubic-bezier(0.165, 0.84, 0.44, 1)';
+				// if (_this.$bus.isMobile) {
+					// portfolioText.style.transition = 'transform 0s cubic-bezier(0.165, 0.84, 0.44, 1)';
 					portfolioText.style.transform = `translateY(-${offset}px)`
-				} else {
-					portfolioText.style.transition = 'transform 1.5s cubic-bezier(0.19, 1, 0.22, 1)';
-					portfolioText.style.transform = `translateY(${window.scrollY-offset}px)`;
-				}
+				// } else {
+					// portfolioText.style.transition = 'transform 1.5s cubic-bezier(0.19, 1, 0.22, 1)';
+					// portfolioText.style.transform = `translateY(${window.scrollY-offset}px)`;
+				// }
 			}
 
 			function map(num, in_min, in_max, out_min, out_max) {

@@ -11,7 +11,7 @@
 				<span class="main-slider__title-inner">
 					<div class="main-slider__count" :class="{ hidden : mainSliderPretitleAndSlideCountHidden }">
 						<div class="main-slider__count__inner">
-							<span class="main-slider__count__current" id="curSlide"></span>
+							<span class="main-slider__count__current">{{ curSlideCount }}</span>
 							<span class="main-slider__count__length"><span class="main-slider__count__slash">/</span>{{ slidesCount }}</span>
 						</div>
 					</div>
@@ -19,7 +19,7 @@
 				</span>
 			</div>
 			<a :href="localePath('portfolio') + '/' + slide_id" @click.prevent="$bus.goTo(localePath('portfolio') + '/' + slide_id, $router)"
-				id="mainSliderLink" class="main-slider__see-project learn-more" :class="{ hidden : mainSliderSeeProjectHidden }">
+				class="main-slider__see-project learn-more" :class="{ hidden : mainSliderSeeProjectHidden }">
 				Посмотреть проект
 				<div class="plus"></div>
 			</a>
@@ -29,7 +29,7 @@
 				<button class="main-slider__controller__arrow-right" @click="nextSlide()"></button>
 				<div class="main-slider__controller__inner">
 					<span class="main-slider__controller__next">Cледующий проект</span>
-					<span class="main-slider__controller__title" id="controllerTitle"></span>
+					<span class="main-slider__controller__title" id="controllerTitle">{{ nextSlideTitle }}</span>
 				</div>
 			</div>
 			<div class="main-slider__controller-mobile" id="mobileController">
@@ -60,6 +60,7 @@
 			return {
 				slide_id: 0,
 				curSlide: 1,
+				curSlideCount: '01',
 				controllerSpeed: 4000,
 				increasing: true,
 				mainSliderHidden: true,
@@ -67,7 +68,8 @@
 				mainSliderLinksHidden: true,
 				mainSliderTitleHidden: true,
 				mainSliderPretitleAndSlideCountHidden: true,
-				mainSliderSeeProjectHidden: true
+				mainSliderSeeProjectHidden: true,
+				nextSlideTitle: ''
 			};
 		},
 
@@ -95,10 +97,7 @@
 
 			let mainSlider = document.getElementById('mainSlider'),
 				mainSliderTitle = document.getElementById('mainSliderTitle'),
-				mainSliderLink = document.getElementById('mainSliderLink'),
 				helper = document.getElementById('helper'),
-				controllerTitle = document.getElementById('controllerTitle'),
-				curSlide = document.getElementById('curSlide'),
 				controllerProgress = document.getElementById('controllerProgress'),
 				mobileProgress = document.getElementById('mobileProgress');
 
@@ -112,11 +111,9 @@
                 mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[0].title[this.locale]);
             }
 			this.slide_id = this.slides[0].id;
-			mainSliderLink.href = this.localePath('portfolio')+'/'+this.slides[0].id;
             if(this.slides[1].title[this.locale]) {
-                controllerTitle.innerHTML = this.slides[1].title[this.locale].split('_').join(' ');
+                this.nextSlideTitle = this.slides[1].title[this.locale].split('_').join(' ');
             }
-			curSlide.innerHTML = '01';
 
 			// progress
 			controllerProgress.style.transitionDuration = `${this.controllerSpeed/1000}s`;
@@ -174,8 +171,7 @@
 				for (let i = 0; i < lines.length; i++) {
 					for (let j = 0; j < lines[i].children.length; j++) {
 						setTimeout(() => {
-							if(lines[i])
-								lines[i].children[j].classList.add('active');
+							lines[i].children[j].classList.add('active');
 						}, wait);
 						wait += delay;
 					}
@@ -190,8 +186,7 @@
 				for (let i = 0; i < lines.length; i++) {
 					for (let j = 0; j < lines[i].children.length; j++) {
 						setTimeout(() => {
-							if(lines[i])
-								lines[i].children[j].classList.remove('active');
+							lines[i].children[j].classList.remove('active');
 						}, wait);
 						wait += delay;
 					}
@@ -221,10 +216,7 @@
 					let mainSliderFlash = document.getElementById('mainSliderFlash'),
 						mainSlider = document.getElementById('mainSlider'),
 						mainSliderTitle = document.getElementById('mainSliderTitle'),
-						slider = document.getElementById('slider'),
-						mainSliderLink = document.getElementById('mainSliderLink'),
-						controllerTitle = document.getElementById('controllerTitle'),
-						curSlide = document.getElementById('curSlide');
+						slider = document.getElementById('slider');
 
 					// flash
 					// if (this.flash) {
@@ -265,15 +257,14 @@
 					mainSlider.children[this.curSlide-1].style.display = 'block';
 					setTimeout(() => {
                         if(this.slides[nextSlide-1].title[this.locale])
-						mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[this.curSlide-1].title[this.locale]);
+							mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[this.curSlide-1].title[this.locale]);
 					}, 500);
 					this.slide_id = this.slides[this.curSlide-1].id;
-					mainSliderLink.href = this.localePath('portfolio')+'/'+this.slides[this.curSlide-1].id;
 					if(this.slides[nextSlide-1].title[this.locale])
-					controllerTitle.innerHTML = this.slides[nextSlide-1].title[this.locale].split('_').join(' ');
+						this.nextSlideTitle = this.slides[nextSlide-1].title[this.locale].split('_').join(' ');
 
 					// change count
-					curSlide.innerHTML = this.curSlide < 10 ? `0${this.curSlide}` : this.curSlide;
+					this.curSlideCount = this.curSlide < 10 ? `0${this.curSlide}` : this.curSlide;
 				}
 			},
 

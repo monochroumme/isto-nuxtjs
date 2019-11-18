@@ -7,7 +7,7 @@
 		<div class="contact-info">
 			<div class="contact-info__gray-line"></div>
 			<div class="contact-info__white-line"></div>
-			<div class="contact-info__col" v-for="(item,index) in getData" :key="index">
+			<div class="contact-info__col" v-for="(item,index) in getData" :key="index" @mouseenter="moveInfoLine(index)">
 				<span class="contact-info__title">{{ item.key }}</span>
 				<span class="contact-info__desc">{{ item.value }}</span>
 			</div>
@@ -35,6 +35,12 @@
 
 		mounted() {
 			this.$bus.initialize('headerNoBg');
+		},
+
+		methods: {
+			moveInfoLine(index) {
+				document.getElementsByClassName('contact-info__white-line')[0].style.transform = `translateX(${index}00%)`;
+			}
 		}
 	}
 </script>

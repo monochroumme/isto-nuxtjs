@@ -207,8 +207,7 @@
 
 			// menu color change
 			let wait = this.$bus.isPreloaderOn ? 3800 : 0,
-				hitbox = document.getElementsByClassName('scrollableElement--hitbox')[0],
-				body = document.getElementsByClassName('scrollableElement__body')[0];
+				body = document.getElementsByClassName('scrollableElement')[0];
 			setTimeout(() => {
 				window.addEventListener('scroll', onScroll);
 				onScroll();

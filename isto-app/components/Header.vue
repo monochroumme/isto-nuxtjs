@@ -130,7 +130,7 @@
 			function onScroll() {
 				st = window.pageYOffset || document.documentElement.scrollTop;
 				if (st > lastScrollTop){ // scroll down
-					if ((!_this.$bus.isMobile && (window.innerHeight + window.scrollY) >= hitbox.offsetHeight) || (_this.$bus.isMobile && (window.innerHeight + window.scrollY) >= document.body.clientHeight)) { // scrolled to the bottom
+					if ((window.innerHeight + window.scrollY) >= document.body.clientHeight) { // scrolled to the bottom
 						_this.showMenu(header);
 					} else if (!_this.$bus.fixer) { // just scrolled down
 						_this.hideMenu(header);

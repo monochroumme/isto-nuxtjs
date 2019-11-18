@@ -342,7 +342,7 @@
 
 				// changing header's color
 				if (!_this.$bus.isMobile) {
-					if ((!_this.$bus.isMobile && (window.innerHeight + window.scrollY) >= hitbox.offsetHeight) || (_this.$bus.isMobile && (window.innerHeight + window.scrollY) >= document.body.clientHeight))
+					if ((window.innerHeight + window.scrollY) >= document.body.clientHeight)
 						_this.$bus.$emit('headerNoBg');
 					else if (window.scrollY > 78) {
 						_this.$bus.$emit('headerWhiteBg');
@@ -350,7 +350,7 @@
 						_this.$bus.$emit('headerNoBg');
 					}
 				} else {
-					if ((!_this.$bus.isMobile && (window.innerHeight + window.scrollY) >= hitbox.offsetHeight) || (_this.$bus.isMobile && (window.innerHeight + window.scrollY) >= document.body.clientHeight))
+					if ((window.innerHeight + window.scrollY) >= document.body.clientHeight)
 						_this.$bus.$emit('headerNoBg');
 					else if (window.scrollY > 78) {
 						_this.$bus.$emit('headerWhiteBg');
@@ -565,7 +565,7 @@
 			},
 
 			animateTitle(title) {
-				let wait = 0,
+				let wait = 100,
 					delay = 100;
 
 				for (let i = 0; i < title.children.length; i++) {
