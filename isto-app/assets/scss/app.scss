@@ -341,11 +341,11 @@ html, body {
             background-position: center;
         }
         &__arrow-left {
-            background-image: url('../../static/images/arrow-left.png');
+            background-image: url('../../static/images/arrow-left.svg');
             left: 70px;
         }
         &__arrow-right {
-            background-image: url('../../static/images/arrow-right.png');
+            background-image: url('../../static/images/arrow-right.svg');
             right: 70px;
         }
         &__inner {
@@ -830,7 +830,7 @@ html, body {
         height: 0;
         overflow: hidden;
         z-index: -1;
-        content: url('../../static/images/main-slider/slide1.png') url('../../static/images/main-slider/slide2.jpg') url('../../static/images/main-slider/slide2.jpg') url('../../static/images/main-slider/slide3.jpg') url('../../static/images/main-slider/slide4.jpg') url('../../static/images/main-footer/footer-clean.png') url('../../static/images/main-footer/footer-left.png') url('../../static/images/main-footer/footer-left-blur.png') url('../../static/images/main-footer/footer-right.png')url('../../static/images/main-footer/footer-right-blur.png') url('../../static/images/main-sections/idea-into-reality.png') url('../../static/images/main-sections/idea-into-project.png') url('../../static/images/main-sections/idea-into-concept.png') url('../../static/images/thefirstthelast..svg');
+        content: url('../../static/images/main-slider/slide1.png') url('../../static/images/main-slider/slide2.jpg') url('../../static/images/main-slider/slide2.jpg') url('../../static/images/main-slider/slide3.jpg') url('../../static/images/main-slider/slide4.jpg') url('../../static/images/main-footer/footer-clean.png') url('../../static/images/main-footer/footer-left.png') url('../../static/images/main-footer/footer-left-blur.png') url('../../static/images/main-footer/footer-right.png')url('../../static/images/main-footer/footer-right-blur.png') url('../../static/images/main-sections/idea-into-reality.png') url('../../static/images/main-sections/idea-into-project.png') url('../../static/images/main-sections/idea-into-concept.png');
     }
     &__content {
         background: white;
@@ -2327,37 +2327,35 @@ html, body {
                 text-decoration: none;
                 color: #282828;
                 position: relative;
-                width: fit-content;
-                &:after {
-                    content: '';
-                    height: 1px;
-                    position: absolute;
-                    bottom: -1px;
-                    width: 0%;
-                    background: #282828;
-                    -webkit-transition: 0.3s;
-                    -o-transition: 0.3s;
-                    transition: 0.3s;
-                    left: auto;
-                    right: 4%;
-                }
-                &:hover:after {
-                    right: 4%;
-                    left: 0;
-                    width: 96%;
+                &.active {
+                    &:after {
+                        display: inline;
+                        content: '';
+                        width: 50px;
+                        transform: scaleX(0);
+                        height: 1px;
+                        background: #282828;
+                        margin-left: 10px;
+                        animation: showLine .5s ease 0s;
+                        animation-fill-mode: forwards;
+                        transform-origin: left;
+                        @keyframes showLine {
+                            0% {
+                                transform: scaleX(0);
+                            }
+                            100% {
+                                transform: scaleX(1);
+                            }
+                        }
+                    }
                 }
             }
-        }
-        &-line {
-            width: 50px;
-            height: 1px;
-            background: #282828;
-            margin-left: 10px;
         }
     }
     &__showcase {
         margin: 0 auto;
         margin-top: 20px;
+        min-height: 500px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -2386,9 +2384,17 @@ html, body {
             opacity: 0;
             transform: translateY(100px);
             transition: transform .5s ease, opacity .5s ease;
-            &.active {
-                opacity: 1;
-                transform: translateY(0);
+            animation: showPicAreas 1s ease 0s;
+            animation-fill-mode: forwards;
+            @keyframes showPicAreas {
+                0% {
+                    opacity: 0;
+                    transform: translateY(100px);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
             &:nth-child(odd) {
                 padding-right: 15px;
@@ -3256,13 +3262,13 @@ html, body {
     &__scrolllock {
         width: 100%;
         height: 100vh;
-        // position: sticky;
-        // top: 0;
+        position: sticky;
+        top: 0;
         display: flex;
         align-items: center;
         position: relative;
         background: #4B555E;
-        // transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        // transition: transform 0s cubic-bezier(0.5, 1, 0.4, 1);
         &__offsetter {
             width: 100%;
             display: flex;

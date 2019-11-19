@@ -3,11 +3,11 @@
 		<div class="header__inner">
 			<a :href="localePath('index')" @click.prevent="$bus.goTo(localePath('index'), $router)"
 				class="header__logo__link" :class="{ hidden : logoHidden }">
-				<img class="header__logo color-switch" alt="ISTO" src="~/static/images/logo.svg">
-				<img class="header__logo__letter color-switch" alt="I" src="~/static/images/header/I.svg">
-				<img class="header__logo__letter header__logo__letter-s color-switch" alt="S" src="~/static/images/header/S.svg">
-				<img class="header__logo__letter header__logo__letter-t color-switch" alt="T" src="~/static/images/header/T.svg">
-				<img class="header__logo__letter header__logo__letter-o color-switch" alt="O" src="~/static/images/header/O.svg">
+				<img class="header__logo color-switch" alt="ISTO" src="~/static/images/logos/logo.svg">
+				<img class="header__logo__letter color-switch" alt="I" src="~/static/images/logos/I.svg">
+				<img class="header__logo__letter header__logo__letter-s color-switch" alt="S" src="~/static/images/logos/S.svg">
+				<img class="header__logo__letter header__logo__letter-t color-switch" alt="T" src="~/static/images/logos/T.svg">
+				<img class="header__logo__letter header__logo__letter-o color-switch" alt="O" src="~/static/images/logos/O.svg">
 			</a>
 			<nav class="header__navigation" :class="{ hidden : navHidden }">
 				<ul>

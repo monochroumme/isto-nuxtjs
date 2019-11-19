@@ -267,9 +267,9 @@
 						_this.$bus.$emit('headerNoBg', 'b');
 					}
 
-					if (!_this.$bus.isMobile) {
-						scrolllock.style.transform = `translateY(${window.scrollY}px)`;
-					}
+					// if (!_this.$bus.isMobile) {
+					// 	scrolllock.style.transform = `translateY(${window.scrollY}px)`;
+					// }
 
 					scrolllock.style.background = `rgba(75, 85, 94, ${1-bgColor})`;
 					pretitle.style.color = `rgb(${255-titleColor},${255-titleColor},${255-titleColor})`;

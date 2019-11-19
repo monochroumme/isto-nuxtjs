@@ -2,8 +2,8 @@
 	<div>
 		<div class="preloader">
 			<div class="preloader__inner">
-				<img class="preloader__logo" alt="logo" src="~/static/images/logo.svg">
-				<img class="preloader__text" alt="ISTO" src="~/static/images/text-logo.svg">
+				<img class="preloader__logo" alt="logo" src="~/static/images/logos/logo.svg">
+				<img class="preloader__text" alt="ISTO" src="~/static/images/logos/logo-text.svg">
 			</div>
 		</div>
 	</div>

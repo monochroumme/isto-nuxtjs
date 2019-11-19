@@ -55,7 +55,6 @@ module.exports = {
   plugins: [
       '~/plugins/bus',
       '~/plugins/globals',
-      '~/plugins/SmoothScroll',
       '~/plugins/util/axios'
   ],
   /*

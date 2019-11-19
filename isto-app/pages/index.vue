@@ -126,10 +126,10 @@
 						<div class="landing-page__footer__center__inner">
 							<div class="landing-page__footer__o"></div>
 							<div class="landing-page__footer__isto" id="footerISTO">
-								<img alt="I" src="~/static/images/main-footer/I.svg">
-								<img alt="S" src="~/static/images/main-footer/S.svg">
-								<img alt="T" src="~/static/images/main-footer/T.svg">
-								<img alt="O" src="~/static/images/main-footer/O.svg">
+								<img alt="I" src="~/static/images/logos/I.svg">
+								<img alt="S" src="~/static/images/logos/S.svg">
+								<img alt="T" src="~/static/images/logos/T.svg">
+								<img alt="O" src="~/static/images/logos/O.svg">
 							</div>
 						</div>
 					</div>
@@ -493,7 +493,6 @@
 				// firstly cut them into several lines
 				let lines = [],
 					prevPos = 0;
-					console.log(titleTxt);
                 for (let i = 0; i < titleTxt.length; i++) {
                     if (titleTxt[i] == ' ' || i == titleTxt.length-1) { // when reaching space or the end
                         if (titleTxt.substring(prevPos, i).length > 3 && titleTxt.substring(prevPos, i).length < 15) {

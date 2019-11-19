@@ -5,10 +5,10 @@
 			<a :href="'portfolio/' + item.name['en']"
 			   @click.prevent="selectItem(item.id)"
 			   class="portfolio__title"
-			   v-for="(item) in categories" :key="item.id">
-				{{ item.name[locale] }} <div v-if="selectedCat===item.id" class="portfolio__title-line"></div>
+			   v-for="(item) in categories" :key="item.id" :class="{ active : selectedCat===item.id }">
+				{{ item.name[locale] }}
 			</a>
-			<a :href="'portfolio/All'" @click.prevent="selectItem('')" class="portfolio__title">все <div v-if="selectedCat===''" class="portfolio__title-line"></div></a>
+			<a :href="'portfolio/All'" @click.prevent="selectItem('')" class="portfolio__title" :class="{ active : selectedCat==='' }">все</a>
 		</div>
 		<div class="portfolio__showcase">
 			<div class="portfolio__showcase__row">
@@ -71,11 +71,26 @@
 			},
 
 			selectItem(index) {
-				this.selectedCat = index;
+				if (this.selectedCat == index)
+					return;
+
+				this.selectedCat = -1;
+
 
 				setTimeout(() => {
-					document.getElementById('hitbox').style.height = document.getElementById('scroller').offsetHeight + 'px';
-				}, 250);
+					this.selectedCat = index;
+				// 	document.getElementById('hitbox').style.height = document.getElementById('scroller').offsetHeight + 'px';
+				}, 1);
+			},
+
+			changeDisplayPicAreas(display, w) {
+				let picAreas = document.getElementsByClassName('portfolio__showcase__pic-area');
+				for (let i = 0; i < picAreas.length; i++) {
+					setTimeout(() => {
+						if (picAreas[i])
+							picAreas[i].style.display = display;
+					}, w);
+				}
 			}
 		},
 
@@ -88,14 +103,9 @@
 				body = document.getElementById('scroller');
 			window.addEventListener('scroll', onScroll);
 
-			let wait = this.$bus.isPreloaderOn ? 6500 : 3000;
-			let picAreas = document.getElementsByClassName('portfolio__showcase__pic-area');
-			for (let i = 0; i < picAreas.length; i++) {
-				setTimeout(() => {
-					if (picAreas[i])
-						picAreas[i].classList.add('active');
-				}, wait + 50 * i);
-			}
+			let wait = this.$bus.isPreloaderOn ? 6800 : 3000;
+			this.changeDisplayPicAreas('none', 0);
+			this.changeDisplayPicAreas('flex', wait);
 
 			let _this = this;
 			function onScroll() {
