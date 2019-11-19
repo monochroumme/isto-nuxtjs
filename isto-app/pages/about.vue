@@ -205,6 +205,10 @@
 			document.documentElement.style.background = 'white';
 			document.body.style.background = 'white';
 
+			// getting rid of overflow-x hidden on body
+			document.documentElement.style.overflowX = 'unset';
+			document.body.style.overflowX = 'unset';
+
 			// menu color change
 			let wait = this.$bus.isPreloaderOn ? 3800 : 0,
 				body = document.getElementsByClassName('scrollableElement')[0];
@@ -250,7 +254,7 @@
 					isvg = document.getElementById('isvg'),
 					ipath = document.getElementById('ipath');
 
-					scrolllock.style.transform = `translateY(0px)`;
+					// scrolllock.style.transform = `translateY(0px)`;
 
 					scrolllock.style.background = `rgba(75, 85, 94, 1)`;
 					pretitle.style.color = `rgb(255,255,255)`;
@@ -277,7 +281,7 @@
 					isvg.style.transform = `rotate(${90+deg}deg)`;
 					ipath.style.fill = `rgb(${255-bgColor*(255-75)}, ${255-bgColor*(255-85)}, ${255-bgColor*(255-94)})`;
 				} else {
-					scrolllock.style.transform = `translateY(${offset}px)`;
+					// scrolllock.style.transform = `translateY(${offset}px)`;
 					scrolllock.style.background = `rgba(75, 85, 94, 0)`;
 					pretitle.style.color = `rgb(0,0,0)`;
 					title.style.color = `rgb(0,0,0)`;

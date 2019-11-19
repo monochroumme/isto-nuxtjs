@@ -9,6 +9,10 @@ eventBus.install = function (Vue) {
 	Vue.prototype.$bus.isMenuOn = false;
 	Vue.prototype.$bus.listeners = [];
 	Vue.prototype.$bus.initialize = (menuColor, dontShowMenu, dontSmoothScroll) => {
+		window.scrollTo(0, 0);
+		document.documentElement.style.overflowX = '';
+		document.body.style.overflowX = '';
+
 		// show menu
 		if (!dontShowMenu) {
 			Vue.prototype.$bus.$emit('showLogo');
