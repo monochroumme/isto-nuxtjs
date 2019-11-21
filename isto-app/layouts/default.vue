@@ -3,10 +3,7 @@
 		<Preloader />
 		<Header />
 		<PageTransitioner />
-		<div id="scroller">
-			<div class="scrollableElement">
-				<nuxt />
-			</div>
+		<nuxt />
 		</div>
 	</div>
 </template>
@@ -78,22 +75,22 @@
 			    }
 
 			    function destroy() {
-			          target.removeEventListener('mousewheel', scrolled, { passive: false })
-			          target.removeEventListener('DOMMouseScroll', scrolled, { passive: false })
+					target.removeEventListener('mousewheel', scrolled, { passive: false })
+					target.removeEventListener('DOMMouseScroll', scrolled, { passive: false })
 			    }
 
 			    let requestFrame = function() { // requestAnimationFrame cross browser
 			      return (
-			        window.requestAnimationFrame ||
-			        window.webkitRequestAnimationFrame ||
-			        window.mozRequestAnimationFrame ||
-			        window.oRequestAnimationFrame ||
-			        window.msRequestAnimationFrame ||
-			        function(func) {
-			          window.setTimeout(func, 1000 / 50);
-			        }
+			        window.requestAnimationFrame // ||
+			        // window.webkitRequestAnimationFrame ||
+			        // window.mozRequestAnimationFrame ||
+			        // window.oRequestAnimationFrame ||
+			        // window.msRequestAnimationFrame ||
+			        // function(func) {
+			        //   window.setTimeout(func, 1000 / 60);
+			        // }
 			      );
-			    }()
+			    }();
 			}
 		}
 	}

@@ -27,6 +27,7 @@ eventBus.install = function (Vue) {
 		Vue.prototype.$bus.$emit('transition');
 		document.documentElement.style.background = '';
 		document.body.style.background = '';
+		// cleaning up the animation frames
 		setTimeout(() => { router.push(link); }, 1000);
 	};
 }

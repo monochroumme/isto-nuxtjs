@@ -46,7 +46,6 @@
 			</div>
 			<div class="main-slider__bottom-line"></div>
 		</section>
-		<div class="main-slider__helper" id="helper"></div>
 	</div>
 </template>
 
@@ -97,17 +96,15 @@
 
 			let mainSlider = document.getElementById('mainSlider'),
 				mainSliderTitle = document.getElementById('mainSliderTitle'),
-				helper = document.getElementById('helper'),
 				controllerProgress = document.getElementById('controllerProgress'),
 				mobileProgress = document.getElementById('mobileProgress');
 
 			for (let i = 0; i < this.slides.length; i++) {
 				mainSlider.children[i].style.backgroundImage = `url(${this.$env.additionalUrl+this.slides[i].img})`;
-				helper.style.backgroundColor = `black`;
 				if (i != 0)
 					mainSlider.children[i].style.display = 'none';
 			}
-            if(this.slides[0].title[this.locale]) {
+            if (this.slides[0].title[this.locale]) {
                 mainSliderTitle.innerHTML = this.turnTitleLettersIntoSpans(this.slides[0].title[this.locale]);
             }
 			this.slide_id = this.slides[0].id;
@@ -118,21 +115,23 @@
 			// progress
 			controllerProgress.style.transitionDuration = `${this.controllerSpeed/1000}s`;
 			mobileProgress.style.transitionDuration = `${this.controllerSpeed/1000}s`;
-			let wait = this.$bus.isPreloaderOn ? 6000 : 0;
-			setTimeout(() => {
-				let interval = setInterval(() => {
-					if (document.hasFocus() && document.getElementById('indexPage') && window.scrollY < window.innerHeight/2) {
-						if (!this.$bus.isMobile) {
-							this.desktopProgress(controller, controllerProgress);
-						} else {
-							this.mobileProgress(mobileController, mobileProgress);
-						}
-					}
+			let wait = this.$bus.isPreloaderOn ? 6000 : 0,
+				requestId;
 
-					if (!document.getElementById('indexPage'))
-						clearInterval(interval);
-				}, 200);
+			setTimeout(() => {
+				requestId = window.requestAnimationFrame(progress);
 			}, wait);
+
+			let progress = (timestamp) => {
+				if (document.hasFocus() && document.getElementById('indexPage') && window.scrollY < window.innerHeight/2) {
+					if (!this.$bus.isMobile) {
+						this.desktopProgress(controller, controllerProgress);
+					} else {
+						this.mobileProgress(mobileController, mobileProgress);
+					}
+				}
+				window.requestAnimationFrame(progress);
+			};
 		},
 
 		computed: {
@@ -164,33 +163,87 @@
 			},
 
 			showTitle() {
+				const getProgress = ({elapsed, total}) =>
+				  Math.min(elapsed / total, 1);
+
+				const easeOut = progress =>
+				  Math.pow(--progress, 5) + 1;
+				
+
 				let lines = document.getElementsByClassName('main-slider__title__line'),
 					wait = 25,
 					delay = 25;
 
 				for (let i = 0; i < lines.length; i++) {
 					for (let j = 0; j < lines[i].children.length; j++) {
-						setTimeout(() => {
-							lines[i].children[j].classList.add('active');
-						}, wait);
+						const time = {
+						  start: performance.now() + wait,
+						  total: 500
+						};
+						window.requestAnimationFrame((now) => {
+							showLetter(now, lines[i].children[j], time);
+						});
 						wait += delay;
 					}
 				}
+
+				let showLetter = (now, letter, time) => {
+					time.elapsed = now - time.start;
+					const progress = getProgress(time);
+					const position = this.map(easeOut(progress), 0, 1, letter.offsetHeight, 0);
+					letter.style.transform = `translateY(${position}px)`;
+					if (progress < 1) {
+						window.requestAnimationFrame((now) => {
+							showLetter(now, letter, time);
+						});
+					}
+				};
 			},
 
 			hideTitle() {
+				const getProgress = ({elapsed, total}) =>
+				  Math.min(elapsed / total, 1);
+
+				const easeOut = progress =>
+				  Math.pow(--progress, 5) + 1;
+				
+
 				let lines = document.getElementsByClassName('main-slider__title__line'),
-					wait = 0,
+					wait = 25,
 					delay = 25;
 
 				for (let i = 0; i < lines.length; i++) {
 					for (let j = 0; j < lines[i].children.length; j++) {
-						setTimeout(() => {
-							lines[i].children[j].classList.remove('active');
-						}, wait);
+						const time = {
+						  start: performance.now() + wait,
+						  total: 300
+						};
+						window.requestAnimationFrame((now) => {
+							hideLetter(now, lines[i].children[j], time);
+						});
 						wait += delay;
 					}
 				}
+
+				let hideLetter = (now, letter, time) => {
+					time.elapsed = now - time.start;
+					const progress = clamp(getProgress(time), 0, 1);
+					const position = this.map(easeOut(progress), 0, 1, 0, letter.offsetHeight);
+					letter.style.transform = `translateY(${position}px)`;
+					if (progress < 1) {
+						window.requestAnimationFrame((now) => {
+							hideLetter(now, letter, time);
+						});
+					}
+				};
+
+				let clamp = (num, min, max) => {
+					return num <= min ? min : num >= max ? max : num;
+				};
+			},
+
+			map(num, in_min, in_max, out_min, out_max) {
+				return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 			},
 
 			nextSlide() {

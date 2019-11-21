@@ -264,17 +264,17 @@
 			this.$bus.initialize('headerNoBg', false, true);
 
 			// parallax specifically for sections
-			let parallaxes = document.getElementsByClassName('parallax');
-			window.addEventListener('scroll', () => {
-				if (!document.getElementById('indexPage')) {
-					window.removeEventListener('scroll', onScroll);
-					return;
-				}
+			// let parallaxes = document.getElementsByClassName('parallax');
+			// window.addEventListener('scroll', () => {
+			// 	if (!document.getElementById('indexPage')) {
+			// 		window.removeEventListener('scroll', onScroll);
+			// 		return;
+			// 	}
 
-				for (let i = 0; i < parallaxes.length; i++) {
-					parallaxes[i].style.transform = `scale(1.4) translateY(${90 + (-(window.scrollY - window.innerHeight*i) * .05)}px)`;
-				}
-			});
+			// 	for (let i = 0; i < parallaxes.length; i++) {
+			// 		parallaxes[i].style.transform = `scale(1.4) translateY(${90 + (-(window.scrollY - window.innerHeight*i) * .05)}px)`;
+			// 	}
+			// });
 
 			// checking if mobile and setting an event listener
 			this.checkForMobile();
@@ -564,16 +564,43 @@
 			},
 
 			animateTitle(title) {
-				let wait = 100,
-					delay = 100;
+				const getProgress = ({elapsed, total}) =>
+				  Math.min(elapsed / total, 1);
+
+				const easeOut = progress =>
+				  Math.pow(--progress, 5) + 1;
+				
+
+				let wait = 50,
+					delay = 50;
 
 				for (let i = 0; i < title.children.length; i++) {
 					for (let j = 0; j < title.children[i].children.length; j++) {
-						setTimeout(() => {
-							title.children[i].children[j].classList.add('active');
-						}, wait);
+						const time = {
+						  start: performance.now() + wait,
+						  total: 500
+						};
+						window.requestAnimationFrame((now) => {
+							showLetter(now, title.children[i].children[j], time);
+						});
 						wait += delay;
 					}
+				}
+
+				let showLetter = (now, letter, time) => {
+					time.elapsed = now - time.start;
+					const progress = getProgress(time);
+					const position = map(easeOut(progress), 0, 1, letter.offsetHeight, 0);
+					letter.style.transform = `translateY(${position}px)`;
+					if (progress < 1) {
+						window.requestAnimationFrame((now) => {
+							showLetter(now, letter, time);
+						});
+					}
+				};
+
+				let map = (num, in_min, in_max, out_min, out_max) => {
+					return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 				}
 			},
 

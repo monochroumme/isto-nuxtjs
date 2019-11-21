@@ -98,23 +98,21 @@
 			this.$bus.initialize('headerWhiteBg');
 
 			// making OUR BLOG move
-			let bottom, offset,
-				portfolioText = document.getElementById('portfolioText'),
-				body = document.getElementById('scroller');
+			let bottom = Math.max(document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight, document.body.scrollHeight, document.body.offsetHeight),
+				offset,
+				portfolioText = document.getElementById('portfolioText');
 			window.addEventListener('scroll', onScroll);
 
 			let wait = this.$bus.isPreloaderOn ? 6800 : 3000;
 			this.changeDisplayPicAreas('none', 0);
 			this.changeDisplayPicAreas('flex', wait);
 
-			let _this = this;
 			function onScroll() {
 				if (!document.getElementById('portfolio')) {
 					window.removeEventListener('scroll', onScroll);
 					return;
 				}
 
-				bottom = Math.max(body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight, document.body.scrollHeight, document.body.offsetHeight);
 				offset = map(window.scrollY, 0, bottom-window.innerHeight, 0, window.innerHeight*.7);
 
 				// if (_this.$bus.isMobile) {
